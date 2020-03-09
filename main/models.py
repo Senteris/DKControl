@@ -3,17 +3,17 @@ from django.db import models
 
 #region Abstract
 class BaseProfile(models.Model):
-    patronymic = models.CharField('Отчество', max_length=16, blank=True, null=True)
-    birthday = models.DateField('Дата рождения', null=True)
+    patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True)
+    birthday = models.DateField('Дата рождения', null=True, blank=True)
 
     GENDER_CHOISES = (
         ('Женский', 'Женский'),
         ('Мужской', 'Мужской')
     )
-    gender = models.CharField('Пол', max_length=7, choices=GENDER_CHOISES, null=True)
+    gender = models.CharField('Пол', max_length=7, choices=GENDER_CHOISES, null=True, blank=True)
 
-    address = models.CharField('Адрес', max_length=128, null=True)
-    phone = models.IntegerField('Телефон', null=True)
+    address = models.CharField('Адрес', max_length=128, null=True, blank=True)
+    phone = models.IntegerField('Телефон', null=True, blank=True)
 
     class Meta:
         abstract = True
@@ -29,20 +29,28 @@ class Profile(BaseProfile):
 
 #region Models
 class Union(models.Model):
-    name = models.CharField("Название", max_length=64, null=True)
+    name = models.CharField("Название", max_length=64)
+
+    def __str__(self):
+        return  self.name
 
 
 class Group(models.Model):
     name = models.CharField("Название", max_length=16)
     union = models.ForeignKey(Union, on_delete=models.CASCADE, verbose_name="Объединение", null=True)
+    teacher = models.ForeignKey("User", verbose_name="Педагог", on_delete=models.SET_NULL, null=True, blank=True)
 
-class Timetable(models.Model):
+    def __str__(self):
+        return  f"{self.union.name}/{self.name}"
+
+
+class Timetable(models.Model): # Расписание
     groups = models.ForeignKey(Group, on_delete=models.CASCADE)
 
 
 class ElemOfTimetable(models.Model):
-    begin_time = models.DateField("Время начала")
-    end_time = models.DateField("Время конца")
+    begin_time = models.TimeField("Время начала")
+    end_time = models.TimeField("Время конца")
 
     DAYS = (
         ('ПН', 'Понедельник'),
@@ -57,10 +65,22 @@ class ElemOfTimetable(models.Model):
 
     timetable = models.ForeignKey(Timetable, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return  self.timetable
+
+
 
 class User(AbstractUser, BaseProfile):
-    groups = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name="Группы", null=True, blank=True)
     worktime = models.TimeField("Время работы", blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} {self.patronymic}"
+
+    class Meta:
+        permissions = [
+            ("has_groups", "Имеет группы"),
+        ]
+
 
 class Parent(Profile):
 
@@ -68,12 +88,12 @@ class Parent(Profile):
         return f"Родитель: {self.first_name} {self.last_name} {self.patronymic:1}."
 
 class Student(Profile):
-    school = models.CharField('Школа', max_length=32)
-    grade = models.CharField('Класс', max_length=3)
+    school = models.CharField('Школа', max_length=32, blank=True, null=True)
+    grade = models.CharField('Класс', max_length=3, blank=True, null=True)
     groups = models.ManyToManyField(Group, related_name="Группы", blank=True)
     parents = models.ManyToManyField(Parent, related_name="Родители", blank=True)
 
     def __str__(self):
-        return f"Ученик: {self.first_name} {self.last_name} {self.patronymic:1}. | Группа: {self.groups}"
+        return f"Ученик: {self.first_name} {self.last_name} {self.patronymic:1}"
 
 #endregion
