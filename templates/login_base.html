@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .onCenter {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: auto;
+        }
+
+        .block {
+            width: 400px;
+            height: 250px;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            margin: -125px 0 0 -125px;
+        }</style>
+    <div class="container-fluid onCenter">
+        <form method="post" action="" class="block">
+            <h1>{% block form_title %}{% endblock %}</h1>
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            {% csrf_token %}
+            {% block form %}{% endblock %}
+        </form>
+    </div>
+{% endblock %}

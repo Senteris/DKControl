@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
 
 {% block title %}Главная{% endblock %}
-{% block content %}Да{% endblock %}
+{% block content %}
+    {{ request.user.username }}
+{% endblock %}
