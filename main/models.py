@@ -28,6 +28,11 @@ class Profile(BaseProfile):
 #endregion
 
 #region Models
+class Zanyatie(models.Model): # Class Class xD
+    date = models.DateField("Дата")
+    elemOfTimetable = models.ForeignKey("ElemOfTimetable", verbose_name="Время", on_delete=models.SET_NULL)
+
+
 class Union(models.Model):
     name = models.CharField("Название", max_length=64)
 
@@ -69,7 +74,6 @@ class ElemOfTimetable(models.Model):
         return  self.timetable
 
 
-
 class User(AbstractUser, BaseProfile):
     worktime = models.TimeField("Время работы", blank=True, null=True)
 
@@ -86,6 +90,7 @@ class Parent(Profile):
 
     def __str__(self):
         return f"Родитель: {self.first_name} {self.last_name} {self.patronymic:1}."
+
 
 class Student(Profile):
     school = models.CharField('Школа', max_length=32, blank=True, null=True)

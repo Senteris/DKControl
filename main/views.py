@@ -34,6 +34,3 @@ def logout(request):
     user_logout(request)
     return redirect('index')
 
-
-
-
