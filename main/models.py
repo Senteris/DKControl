@@ -1,3 +1,4 @@
+import datetime as dt
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -7,8 +8,8 @@ class BaseProfile(models.Model):
     birthday = models.DateField('Дата рождения', null=True, blank=True)
 
     GENDER_CHOISES = (
-        ('Женский', 'Женский'),
-        ('Мужской', 'Мужской')
+        ('Женский', 'Женский'), #?
+        ('Мужской', 'Мужской'), #?
     )
     gender = models.CharField('Пол', max_length=7, choices=GENDER_CHOISES, null=True, blank=True)
 
@@ -28,14 +29,33 @@ class Profile(BaseProfile):
 #endregion
 
 #region Models
-class Zanyatie(models.Model): # Class Class xD
-    date = models.DateField("Дата")
-    elemOfTimetable = models.ForeignKey("ElemOfTimetable", verbose_name="Время", on_delete=models.SET_NULL)
+class Note(models.Model):
+    student = models.ForeignKey("Student", verbose_name="Студент", on_delete=models.CASCADE)
+    user = models.ForeignKey("User", verbose_name="Пользователь", on_delete=models.CASCADE)
+    text = models.TextField("Текст")
 
+
+class StudySession(models.Model): # Class Class x
+    date = models.DateTimeField("Дата и время начала")
+    group = models.ForeignKey("Group", verbose_name="Группа", on_delete=models.CASCADE)
+    cancelReason = models.CharField("Причина отмены", max_length=128, null=True, blank=True, default=None)
+
+    def __str__(self):
+        return f"{self.group.name} [{self.date.strftime('%Y.%m.%d %H:%M:%S')}]"
+
+class Attending(models.Model):
+    student = models.ForeignKey("Student", verbose_name="Студент", on_delete=models.CASCADE)
+    isAttend = models.BooleanField("Посетил", default=False)
+    studySession = models.ForeignKey(StudySession, verbose_name="Занятие", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.student.last_name} -> {self.studySession.__str__()}"
 
 class Union(models.Model):
-    name = models.CharField("Название", max_length=64)
+    name = models.CharField("Название", max_length=64, default="No name")
+    occupationReason = models.CharField("Причина занятости", max_length=128, null=True, blank=False, default=None)
 
+    logo = models.ForeignKey("Logo", verbose_name="Лого", blank=True, null=True, on_delete=models.SET_NULL) # TODO Под вопросом
     def __str__(self):
         return  self.name
 
@@ -49,13 +69,8 @@ class Group(models.Model):
         return  f"{self.union.name}/{self.name}"
 
 
-class Timetable(models.Model): # Расписание
-    groups = models.ForeignKey(Group, on_delete=models.CASCADE)
-
-
-class ElemOfTimetable(models.Model):
-    begin_time = models.TimeField("Время начала")
-    end_time = models.TimeField("Время конца")
+class TimetableElem(models.Model):
+    beginTime = models.TimeField("Время начала")
 
     DAYS = (
         ('ПН', 'Понедельник'),
@@ -64,14 +79,14 @@ class ElemOfTimetable(models.Model):
         ('ЧТ', 'Четверг'),
         ('ПТ', 'Пятница'),
         ('СБ', 'Суббота'),
-        ('ВС', 'Воскресенье'),
     )
     day = models.CharField('День', max_length=2, choices=DAYS)
-
-    timetable = models.ForeignKey(Timetable, on_delete=models.CASCADE)
+    group = models.ForeignKey("Group", verbose_name="Группа", on_delete=models.CASCADE)
 
     def __str__(self):
-        return  self.timetable
+        endTime = (dt.datetime.combine(dt.date(1,1,1), self.beginTime) + dt.timedelta(minutes=100)).time() # С костыля, ША! FullStackOverflow наше всё (работает на божей силе:b)
+        return f"{self.day} в {self.beginTime.hour}:{self.beginTime.minute}-{endTime.hour}:{endTime.minute}"
+
 
 
 class User(AbstractUser, BaseProfile):
@@ -83,6 +98,8 @@ class User(AbstractUser, BaseProfile):
     class Meta:
         permissions = [
             ("has_groups", "Имеет группы"),
+            ("edit_any_studySession", "Редактирует любые занятия"),
+            ("cancel_studySession", "Отменяет занятия"),
         ]
 
 
@@ -98,7 +115,18 @@ class Student(Profile):
     groups = models.ManyToManyField(Group, related_name="Группы", blank=True)
     parents = models.ManyToManyField(Parent, related_name="Родители", blank=True)
 
+    isDeleted = models.BooleanField('Удалён', default=False, blank=True)
+
     def __str__(self):
         return f"Ученик: {self.first_name} {self.last_name} {self.patronymic:1}"
 
+#endregion
+
+#region Other models
+class Logo(models.Model):
+    name = models.CharField("Название", max_length=16)
+    link = models.ImageField("Иконка", upload_to="logo")
+
+    def __str__(self):
+        return self.name
 #endregion
