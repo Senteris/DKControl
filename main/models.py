@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 #region Abstract
+from django.db.models import Q
+
+
 class BaseProfile(models.Model):
     patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True)
     birthday = models.DateField('Дата рождения', null=True, blank=True)
@@ -64,13 +67,15 @@ class Group(models.Model):
     name = models.CharField("Название", max_length=16)
     union = models.ForeignKey(Union, on_delete=models.CASCADE, verbose_name="Объединение", null=True)
     teacher = models.ForeignKey("User", verbose_name="Педагог", on_delete=models.SET_NULL, null=True, blank=True)
+    # TODO нужно ли архивировать группы?
 
     def __str__(self):
-        return  f"{self.union.name}/{self.name}"
+        return f"{self.union.name}/{self.name}"
 
 
 class TimetableElem(models.Model):
     beginTime = models.TimeField("Время начала")
+    beginTimeStr = models.CharField(max_length=10, default="", blank=True) # It is done. НЕ ТРОГАЙ
 
     DAYS = (
         ('ПН', 'Понедельник'),
@@ -83,10 +88,13 @@ class TimetableElem(models.Model):
     day = models.CharField('День', max_length=2, choices=DAYS)
     group = models.ForeignKey("Group", verbose_name="Группа", on_delete=models.CASCADE)
 
+    def save(self, *args, **kwargs):
+        self.beginTimeStr = self.beginTime.strftime("%H:%M:%S")
+        super().save(*args, **kwargs)
+
     def __str__(self):
         endTime = (dt.datetime.combine(dt.date(1,1,1), self.beginTime) + dt.timedelta(minutes=100)).time() # С костыля, ША! FullStackOverflow наше всё (работает на божей силе:b)
         return f"{self.day} в {self.beginTime.hour}:{self.beginTime.minute}-{endTime.hour}:{endTime.minute}"
-
 
 
 class User(AbstractUser, BaseProfile):
@@ -119,7 +127,6 @@ class Student(Profile):
 
     def __str__(self):
         return f"Ученик: {self.first_name} {self.last_name} {self.patronymic:1}"
-
 #endregion
 
 #region Other models

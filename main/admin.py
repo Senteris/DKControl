@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from  main.models import *
+from main.models import *
 
 admin.site.register(Note)
 admin.site.register(StudySession)
@@ -13,14 +13,16 @@ admin.site.register(Parent)
 admin.site.register(Student)
 admin.site.register(Logo)
 
+
 class CustomUserAdmin(UserAdmin):
     # as an example, this custom user admin orders users by email address
     ordering = ('email',)
 
     fieldsets = (
         ('Персональная информация', {
-             'fields': ('first_name', 'last_name', 'patronymic')
+            'fields': ('first_name', 'last_name', 'patronymic', 'groups')
         }),
     )
+
 
 admin.site.register(User, CustomUserAdmin)
