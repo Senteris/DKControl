@@ -60,7 +60,7 @@ def search(request):
             Q(union__name=query) | Q(name__icontains=query)
         )
         timetable_elems = TimetableElem.objects.filter(
-            Q(beginTimeStr__icontains=query)
+            Q(beginTimeStr__startswith=query)
         )
         return JsonResponse({'students': [f"{s.first_name} {s.last_name} {s.patronymic}" for s in students],
                              'parents': [f"{s.first_name} {s.last_name} {s.patronymic}" for s in parents],

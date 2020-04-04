@@ -8,7 +8,6 @@ admin.site.register(StudySession)
 admin.site.register(Attending)
 admin.site.register(Union)
 admin.site.register(Group)
-admin.site.register(TimetableElem)
 admin.site.register(Parent)
 admin.site.register(Student)
 admin.site.register(Logo)
@@ -23,6 +22,11 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('first_name', 'last_name', 'patronymic', 'groups')
         }),
     )
+
+
+@admin.register(TimetableElem)
+class TimetableElemAdmin(admin.ModelAdmin):
+    fields = ('beginTime', 'day', 'group')
 
 
 admin.site.register(User, CustomUserAdmin)
