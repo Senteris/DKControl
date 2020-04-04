@@ -75,7 +75,6 @@ class Group(models.Model):
 
 class TimetableElem(models.Model):
     beginTime = models.TimeField("Время начала")
-    beginTimeStr = models.CharField(max_length=10, default="", blank=True) # It is done. НЕ ТРОГАЙ
     endTime = models.TimeField("Время конца", blank=True, default="00:00:00")
 
     DAYS = (
@@ -90,7 +89,6 @@ class TimetableElem(models.Model):
     group = models.ForeignKey("Group", verbose_name="Группа", on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        self.beginTimeStr = self.beginTime.strftime("%H:%M")
         self.endTime = (dt.datetime.combine(dt.date(1, 1, 1), self.beginTime) + dt.timedelta(
             minutes=100)).time()  # С костыля, ША! FullStackOverflow наше всё (работает на божей силе:b)
         super().save(*args, **kwargs)

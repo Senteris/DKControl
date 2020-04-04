@@ -2,7 +2,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, F, CharField
+from django.db.models import Value as V
+from django.db.models.functions import Concat, Cast, ExtractHour, ExtractMinute
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -47,19 +49,26 @@ def search(request):
     elif len(query) == 0:
         return JsonResponse({})
     else:
-        students = Student.objects.filter(
-            (Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(patronymic__icontains=query)) & Q(isDeleted=False)
+        students = Student.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
+            Q(full_name__icontains=query) & Q(isDeleted=False)
         )
-        teachers = User.objects.filter(
-            (Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(patronymic__icontains=query)) & Q(groups__name='Педагог')
+        teachers = User.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
+            Q(full_name__icontains=query) & Q(groups__name='Педагог')
         )
-        parents = Parent.objects.filter(
-            Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(patronymic__icontains=query)
+        parents = Parent.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
+            Q(full_name__icontains=query)
         )
-        groups = Group.objects.filter(
-            Q(union__name=query) | Q(name__icontains=query)
+        groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'), full_name_reverce=Concat('name', V(' '), 'union__name')).filter(
+            Q(full_name__icontains=query) | Q(full_name_reverce__icontains=query)
         )
-        timetable_elems = TimetableElem.objects.filter(
+        timetable_elems = TimetableElem.objects.annotate(
+            hour=Cast(ExtractHour('beginTime'), CharField()),
+            minute=Cast(ExtractMinute('beginTime'), CharField()),
+            beginTimeStr=Concat(
+                'hour', V(':'), 'minute',
+                output_field=CharField()
+            )
+        ).filter(
             Q(beginTimeStr__startswith=query)
         )
         return JsonResponse({'students': [f"{s.first_name} {s.last_name} {s.patronymic}" for s in students],
