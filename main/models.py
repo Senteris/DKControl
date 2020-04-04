@@ -10,11 +10,11 @@ class BaseProfile(models.Model):
     patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True)
     birthday = models.DateField('Дата рождения', null=True, blank=True)
 
-    GENDER_CHOISES = (
+    GENDER_CHOICES = (
         ('Женский', 'Женский'), #?
         ('Мужской', 'Мужской'), #?
     )
-    gender = models.CharField('Пол', max_length=7, choices=GENDER_CHOISES, null=True, blank=True)
+    gender = models.CharField('Пол', max_length=7, choices=GENDER_CHOICES, null=True, blank=True)
 
     address = models.CharField('Адрес', max_length=128, null=True, blank=True)
     phone = models.IntegerField('Телефон', null=True, blank=True)
@@ -76,6 +76,7 @@ class Group(models.Model):
 class TimetableElem(models.Model):
     beginTime = models.TimeField("Время начала")
     beginTimeStr = models.CharField(max_length=10, default="", blank=True) # It is done. НЕ ТРОГАЙ
+    endTime = models.TimeField("Время конца", blank=True, default="00:00:00")
 
     DAYS = (
         ('ПН', 'Понедельник'),
@@ -89,12 +90,14 @@ class TimetableElem(models.Model):
     group = models.ForeignKey("Group", verbose_name="Группа", on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        self.beginTimeStr = self.beginTime.strftime("%H:%M:%S")
+        self.beginTimeStr = self.beginTime.strftime("%H:%M")
+        self.endTime = (dt.datetime.combine(dt.date(1, 1, 1), self.beginTime) + dt.timedelta(
+            minutes=100)).time()  # С костыля, ША! FullStackOverflow наше всё (работает на божей силе:b)
         super().save(*args, **kwargs)
 
     def __str__(self):
-        endTime = (dt.datetime.combine(dt.date(1,1,1), self.beginTime) + dt.timedelta(minutes=100)).time() # С костыля, ША! FullStackOverflow наше всё (работает на божей силе:b)
-        return f"{self.day} в {self.beginTime.hour}:{self.beginTime.minute}-{endTime.hour}:{endTime.minute}"
+
+        return f"{self.day} в {self.beginTime.strftime('%H:%M')}-{self.endTime.strftime('%H:%M')}"
 
 
 class User(AbstractUser, BaseProfile):
