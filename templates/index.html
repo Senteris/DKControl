@@ -3,4 +3,9 @@
 {% block title %}Главная{% endblock %}
 {% block content %}
     {{ request.user.username }}
+    <div>
+        <label for="search-input">Поиск</label> <br>
+        <input type="search" size="40" id="search-input" autocomplete="off">
+        <p id="search-result"></p>
+    </div>
 {% endblock %}
