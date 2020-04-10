@@ -3,9 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 #region Abstract
-from django.db.models import Q
-
-
 class BaseProfile(models.Model):
     patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True)
     birthday = models.DateField('Дата рождения', null=True, blank=True)
@@ -100,6 +97,9 @@ class TimetableElem(models.Model):
 
 class User(AbstractUser, BaseProfile):
     worktime = models.TimeField("Время работы", blank=True, null=True)
+    union = models.ForeignKey(Union, verbose_name="Объединение", on_delete=models.SET_NULL, blank=True, null=True)
+
+    profileIcon = models.ImageField("Фото профиля", upload_to="profileIcon", blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.patronymic}"
