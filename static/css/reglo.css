@@ -1,0 +1,29 @@
+.reglo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+H5 {
+    font-size: 115%;
+    color: #4a5159;
+    display: flex;
+    justify-content: center;
+}
+
+.brd {
+    border: 1px #F1F1F1; /* Параметры границы */
+    border-radius: 3px;
+    background: #FFFFFF; /* Цвет фона */
+    padding: 28px; /* Поля вокруг текста */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+body {
+    background: #F9F9F9;
+}
+
+.brd * {
+    margin: 5px;
+}

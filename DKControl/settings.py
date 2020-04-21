@@ -25,7 +25,7 @@ SECRET_KEY = 'ae=h2&%2^xn^g)icn1ya12=mwv5rxgv+u3pufgcet5#=kuc9m*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.107', '127.0.0.1']
 
 AUTH_USER_MODEL = 'main.User'
 
