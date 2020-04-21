@@ -1,19 +1,38 @@
-{% extends 'login_base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Вход{% endblock %}
 {% block form_title %}Вход{% endblock %}
+{% block header %}{% endblock %}
 
-{% block form %}
-    <label>
-        Логин:
-        <input class="form-control" type="text" name="username"/>
-    </label>
-    <br>
-    <label>
-        Пароль:
-        <input class="form-control" type="password" name="password"/>
-    </label>
-    <br>
-    <button class="btn btn-primary" type="submit">Вход</button>
-    {# <a class="btn btn-secondary btn active" aria-pressed="true" role="button" href="/signUp/">Регистрация</a> #}
+{% load static %}
+
+{% block content %}
+    <link href="{% static 'css/reglo.css' %}" rel="stylesheet">
+    <div class="reglo">
+        <br><br>
+        <img src="{% static 'icon/DKControl.png' %}" width="220" class="d-inline-block align-top" alt="">
+        <br><br>
+        <form method="post" action="" class="block brd form-group">
+            <span>
+                <h5><b>Вход в DKControl</b></h5>
+
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endif %}
+                {% csrf_token %}
+                <label>
+                    <input class="form-control btn-lg" type="text" name="username" placeholder="Логин"/>
+                </label>
+                <br>
+                <label>
+                    <input class="form-control btn-lg" type="password" name="password" placeholder="Пароль"/>
+                </label>
+                <br>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin: 10px; width: 97%">Войти</button>
+                {# <a class="btn btn-secondary btn active" aria-pressed="true" role="button" href="/signUp/">Регистрация</a> #}
+            </span>
+        </form>
+    </div>
 {% endblock %}
