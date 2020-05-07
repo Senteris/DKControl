@@ -12,8 +12,8 @@ from main.models import Student, User, Parent, Union, Group, TimetableElem
 
 
 @login_required(login_url="login/")
-def index(request):
-    return render(request, 'index.html', {})
+def main(request):
+    return render(request, 'main.html', {})
 
 def login(request):
     error = None
@@ -28,7 +28,7 @@ def login(request):
                 if request.GET.get('next', None) is not None:
                     return redirect(request.GET['next'])
                 else:
-                    return redirect('index')
+                    return redirect('main')
             else:
                 error = "  Имя или пароль неверны"
         else:
@@ -45,7 +45,7 @@ def logout(request):
 def search(request):
     query = request.GET.get('q')
     if query is None:
-        return render(request, 'index.html')
+        return render(request, 'main.html')
     elif len(query) == 0:
         return JsonResponse({})
     else:
@@ -76,4 +76,3 @@ def search(request):
                              'teachers': [f"{s.first_name} {s.last_name} {s.patronymic}" for s in teachers],
                              'groups': [f"{s.name} {s.union.name}" for s in groups],
                              'timetable_elems': [f"{s.beginTimeStr}" for s in timetable_elems]})
-
