@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    width: calc(100%-250px);
+    width: calc(100%-230px);
     height: 50px;
     display: flex;
     align-items: center;
@@ -20,14 +20,14 @@ header {
 
 .logo {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     height: 50px;
-    width: 250px;
+    width: 230px;
 }
 
 #logo {
     width: 120px;
-    margin-left: 72px;
 }
 
 #avatar {
@@ -37,7 +37,7 @@ header {
     text-align: center;
     width: 35px;
     height: 35px;
-    border-radius: 9999px;
+    border-radius: 50%;
     margin-left: auto;
     margin-right: 60px;
     background: #FF8C21;
@@ -52,27 +52,27 @@ header {
 }
 
 #header_text {
-    margin-left: 100px;
+    margin-left: 50px;
     font-size: 24px;
     color: #B1B1B1;
 }
 
 .sidebar {
-    width: 250px;
-    height: 700px;
+    width: 230px;
+    height: 1080px;
     float: left;
     background-color: #FFF;
 }
 
 #search {
-    width: calc(100% - 32px);
+    width: calc(100% - 30px);
     height: 50px;
     padding-left: 30px;
     border: none;
     font-size: 14px;
-    margin-top: 80px;
-    background-color: #F9F9F9;
-    border: 1px solid #ddd;
+    margin-top: 65px;
+    background-color: #f2f2f2;
+
 
 }
 
@@ -84,14 +84,9 @@ header {
     height: 50px;
     display: flex;
     align-items: center;
-    width: 250px;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    width: 248px;
-}
 
-.list li:last-child {
-    border: 1px solid #ddd;
+    border-bottom: none;
+    width: 230px;
 }
 
 ul {
@@ -124,6 +119,7 @@ ul {
     margin: 25px;
     border-radius: 4px;
     width: calc(100% - 50px);
+    background-color: #FFF;
 }
 
 .students_block {
@@ -132,6 +128,10 @@ ul {
 
 .students_block .header_block {
     background: #3498DB;
+}
+
+.kvantums_block .header_block{
+    background: #1ABC9C;
 }
 
 .statistic_block {
@@ -176,11 +176,11 @@ footer {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: calc(100% - 40px);
+
 }
 
 #customers td,
 #customers th {
-    border: 1px solid #ddd;
     padding: 8px;
 }
 
@@ -198,3 +198,37 @@ footer {
     text-align: left;
     background-color: #4CAF50;
     color: white;
+
+}
+.wrapper_kvantums{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+}
+.kvantums_content_block{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-rows: repeat(3, 60px);
+  margin-top: 20px;
+  margin-bottom: 30px;
+  align-items: center;
+  width: calc(100% - 20px);
+
+}
+.button_kvantum{
+  background-color: gray;
+  border: none;
+  border-radius: 4px;
+  width: calc(100% - 10px);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  text-decoration: none;
+  font-size: 14px;
+  align-self: center;
+  justify-self: center;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+}
