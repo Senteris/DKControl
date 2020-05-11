@@ -113,6 +113,7 @@ ul {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-template-rows: 1fr;
+
 }
 
 .block {
@@ -124,6 +125,8 @@ ul {
 
 .students_block {
     height: 300px;
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
 .students_block .header_block {
@@ -133,6 +136,7 @@ ul {
 .kvantums_block .header_block{
     background: #1ABC9C;
 }
+
 
 .statistic_block {
     height: 300px;
@@ -209,7 +213,7 @@ footer {
 .kvantums_content_block{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  grid-template-rows: repeat(3, 60px);
+  grid-template-rows: 60px 60px 60px;
   margin-top: 20px;
   margin-bottom: 30px;
   align-items: center;
@@ -221,7 +225,7 @@ footer {
   border: none;
   border-radius: 4px;
   width: calc(100% - 10px);
-  height: 50px;
+  height: calc(100% - 10px);
   display: flex;
   align-items: center;
   justify-content: center;
