@@ -1,97 +1,49 @@
-<!DOCTYPE html>
-<html lang="ru">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>DKControl | Главная</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-</head>
+{% block title %}Главная{% endblock %}
+{% block header_name %}{% endblock %}
+{% block content %}
 
-<body>
-
-    <div class="sidebar shadow">
-        <div class="logo">
-            <a href="#"><img src="../static/img/logo.svg" alt="DKControl" id="logo"></a>
+    <div class="students_block block shadow">
+        <div class="header_block">
+            <p>Ученики</p>
         </div>
+        <div class="content_block">
+            <table class="table_students" id="customers">
+                <tr>
+                    <td>№</td>
+                    <td>ФИО</td>
+                    <td>Посещаемость</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Фамилия Имя Отчество</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Фамилия Имя Отчество</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Фамилия Имя Отчество</td>
+                    <td>100%</td>
+                </tr>
 
-        <input type="text" id="search" placeholder="Поиск">
 
-        <ul class="list">
-            <li><img src="../static/img/students.svg" alt="">Учащиеся</li>
-            <li><img src="../static/img/teacher.svg" alt="">Педагоги</li>
-            <li><img src="../static/img/parents.svg" alt="">Родители</li>
-            <li><img src="../static/img/report.svg" alt="">Отчеты</li>
-        </ul>
+            </table>
+        </div>
     </div>
 
-    <header>
-        <p id="header_text">Главная</p>
-        <div id="avatar">В</div>
-    </header>
-
-    <div class="main">
-      <div class="kvantums_block block shadow">
-          <div class="header_block">
-              <p>Квантумы</p>
-          </div>
-          <div class="wrapper_kvantums">
-            <div class="kvantums_content_block">
-              <a href="#" class="button_kvantum" style="background: #E74C3C;" >IT-Квантум</a>
-              <a href="#" class="button_kvantum" style="background: #3498DB;" >Аероквантум</a>
-              <a href="#" class="button_kvantum" style="background: #FFF; color: #000;">Добавить</a>
-            </div>
-          </div>
-
-
-      </div>
-
-        <div class="statistic_block block shadow">
-            <div class="header_block">
-                <p>Статистика</p>
-            </div>
-            <div class="content_block">
-
-            </div>
+    <div class="statistic_block block shadow">
+        <div class="header_block">
+            <p>Статистика</p>
         </div>
+        <div class="content_block">
 
-
-        <div class="students_block block shadow">
-            <div class="header_block">
-                <p>Ученики</p>
-            </div>
-            <div class="content_block">
-                <table class="table_students" id="customers">
-                    <tr>
-                        <td>№</td>
-                        <td>ФИО</td>
-                        <td>Посещаемость</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Фамилия Имя Отчество</td>
-                        <td>100%</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Фамилия Имя Отчество</td>
-                        <td>100%</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Фамилия Имя Отчество</td>
-                        <td>100%</td>
-                    </tr>
-
-
-
-                </table>
-            </div>
         </div>
-
     </div>
-
-
 
     <script src="../static/js/script.js"></script>
-</body></html>
+{% endblock %}
