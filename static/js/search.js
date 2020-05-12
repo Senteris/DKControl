@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    let input = $("#search-input");
+    let input = $("#search");
     input.keyup(function () {
         let result = $('#search-result');
         if (this.value.length !== 0) {
