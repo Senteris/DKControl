@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
@@ -51,37 +53,64 @@ def search(request):
     elif len(query) == 0:
         return JsonResponse({})
     else:
-        students = Student.objects.annotate(
-            full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
-            Q(full_name__icontains=query) & Q(isDeleted=False)
-        )
-        teachers = User.objects.annotate(
-            full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
-            Q(full_name__icontains=query) & Q(groups__name='Педагог')
-        )
-        parents = Parent.objects.annotate(
-            full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
-            Q(full_name__icontains=query)
-        )
-        groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'),
-                                        full_name_reverce=Concat('name', V(' '), 'union__name')).filter(
-            Q(full_name__icontains=query) | Q(full_name_reverce__icontains=query)
-        )
+        query = query.split()
+
+        students = Student.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic'))\
+            .filter(Q(isDeleted=False))
+        teachers = User.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic'))\
+            .filter(Q(groups__name='Педагог'))
+        parents = Parent.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic'))
+
+        groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'))
         timetable_elems = TimetableElem.objects.annotate(
             hour=Cast(ExtractHour('beginTime'), CharField()),
             minute=Cast(ExtractMinute('beginTime'), CharField()),
             beginTimeStr=Concat(
                 'hour', V(':'), 'minute',
                 output_field=CharField()
-            )
-        ).filter(
-            Q(beginTimeStr__startswith=query)
+            ),
+            hourEnd=Cast(ExtractHour('endTime'), CharField()),
+            minuteEnd=Cast(ExtractMinute('endTime'), CharField()),
+            endTimeStr=Concat(
+                'hourEnd', V(':'), 'minuteEnd',
+                output_field=CharField()
+            ),
+            timeStr=Concat('beginTimeStr', V('-'), 'endTimeStr')
         )
-        return JsonResponse({'students': [f"{s.first_name} {s.last_name} {s.patronymic}" for s in students],
-                             'parents': [f"{s.first_name} {s.last_name} {s.patronymic}" for s in parents],
-                             'teachers': [f"{s.first_name} {s.last_name} {s.patronymic}" for s in teachers],
-                             'groups': [f"{s.name} {s.union.name}" for s in groups],
-                             'timetable_elems': [f"{s.beginTimeStr}" for s in timetable_elems]})
+
+        for query in query:
+            students = students.filter(Q(full_name__icontains=query))
+            teachers = teachers.filter(Q(full_name__icontains=query))
+            parents = parents.filter(Q(full_name__icontains=query))
+            groups = groups.filter(Q(full_name__icontains=query))
+            timetable_elems = timetable_elems.filter(Q(timeStr__icontains=query))
+
+        return JsonResponse({"results": {
+            "students": {
+                "name": "Ученики",
+                "results": [{"title": f"{s.first_name} {s.last_name} {s.patronymic}", "description": ""} for s in students]
+            },
+            "teachers": {
+                "name": "Учителя",
+                "results": [
+                    {"title": f"{s.first_name} {s.last_name} {s.patronymic}", "description": ""} for s in teachers]
+            },
+            "parents": {
+                "name": "Родители",
+                "results": [
+                    {"title": f"{s.first_name} {s.last_name} {s.patronymic}", "description": ""} for s in parents]
+            },
+            "groups": {
+                "name": "Группы",
+                "results": [
+                    {"title": f"{s.name} {s.union.name}", "description": ""} for s in groups]
+            },
+            "timetable_elems": {
+                "name": "Время",
+                "results": [
+                    {"title": f"{s.timeStr}", "description": ""} for s in timetable_elems]
+            },
+        }})
 
 
 def chart_get(request):
