@@ -9,11 +9,17 @@
     <script src="{% static 'lib/js/jquery-3.4.1.min.js' %}"></script>
     <link href="{% static 'lib/css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/lib/css/search.min.css">
+    <link rel="stylesheet" href="../static/lib/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="../static/lib/css/semantic.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="{% static 'lib/js/bootstrap.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/search.js' %}"></script>
     <script src="{% static 'js/chart_builder.js' %}"></script>
     <script src="{% static 'lib/js/Chart.min.js' %}"></script>
+    <script src="{% static 'lib/js/search.min.js' %}"></script>
+    <script src="{% static 'lib/js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'lib/js/semantic.min.js' %}"></script>
 
     <link rel="stylesheet" href="../static/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -25,8 +31,12 @@
             <a href="#"><img src="../static/img/logo.svg" alt="DKControl" id="logo"></a>
         </div>
 
-        <input type="text" id="search" placeholder="Поиск">
-        <p id="search-result"></p>
+        <div class="ui category search" style="margin-left: 30px">
+            <div class="ui input">
+                <input class="prompt" type="text" placeholder="Поиск">
+            </div>
+            <div class="results"></div>
+        </div>
 
         <ul class="list">
             <li><img src="../static/img/students.svg" alt="">Учащиеся</li>
