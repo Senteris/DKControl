@@ -35,15 +35,7 @@
             </table>
         </div>
     </div>
-
-    <div class="statistic_block block shadow">
-        <div class="header_block">
-            <p>Статистика</p>
-        </div>
-        <div class="content_block">
-
-        </div>
-    </div>
+    {% include 'snippets/chart.html' with id=1 url='/chart/' label='Статистика посещения' %}
 
     <script src="../static/js/script.js"></script>
 {% endblock %}

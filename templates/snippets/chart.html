@@ -1,0 +1,13 @@
+<div class="statistic_block block shadow">
+    <div class="header_block">
+        <p>Статистика</p>
+    </div>
+    <div class="content_block">
+        <canvas id="{{ id }}"></canvas>
+        <script>
+            $(document).ready(function () {
+                buildChart({{ id }}, "{{ url }}", "{{ label }}")
+            });
+        </script>
+    </div>
+</div>
