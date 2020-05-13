@@ -124,7 +124,7 @@ ul {
 }
 
 .students_block {
-    height: 300px;
+    height: 350px;
     grid-column-start: 1;
     grid-column-end: 3;
 }
@@ -139,7 +139,7 @@ ul {
 
 
 .statistic_block {
-    height: 300px;
+    height: 350px;
 }
 
 .statistic_block .header_block {

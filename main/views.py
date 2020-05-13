@@ -15,6 +15,7 @@ from main.models import Student, User, Parent, Union, Group, TimetableElem
 def main(request):
     return render(request, 'main.html', {})
 
+
 def login(request):
     error = None
     if request.method == "POST":
@@ -36,6 +37,7 @@ def login(request):
             error = "  Имя или пароль неверны"
     return render(request, "login.html", {'error': error})
 
+
 def logout(request):
     user_logout(request)
     return redirect('index')
@@ -49,16 +51,20 @@ def search(request):
     elif len(query) == 0:
         return JsonResponse({})
     else:
-        students = Student.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
+        students = Student.objects.annotate(
+            full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
             Q(full_name__icontains=query) & Q(isDeleted=False)
         )
-        teachers = User.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
+        teachers = User.objects.annotate(
+            full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
             Q(full_name__icontains=query) & Q(groups__name='Педагог')
         )
-        parents = Parent.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
+        parents = Parent.objects.annotate(
+            full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')).filter(
             Q(full_name__icontains=query)
         )
-        groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'), full_name_reverce=Concat('name', V(' '), 'union__name')).filter(
+        groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'),
+                                        full_name_reverce=Concat('name', V(' '), 'union__name')).filter(
             Q(full_name__icontains=query) | Q(full_name_reverce__icontains=query)
         )
         timetable_elems = TimetableElem.objects.annotate(
@@ -76,3 +82,10 @@ def search(request):
                              'teachers': [f"{s.first_name} {s.last_name} {s.patronymic}" for s in teachers],
                              'groups': [f"{s.name} {s.union.name}" for s in groups],
                              'timetable_elems': [f"{s.beginTimeStr}" for s in timetable_elems]})
+
+
+def chart_get(request):
+    return JsonResponse({
+        "region": ["Январь", "Февраль", "Дальше лень"],
+        "value": [1, 2, 3]
+    })
