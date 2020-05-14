@@ -9,16 +9,13 @@
     <script src="{% static 'lib/js/jquery-3.4.1.min.js' %}"></script>
     <link href="{% static 'lib/css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/lib/css/search.min.css">
-    <link rel="stylesheet" href="../static/lib/css/jquery-ui.min.css">
     <link rel="stylesheet" href="../static/lib/css/semantic.min.css">
+    <link rel="stylesheet" href="../static/lib/css/icon.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="{% static 'lib/js/bootstrap.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/search.js' %}"></script>
     <script src="{% static 'js/chart_builder.js' %}"></script>
     <script src="{% static 'lib/js/Chart.min.js' %}"></script>
-    <script src="{% static 'lib/js/search.min.js' %}"></script>
-    <script src="{% static 'lib/js/jquery-ui.min.js' %}"></script>
     <script src="{% static 'lib/js/semantic.min.js' %}"></script>
 
     <link rel="stylesheet" href="../static/css/style.css">
@@ -28,17 +25,18 @@
 {% block header %}
     <div class="sidebar shadow">
         <div class="logo">
-            <a href="#"><img src="../static/img/logo.svg" alt="DKControl" id="logo"></a>
+            <a href="{% url 'main' %}"><img src="../static/img/logo.svg" alt="DKControl" id="logo"></a>
         </div>
 
-        <div class="ui category search" style="margin-left: 30px">
-            <div class="ui input">
+        <div class="ui category search" id="search-div" style="margin-left: 15px; margin-top: 40px;">
+            <div class="ui icon input">
                 <input class="prompt" type="text" placeholder="Поиск">
+                <i class="search icon"></i>
             </div>
-            <div class="results"></div>
+            <div class="results" style="position: absolute"></div>
         </div>
 
-        <ul class="list">
+        <ul class="list" style="margin-top: 10px">
             <li><img src="../static/img/students.svg" alt="">Учащиеся</li>
             <li><img src="../static/img/teacher.svg" alt="">Педагоги</li>
             <li><img src="../static/img/parents.svg" alt="">Родители</li>
@@ -46,9 +44,9 @@
         </ul>
     </div>
 
-    <header>
+    <header style="padding-top: 20px">
         <p id="header_text">Главная</p>
-        <div id="avatar">В</div>
+        <div id="avatar" style="margin-top: -20px">В</div>
     </header>
 {% endblock %}
 <div class="{% block class-global-div %}main{% endblock %}">
