@@ -8,8 +8,8 @@ class BaseProfile(models.Model):
     birthday = models.DateField('Дата рождения', null=True, blank=True)
 
     GENDER_CHOICES = (
-        ('Женский', 'Женский'), #?
-        ('Мужской', 'Мужской'), #?
+        ('Женский', 'Женский'),
+        ('Мужской', 'Мужской'),
     )
     gender = models.CharField('Пол', max_length=7, choices=GENDER_CHOICES, null=True, blank=True)
 
