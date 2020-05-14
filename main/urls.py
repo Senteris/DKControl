@@ -6,5 +6,5 @@ urlpatterns = [
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
     path("search/", views.search, name="search"),
-    path("chart/", views.chart_get, name="chart")
+    path("chart/<str:chartType>/", views.chartGet, name="chart")
 ]
