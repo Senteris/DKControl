@@ -1,9 +1,7 @@
 body {
     margin: 0px;
-    padding: 0px;
     font-family: 'Roboto', sans-serif;
     background-color: #F9F9F9;
-
 }
 
 header {
@@ -12,6 +10,7 @@ header {
     display: flex;
     align-items: center;
     background-color: #FFF;
+    padding: 0 0 0 230px;
 }
 
 .shadow {
@@ -59,9 +58,10 @@ header {
 
 .sidebar {
     width: 230px;
-    height: 1080px;
-    float: left;
+    height: 100%;
     background-color: #FFF;
+    position: fixed;
+    z-index: 10;
 }
 
 #search {
@@ -108,12 +108,10 @@ ul {
 }
 
 .main {
-    padding: 25px;
-    padding-top: 40px;
+    padding: 40px 25px 25px 230px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-template-rows: 1fr;
-
 }
 
 .block {

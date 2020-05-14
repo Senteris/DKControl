@@ -6,7 +6,7 @@ from django.contrib.auth import logout as user_logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, F, CharField
 from django.db.models import Value as V
-from django.db.models.functions import Concat, Cast, ExtractHour, ExtractMinute
+from django.db.models.functions import Concat, Cast, ExtractHour, ExtractMinute, TruncMinute, TruncHour
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -63,18 +63,8 @@ def search(request):
 
         groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'))
         timetable_elems = TimetableElem.objects.annotate(
-            hour=Cast(ExtractHour('beginTime'), CharField()),
-            minute=Cast(ExtractMinute('beginTime'), CharField()),
-            beginTimeStr=Concat(
-                'hour', V(':'), 'minute',
-                output_field=CharField()
-            ),
-            hourEnd=Cast(ExtractHour('endTime'), CharField()),
-            minuteEnd=Cast(ExtractMinute('endTime'), CharField()),
-            endTimeStr=Concat(
-                'hourEnd', V(':'), 'minuteEnd',
-                output_field=CharField()
-            ),
+            beginTimeStr=Cast(TruncMinute('beginTime'), CharField()),
+            endTimeStr=Cast(TruncMinute('endTime'), CharField()),
             timeStr=Concat('beginTimeStr', V('-'), 'endTimeStr')
         )
 
