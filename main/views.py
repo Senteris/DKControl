@@ -1,5 +1,5 @@
-import json
-
+from dateutil.relativedelta import relativedelta
+from datetime import date, timedelta
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
@@ -10,7 +10,7 @@ from django.db.models.functions import Concat, Cast, ExtractHour, ExtractMinute,
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
-from main.models import Student, User, Parent, Union, Group, TimetableElem
+from main.models import *
 
 
 @login_required(login_url="login/")
@@ -104,12 +104,81 @@ def search(request):
         }})
 
 
-def chart_get(request):
-    return JsonResponse({
-        "region": ["Январь", "Февраль", "Дальше лень"],
-        "value": [1, 2, 3]
-    })
+def chartGet(request, chartType):
+    if date.today().year >= 9: editYear = 0
+    else: editYear = 1
 
+    startday = date(date.today().year - editYear, 9, 1)
+    periodStart = request.GET.get('ps', None)
+    periodEnd = request.GET.get('pe', None)
+    union = request.GET.get('u', None)
+    group = request.GET.get('g', None)
+    student = request.GET.get('s', None)
+    min = request.GET.get('min', 0)
+    max = request.GET.get('max', 100)
+
+    if periodStart is not None: periodStart = date.strftime(periodStart, '%Y-%m-%d')
+    if periodEnd is not None: periodEnd = date.strftime(periodEnd, '%Y-%m-%d')
+
+
+    if chartType == 'chartStudent':
+
+        periodsStart = [startday + relativedelta(months=s) for s in range(12)] # :(
+        periodsEnd = [startday + relativedelta(months=s+1) for s in range(12)]
+
+        results = [getAttendingStats(periodsStart[i], periodsEnd[i], None, None, student) for i in range(12)]
+
+        return JsonResponse({
+            "region": ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
+                       "Ноябрь", "Декабрь"],
+            "value": [result[0] for  result in results]
+        })
+
+#region Methods
+def getAttendingStats(periodStart, periodEnd, union, group, student):
+    allAttendings = [a
+                     for a in Attending.objects.all()
+                     if a.studySession.date.date() >= periodStart
+                     and a.studySession.date.date() <= periodEnd
+                     and (union is None or a.studySession.group.union == union)
+                     and (group is None or a.studySession.group == group)
+                     and (student is None or a.student == student)
+                     ]
+
+    attendedAttendings = [a
+                          for a in allAttendings
+                          if a.isAttend==True]
+
+    if len(allAttendings) == 0: allAttendings = 1;
+    else: allAttendings = len(allAttendings)
+    return len(attendedAttendings) / allAttendings, len(attendedAttendings), allAttendings
+
+def getGenderStats(union, group):
+    allStudents = getAllStudents(union, group)
+    maleStudents = [m
+                    for m in allStudents
+                    if m.gender == "Мужской"]
+
+    return len(maleStudents) / len(allStudents), len(maleStudents), len(allStudents)
+
+def getAgeStats(min, max, union, group):
+    allStudents = getAllStudents(union, group)
+    chosenStudents = [m
+                      for m in allStudents
+                      if m.age >= min
+                      and m.age <= max]
+
+    return len(chosenStudents) / len(allStudents), len(chosenStudents), len(allStudents)
+#endregion
+
+#region Methods for other methods
+def getAllStudents(union, group):
+    return [s
+            for s in Student.objects.all()
+            if (union is None or s.group.union == union)
+            and (group is None or s.group == group)
+            ]
+#endregion
 
 def get_student(request, student):
     student = Student.objects.get(id=student)
