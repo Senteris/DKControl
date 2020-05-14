@@ -3,7 +3,7 @@ $(document).ready(function () {
         .search({
             // change search endpoint to a custom endpoint by manipulating apiSettings
             apiSettings: {
-                url: 'search/?q={query}'
+                url: '/search/?q={query}'
             },
             type: 'category'
         })
