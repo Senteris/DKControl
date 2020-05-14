@@ -55,9 +55,9 @@ def search(request):
     else:
         query = query.split()
 
-        students = Student.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic'))\
+        students = Student.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')) \
             .filter(Q(isDeleted=False))
-        teachers = User.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic'))\
+        teachers = User.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')) \
             .filter(Q(groups__name='Педагог'))
         parents = Parent.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic'))
 
@@ -78,7 +78,8 @@ def search(request):
         return JsonResponse({"results": {
             "students": {
                 "name": "Ученики",
-                "results": [{"title": f"{s.first_name} {s.last_name} {s.patronymic}", "description": ""} for s in students]
+                "results": [{"title": f"{s.first_name} {s.last_name} {s.patronymic}", "description": "",
+                             "url": f"/students/{s.id}/"} for s in students]
             },
             "teachers": {
                 "name": "Учителя",
@@ -93,7 +94,7 @@ def search(request):
             "groups": {
                 "name": "Группы",
                 "results": [
-                    {"title": f"{s.name} {s.union.name}", "description": ""} for s in groups]
+                    {"title": f"{s.name} {s.union.name}", "description": "", "url": f"/groups/{s.id}/"} for s in groups]
             },
             "timetable_elems": {
                 "name": "Время",
@@ -108,3 +109,13 @@ def chart_get(request):
         "region": ["Январь", "Февраль", "Дальше лень"],
         "value": [1, 2, 3]
     })
+
+
+def get_student(request, student):
+    student = Student.objects.get(id=student)
+    return render(request, 'student_profile.html', {"student": student})
+
+
+def get_group(request, group):
+    group = Group.objects.get(id=group)
+    return render(request, 'group_view.html', {"group": group})

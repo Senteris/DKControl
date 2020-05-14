@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Группа{% endblock %}
+{% block header_name %}
+    <div class="ui breadcrumb" style="margin: 0 0 20px 10px">
+        <a class="section">Группы</a>
+        <div class="divider"> /</div>
+        <a class="section">{{ group.union.name }}</a>
+        <div class="divider"> /</div>
+        <div class="active section">{{ group.name }}</div>
+    </div>
+{% endblock %}
+{% block content %}
+
+    <div class="students_block block shadow">
+        <div class="header_block">
+            <p>Расписание</p>
+        </div>
+        <div style="padding: 25px">
+            <h3>{{ student.first_name }} {{ student.last_name }} {{ student.patronymic }}</h3>
+
+        </div>
+    </div>
+    {% include 'snippets/chart.html' with id=1 url='/chart/' label='Статистика посещения (Но не та)' %}
+
+    <script src="../static/js/script.js"></script>
+{% endblock %}

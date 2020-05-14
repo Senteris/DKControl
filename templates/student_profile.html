@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Ученик{% endblock %}
+{% block header_name %}
+    <div class="ui breadcrumb" style="margin: 0 0 20px 10px">
+        <a class="section">Ученики</a>
+        <div class="divider"> /</div>
+        <div class="active section">{{ student.first_name }} {{ student.last_name }}</div>
+    </div>
+{% endblock %}
+{% block content %}
+
+    <div class="students_block block shadow">
+        <div class="header_block">
+            <p>Информация о ученике</p>
+        </div>
+        <div style="padding: 25px">
+            <h3>{{ student.first_name }} {{ student.last_name }} {{ student.patronymic }}</h3>
+            <div class="ui list">
+                <a class="item">
+                    <i class="graduation cap icon"></i>
+                    <div class="content">
+                        <div class="header">Группы</div>
+                    </div>
+                </a>
+                <div class="ui horizontal segments">
+                    {% for group_elem in student.groups.all %}
+                        <a class="ui segment" href="{% url 'group' group_elem.id %}"
+                           style="text-decoration: none; color: inherit;">
+                            <p>{{ group_elem }}</p>
+                        </a>
+                    {% endfor %}
+                </div>
+                <a class="item">
+                    <i class="calendar alternate icon"></i>
+                    <div class="content">
+                        <div class="header">Дата рождения</div>
+                        <div class="description">{{ student.birthday }}</div>
+                    </div>
+                </a>
+                <a class="item">
+                    <i class="building icon"></i>
+                    <div class="content">
+                        <div class="header">Школа</div>
+                        <div class="description">№{{ student.school }}</div>
+                    </div>
+                </a>
+                <a class="item">
+                    <i class="venus mars icon"></i>
+                    <div class="content">
+                        <div class="header">Пол</div>
+                        <div class="description">{{ student.gender }}</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% include 'snippets/chart.html' with id=1 url='/chart/' label='Статистика посещения (Но не та)' %}
+
+    <script src="../static/js/script.js"></script>
+{% endblock %}
