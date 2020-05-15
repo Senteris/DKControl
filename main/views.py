@@ -105,10 +105,12 @@ def search(request):
 
 
 def chartGet(request, chartType):
-    if date.today().year >= 9: editYear = 0
+    if date.today().month >= 9: editYear = 0
     else: editYear = 1
 
     startday = date(date.today().year - editYear, 9, 1)
+
+    #region GetData
     periodStart = request.GET.get('ps', None)
     periodEnd = request.GET.get('pe', None)
     union = request.GET.get('u', None)
@@ -117,21 +119,26 @@ def chartGet(request, chartType):
     min = request.GET.get('min', 0)
     max = request.GET.get('max', 100)
 
+    if union is not None: union = int(union)
+    if group is not None: group = int(group)
+    if student is not None: student = int(student)
+    min = int(min)
+    max = int(max)
+
     if periodStart is not None: periodStart = date.strftime(periodStart, '%Y-%m-%d')
     if periodEnd is not None: periodEnd = date.strftime(periodEnd, '%Y-%m-%d')
-
+    #endregion
 
     if chartType == 'chartStudent':
 
-        periodsStart = [startday + relativedelta(months=s) for s in range(12)] # :(
-        periodsEnd = [startday + relativedelta(months=s+1) for s in range(12)]
+        periodsStart = [startday + relativedelta(months=s) for s in range(9)] # :(
+        periodsEnd = [startday + relativedelta(months=s+1) for s in range(9)]
 
-        results = [getAttendingStats(periodsStart[i], periodsEnd[i], None, None, student) for i in range(12)]
+        results = [getAttendingStats(periodsStart[i], periodsEnd[i], None, None, student) for i in range(9)]
 
         return JsonResponse({
-            "region": ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
-                       "Ноябрь", "Декабрь"],
-            "value": [result[0] for  result in results]
+            "region": ["Сентябрь", "Октябрь", "Ноябрь", "Декабрь", "Январь", "Февраль", "Март", "Апрель", "Май"],
+            "value": [result[0]*100 for  result in results]
         })
 
 #region Methods
@@ -140,9 +147,9 @@ def getAttendingStats(periodStart, periodEnd, union, group, student):
                      for a in Attending.objects.all()
                      if a.studySession.date.date() >= periodStart
                      and a.studySession.date.date() <= periodEnd
-                     and (union is None or a.studySession.group.union == union)
-                     and (group is None or a.studySession.group == group)
-                     and (student is None or a.student == student)
+                     and (union is None or a.studySession.group.union.id == int(union))
+                     and (group is None or a.studySession.group.id == int(group))
+                     and (student is None or a.student.id == int(student))
                      ]
 
     attendedAttendings = [a
@@ -175,8 +182,8 @@ def getAgeStats(min, max, union, group):
 def getAllStudents(union, group):
     return [s
             for s in Student.objects.all()
-            if (union is None or s.group.union == union)
-            and (group is None or s.group == group)
+            if (union is None or s.group.union.id == int(union))
+            and (group is None or s.group.id == int(group))
             ]
 #endregion
 

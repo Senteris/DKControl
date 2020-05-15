@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    {% include 'snippets/chart.html' with id=1 url='/chart/' label='Статистика посещения (Но не та)' %}
+    {% include 'snippets/chart.html' with id=1 url='/chart/chartStudent/' student_id=student.id label='Статистика посещения, %' %}
 
     <script src="../static/js/script.js"></script>
 {% endblock %}
