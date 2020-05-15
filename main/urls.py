@@ -8,5 +8,6 @@ urlpatterns = [
     path("search/", views.search, name="search"),
     path("chart/<str:chartType>/", views.chartGet, name="chart"),
     path("students/<int:student>/", views.get_student, name="student"),
-    path("groups/<int:group>/", views.get_group, name="group")
+    path("groups/<int:group>/", views.get_group, name="group"),
+    path("parents/<int:parent>/", views.get_parent, name="parent")
 ]

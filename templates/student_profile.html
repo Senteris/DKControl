@@ -9,7 +9,7 @@
     </div>
 {% endblock %}
 {% block content %}
-    <div class="students_block block shadow">
+    <div class="students_block block shadow" style="height: 510px">
         <div class="header_block">
             <p>Информация о ученике</p>
         </div>
@@ -49,6 +49,34 @@
                     <div class="content">
                         <div class="header">Пол</div>
                         <div class="description">{{ student.gender }}</div>
+                    </div>
+                </a>
+                <a class="item">
+                    <i class="child icon"></i>
+                    <div class="content">
+                        <div class="header">Родители</div>
+                    </div>
+                </a>
+                <div class="ui horizontal segments">
+                    {% for parent in student.parents.all %}
+                        <a class="ui segment" href="{% url 'parent' parent.id %}"
+                           style="text-decoration: none; color: inherit;">
+                            <p>{{ parent }}</p>
+                        </a>
+                    {% endfor %}
+                </div>
+                <a class="item">
+                   <i class="phone icon"></i>
+                    <div class="content">
+                        <div class="header">Номер телефона</div>
+                        <div class="description">{{ student.phone }}</div>
+                    </div>
+                </a>
+                <a class="item">
+                    <i class="building icon"></i>
+                    <div class="content">
+                        <div class="header">Адрес</div>
+                        <div class="description">{{ student.address }}</div>
                     </div>
                 </a>
             </div>
