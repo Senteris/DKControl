@@ -145,11 +145,11 @@ def chartGet(request, chartType):
         periodsStart = [startday + relativedelta(months=s) for s in range(9)] # :(
         periodsEnd = [startday + relativedelta(months=s+1) for s in range(9)]
 
-        results = [getAttendingStats(periodsStart[i], periodsEnd[i], None, None, student) for i in range(9)]
+        results = [getAttendingStats(periodsStart[i], periodsEnd[i], None, group, student) for i in range(9)]
 
         return JsonResponse({
             "region": ["Сентябрь", "Октябрь", "Ноябрь", "Декабрь", "Январь", "Февраль", "Март", "Апрель", "Май"],
-            "value": [result[0]*100 for  result in results]
+            "value": [result[0]*100 for result in results]
         })
 
 #region Methods
@@ -229,3 +229,8 @@ def get_group(request, group):
     # endregion
 
     return render(request, 'group_view.html', {"group": group, "timetable": timetable, "attendings": attendings})
+
+
+def get_parent(request, parent):
+    parent = Parent.objects.get(id=parent)
+    return render(request, 'parent_profile.html', {'parent': parent})

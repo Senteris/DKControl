@@ -115,19 +115,19 @@ class User(AbstractUser, BaseProfile):
 class Parent(Profile):
 
     def __str__(self):
-        return f"Родитель: {self.first_name} {self.last_name} {self.patronymic:1}."
+        return f"{self.first_name} {self.last_name} {self.patronymic:1}"
 
 
 class Student(Profile):
     school = models.CharField('Школа', max_length=32, blank=True, null=True)
     grade = models.CharField('Класс', max_length=3, blank=True, null=True)
     groups = models.ManyToManyField(Group, related_name="students", verbose_name="Ученики", blank=True)
-    parents = models.ManyToManyField(Parent, related_name="parents", verbose_name="Родители", blank=True)
+    parents = models.ManyToManyField(Parent, related_name="childs", verbose_name="Родители", blank=True)
 
     isDeleted = models.BooleanField('Удалён', default=False, blank=True)
 
     def __str__(self):
-        return f"Ученик: {self.first_name} {self.last_name} {self.patronymic:1}"
+        return f"{self.first_name} {self.last_name} {self.patronymic:1}"
 #endregion
 
 #region Other models
