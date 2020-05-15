@@ -40,6 +40,9 @@
             <li><img src="{% static 'img/teacher.svg' %}" alt="">Педагоги</li>
             <li><img src="{% static 'img/parents.svg' %}" alt="">Родители</li>
             <li><img src="{% static 'img/report.svg' %}" alt="">Отчеты</li>
+            <br> <br>
+            {% if request.user.is_superuser %} <a style="color: inherit;" role="button" href="/admin/"><li><img src="{% static 'img/report.svg' %}" alt="">Админка</li></a>{% endif %} {# TODO rewrite a llinks #}
+            <li><a style="color: inherit;" href="{% url 'logout' %}"><img src="{% static 'img/report.svg' %}" alt="">Выход</a></li>
         </ul>
     </div>
 

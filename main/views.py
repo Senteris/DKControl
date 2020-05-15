@@ -13,7 +13,7 @@ from django.shortcuts import render, redirect
 from main.models import *
 
 
-@login_required(login_url="login/")
+@login_required(login_url="/login/")
 def main(request):
     students = Student.objects.all()[:20]
     # region students attending
@@ -31,6 +31,8 @@ def main(request):
 
 def login(request):
     error = None
+    if request.user.is_authenticated:
+        return redirect('main')
     if request.method == "POST":
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None:
@@ -53,10 +55,10 @@ def login(request):
 
 def logout(request):
     user_logout(request)
-    return redirect('index')
+    return redirect('login')
 
 
-@login_required(login_url="login/")
+@login_required(login_url="/login/")
 def search(request):
     query = request.GET.get('q')
     if query is None:
@@ -115,6 +117,7 @@ def search(request):
         }})
 
 
+@login_required(login_url="/login/")
 def chartGet(request, chartType):
     if date.today().month >= 9: editYear = 0
     else: editYear = 1
@@ -198,11 +201,14 @@ def getAllStudents(union, group):
             ]
 #endregion
 
+
+@login_required(login_url="/login/")
 def get_student(request, student):
     student = Student.objects.get(id=student)
     return render(request, 'student_profile.html', {"student": student})
 
 
+@login_required(login_url="/login/")
 def get_group(request, group):
     group = Group.objects.get(id=group)
     timetable = {
@@ -231,6 +237,7 @@ def get_group(request, group):
     return render(request, 'group_view.html', {"group": group, "timetable": timetable, "attendings": attendings})
 
 
+@login_required(login_url="/login/")
 def get_parent(request, parent):
     parent = Parent.objects.get(id=parent)
     return render(request, 'parent_profile.html', {'parent': parent})
