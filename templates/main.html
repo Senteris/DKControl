@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 
 {% block title %}Главная{% endblock %}
 {% block header_name %}{% endblock %}
@@ -8,34 +9,22 @@
         <div class="header_block">
             <p>Ученики</p>
         </div>
-        <div class="content_block">
+        <div class="content_block" style="overflow: auto; height: 270px">
             <table class="table_students" id="customers">
                 <tr>
                     <td>№</td>
                     <td>ФИО</td>
                     <td>Посещаемость</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Фамилия Имя Отчество</td>
-                    <td>100%</td>
+                {% for student in students %}
+                <tr onclick="window.location='{% url "student" student.id %}';">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ student }}</td>
+                    <td>{{ attendings|index:forloop.counter0 }}%</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Фамилия Имя Отчество</td>
-                    <td>100%</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Фамилия Имя Отчество</td>
-                    <td>100%</td>
-                </tr>
-
-
+                {% endfor %}
             </table>
         </div>
     </div>
     {% include 'snippets/chart.html' with id=1 url='/chart/chartStudent/' label='Статистика посещения, %' %}
-
-    <script src="../static/js/script.js"></script>
 {% endblock %}

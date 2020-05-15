@@ -121,8 +121,8 @@ class Parent(Profile):
 class Student(Profile):
     school = models.CharField('Школа', max_length=32, blank=True, null=True)
     grade = models.CharField('Класс', max_length=3, blank=True, null=True)
-    groups = models.ManyToManyField(Group, related_name="Группы", blank=True)
-    parents = models.ManyToManyField(Parent, related_name="Родители", blank=True)
+    groups = models.ManyToManyField(Group, related_name="students", verbose_name="Ученики", blank=True)
+    parents = models.ManyToManyField(Parent, related_name="parents", verbose_name="Родители", blank=True)
 
     isDeleted = models.BooleanField('Удалён', default=False, blank=True)
 
