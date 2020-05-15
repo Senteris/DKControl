@@ -1,16 +1,18 @@
 body {
     margin: 0px;
+    padding: 0;
     font-family: 'Roboto', sans-serif;
     background-color: #F9F9F9;
 }
 
 header {
-    width: calc(100%-230px);
+    width: calc(100% - 230px);
     height: 50px;
     display: flex;
     align-items: center;
     background-color: #FFF;
-    padding: 0 0 0 230px;
+    padding: 0 0 0 10px;
+    margin-left: 230px;
 }
 
 .shadow {
@@ -131,7 +133,7 @@ ul {
     background: #3498DB;
 }
 
-.kvantums_block .header_block{
+.kvantums_block .header_block {
     background: #1ABC9C;
 }
 
@@ -202,35 +204,69 @@ footer {
     color: white;
 
 }
-.wrapper_kvantums{
-  display: flex;
-  justify-content: center;
-  width: 100%;
+
+.wrapper_kvantums {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 
 }
-.kvantums_content_block{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  grid-template-rows: 60px 60px 60px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  align-items: center;
-  width: calc(100% - 20px);
+
+.kvantums_content_block {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-template-rows: 60px 60px 60px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    align-items: center;
+    width: calc(100% - 20px);
 
 }
-.button_kvantum{
-  background-color: gray;
-  border: none;
-  border-radius: 4px;
-  width: calc(100% - 10px);
-  height: calc(100% - 10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFF;
-  text-decoration: none;
-  font-size: 14px;
-  align-self: center;
-  justify-self: center;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+
+.button_kvantum {
+    background-color: gray;
+    border: none;
+    border-radius: 4px;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 14px;
+    align-self: center;
+    justify-self: center;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mini-block {
+    background: #FFFFFF;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    width: 230px;
+    height: 100px;
+    margin: 5px 10px 5px 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.mini-block.activated {
+    background: #3498DB;
+}
+
+.mini-block h3:first-child {
+    margin-top: 40px;
+    margin-bottom: 0;
+    color: #858585;
+}
+
+.mini-block.activated h3:last-child {
+    margin-top: 0;
+    color: #FFFFFF;
+}
+
+.mini-block.activated h3:first-child {
+    margin-top: 30px;
+    color: #FFFFFF;
 }

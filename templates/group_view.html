@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 
 {% block title %}Группа{% endblock %}
 {% block header_name %}
-    <div class="ui breadcrumb" style="margin: 0 0 20px 10px">
+    <div class="ui breadcrumb" style="margin: 0 0 20px 0">
         <a class="section">Группы</a>
         <div class="divider"> /</div>
         <a class="section">{{ group.union.name }}</a>
@@ -12,16 +13,49 @@
 {% endblock %}
 {% block content %}
 
-    <div class="students_block block shadow">
+    <div class="students_block block shadow" style="width: 800px;">
         <div class="header_block">
             <p>Расписание</p>
         </div>
-        <div style="padding: 25px">
-            <h3>{{ student.first_name }} {{ student.last_name }} {{ student.patronymic }}</h3>
-
+        <div style="padding: 25px; display: flex; flex-flow: row wrap;">
+            {% for day, time in timetable.items %}
+                <a class="mini-block {% if time.time %}activated{% endif %}" href=""> {# TODO Add editor #}
+                    <h3>{{ day }}</h3>
+                    <h3>{{ time.time }}</h3>
+                </a>
+            {% endfor %}
         </div>
     </div>
     {% include 'snippets/chart.html' with id=1 url='/chart/' label='Статистика посещения (Но не та)' %}
 
-    <script src="../static/js/script.js"></script>
+    <div class="students_block block shadow">
+        <div class="header_block">
+            <p>Ученики и учитель</p>
+        </div>
+        <div class="ui list" style="padding-left: 25px">
+            <a class="item">
+                <i class="graduation cap icon"></i>
+                <div class="content">
+                    <div class="header">Учитель</div>
+                    <div class="content">{{ group.teacher }}</div>
+                </div>
+            </a>
+        </div>
+        <div class="content_block">
+            <table class="table_students" id="customers">
+                <tr>
+                    <td>№</td>
+                    <td>ФИО</td>
+                    <td>Посещаемость</td>
+                </tr>
+                {% for student in group.students.all %}
+                    <tr onclick="window.location='{% url "student" student.id %}';">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ student.first_name }} {{ student.last_name }} {{ student.patronymic }}</td>
+                        <td>{{ attendings|index:forloop.counter0 }}%</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}
