@@ -6,7 +6,7 @@
         <canvas id="{{ id }}"></canvas>
         <script>
             $(document).ready(function () {
-                buildChart({{ id }}, "{{ url }}", "{{ label }}")
+                buildChart({{ id }}, "{{ url }}" {% if student_id %} + "?s=" + {{ student_id }}{% endif %}, "{{ label }}")
             });
         </script>
     </div>
