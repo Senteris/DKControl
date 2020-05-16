@@ -96,9 +96,7 @@ class TimetableElem(models.Model):
 
 
 class User(AbstractUser, BaseProfile):
-    worktime = models.TimeField("Время работы", blank=True, null=True)
     union = models.ForeignKey(Union, verbose_name="Объединение", on_delete=models.SET_NULL, blank=True, null=True)
-
     profileIcon = models.ImageField("Фото профиля", upload_to="profileIcon", blank=True, null=True)
 
     def __str__(self):

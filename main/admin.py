@@ -19,7 +19,7 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         ('Персональная информация', {
-            'fields': ('first_name', 'last_name', 'patronymic', 'groups')
+            'fields': ('first_name', 'last_name', 'patronymic', 'groups', 'union')
         }),
     )
 
