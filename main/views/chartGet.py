@@ -33,7 +33,7 @@ def chartGet(request, chartType):
     if periodEnd is not None: periodEnd = date.strftime(periodEnd, '%Y-%m-%d')
     #endregion
 
-    if chartType == 'chartStudent':
+    if chartType == 'attendingStats12m':
 
         periodsStart = [startday + relativedelta(months=s) for s in range(9)] # :(
         periodsEnd = [startday + relativedelta(months=s+1) for s in range(9)]

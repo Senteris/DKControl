@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Ученик{% endblock %}
+{% block title %}{{ student }}{% endblock %}
 {% block header_name %}
     <div class="ui breadcrumb" style="margin: 0 0 20px 0">
         <a class="section">Ученики</a>
@@ -82,5 +82,5 @@
             </div>
         </div>
     </div>
-    {% include 'snippets/chart.html' with id=1 url='/chart/chartStudent/' student_id=student.id label='Статистика посещения, %' %}
+    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats12m/' student_id=student.id label='Статистика посещения, %' %}
 {% endblock %}
