@@ -38,6 +38,7 @@ class Note(models.Model):
 class StudySession(models.Model): # Class Class x
     date = models.DateTimeField("Дата и время начала")
     group = models.ForeignKey("Group", verbose_name="Группа", on_delete=models.CASCADE)
+    teacherAttended = models.BooleanField("Педагог был на занятии", default=True, blank=True)
     cancelReason = models.CharField("Причина отмены", max_length=128, null=True, blank=True, default=None)
 
     def __str__(self):
