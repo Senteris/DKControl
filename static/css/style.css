@@ -125,8 +125,7 @@ ul {
 
 .students_block {
     height: 350px;
-    grid-column-start: 1;
-    grid-column-end: 3;
+
 }
 
 .students_block .header_block {
@@ -177,7 +176,6 @@ footer {
 }
 
 #customers {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: calc(100% - 40px);
 
@@ -188,7 +186,8 @@ footer {
     padding: 8px;
 }
 
-#customers tr:nth-child(even) {
+#customers tr:nth-child(even),
+#info li:nth-child(even) {
     background-color: #f2f2f2;
 }
 
@@ -269,4 +268,23 @@ footer {
 .mini-block.activated h3:first-child {
     margin-top: 30px;
     color: #FFFFFF;
+}
+
+.info_block .header_block{
+    background: #1ABC9C;
+}
+.info_content{
+    width: calc(100% - 40px);
+}
+
+.info_list li {
+    margin-bottom: 10px;
+    border-bottom: none;
+    padding: 10px;
+
+}
+
+a{
+  text-decoration: none;
+  color: #000;
 }
