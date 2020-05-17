@@ -13,7 +13,7 @@
 {% endblock %}
 {% block content %}
 
-    <div class="students_block block shadow" style="width: 800px;">
+    <div class="students_block block shadow" style="min-width: 800px">
         <div class="header_block">
             <p>Расписание</p>
         </div>
@@ -28,12 +28,12 @@
     </div>
     {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats12m/' group_id=group.id label='Статистика посещения, %' %}
 
-    <div class="students_block block shadow">
+    <div class="students_block block shadow"  style="min-width: 1000px">
         <div class="header_block">
             <p>Ученики и учитель</p>
         </div>
         <div class="ui list" style="padding-left: 25px">
-            <a class="item" style="color: inherit;" href="{% url 'user' group.teacher.id %}">
+            <a class="item" style="color: inherit;" href="{% if group.teacher %}{% url 'user' group.teacher.id %}{% endif %}">
                 <i class="graduation cap icon"></i>
                 <div class="content">
                     <div class="header">Учитель</div>

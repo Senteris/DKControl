@@ -111,9 +111,14 @@ ul {
 
 .main {
     padding: 40px 25px 25px 230px;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-template-rows: 1fr;
+}
+
+.main > * {
+    flex-basis: 500px;
 }
 
 .block {
@@ -125,7 +130,6 @@ ul {
 
 .students_block {
     height: 350px;
-
 }
 
 .students_block .header_block {

@@ -113,8 +113,8 @@ def search(request):
                 "results": [
                     {"title": f"{s.group} {s.date.strftime('%d.%m.%Y %H:%M:%S')}",
                      "description": f"{s.group}",
-                     "url": f"/groups/{s.group.id}/",
-                     "extend": [{"name": s.group.__str__(), "url": f"/groups/{s.group.id}/"}]} for s in study_sessions]
+                     "url": f"/sessions/{s.id}/",
+                     "extend": [{"name": s.group.__str__(), "url": f"/sessions/{s.id}/"}]} for s in study_sessions]
             },
             "additions": {
                 "name": "Дополнительно",
