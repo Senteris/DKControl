@@ -42,7 +42,8 @@ class StudySession(models.Model): # Class Class x
     cancelReason = models.CharField("Причина отмены", max_length=128, null=True, blank=True, default=None)
 
     def __str__(self):
-        return f"{self.group.name} [{self.date.strftime('%Y.%m.%d %H:%M:%S')}]"
+        return f"{self.group.name} [{self.date.strftime('%d.%m.%Y %H:%M:%S')}]"
+
 
 class Attending(models.Model):
     student = models.ForeignKey("Student", verbose_name="Студент", on_delete=models.CASCADE)
@@ -51,6 +52,7 @@ class Attending(models.Model):
 
     def __str__(self):
         return f"{self.student.last_name} -> {self.studySession.__str__()}"
+
 
 class Union(models.Model):
     name = models.CharField("Название", max_length=64, default="No name")

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{% block title %}Поиск{% endblock %}
+{% block header_name %}<p id="header_text">Поиск</p>{% endblock %}
+{% block content %}
+
+    <div class="students_block block shadow" style="height: 600px">
+        <div class="header_block">
+            <p>Поиск</p>
+        </div>
+        <div class="content_block" style="justify-content: inherit; padding-left: 20px; display: inherit">
+            <div class="ui action input" style="display: flex; margin-right: 20px;">
+                <input type="text" value="" size="">
+                <button class="ui blue right labeled icon button" id="search-button" type="button">
+                    Искать
+                    <i class="search icon"></i>
+                </button>
+            </div>
+            <br>
+            <br>
+            <div id="search-result" class="ui segments" style="margin-right: 20px; overflow: auto; height: 420px">
+
+            </div>
+
+            <template id="search-template-group">
+                <div class="ui segment">
+                    <p>Value</p>
+                </div>
+                <div class="ui segments">
+
+                </div>
+            </template>
+
+            <template id="search-template-item">
+                <a href="" style="color: inherit">
+                    <div class="ui segment">
+                        <p>Value</p>
+                        <div class="ui list">
+
+                        </div>
+                    </div>
+                </a>
+            </template>
+
+            <template id="search-template-list-item">
+                <a class="item">
+                    <i class="right triangle icon"></i>
+                    <div class="content">
+                        <div class="header">Value</div>
+                        <div class="description"></div>
+                    </div>
+                </a>
+            </template>
+        </div>
+    </div>
+    <div class="statistic_block block shadow" style="width: 300px; height: 600px;">
+        <div class="header_block">
+            <p>Фильтры</p>
+        </div>
+        <div class="content_block" style="justify-content: normal; padding-left: 20px; padding-right: 20px">
+            <form class="ui form">
+                <h4 class="ui dividing header">Тип</h4>
+                <div class="ui multiple dropdown">
+                    <input type="hidden" name="filters" id="search-field-filters">
+                    <i class="filter icon"></i>
+                    <span class="text">Типы</span>
+                    <div class="menu">
+                        <div class="scrolling menu">
+                            <div class="item" data-value="students">
+                                <div class="ui red empty circular label"></div>
+                                Ученик
+                            </div>
+                            <div class="item" data-value="teachers">
+                                <div class="ui blue empty circular label"></div>
+                                Учитель
+                            </div>
+                            <div class="item" data-value="parents">
+                                <div class="ui black empty circular label"></div>
+                                Родитель
+                            </div>
+                            <div class="item" data-value="groups">
+                                <div class="ui purple empty circular label"></div>
+                                Группа
+                            </div>
+                            <div class="item" data-value="sessions">
+                                <div class="ui green empty circular label"></div>
+                                Занятие
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="ui dividing header">Возраст</h4>
+                <div id="age-slider" style="width: 220px"></div>
+                <span style="color: green; padding-left: 80px" id="result-age-slider">От 1 до 18</span>
+                <input type="hidden" name="filters" id="search-field-age" value="1-18">
+                <h4 class="ui dividing header">Промежуток дат</h4>
+                <label for="search-field-start">От</label><input id="search-field-start" type="datetime-local">
+                <label for="search-field-end">До</label><input id="search-field-end" type="datetime-local">
+            </form>
+        </div>
+    </div>
+{% endblock %}
