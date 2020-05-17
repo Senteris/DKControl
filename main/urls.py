@@ -3,6 +3,7 @@ from django.urls import path
 from main.views.chartGet import chartGet
 from main.views.get_group import get_group
 from main.views.get_parent import get_parent
+from main.views.get_session import get_session
 from main.views.get_student import get_student
 from main.views.logout import logout
 from main.views.main import main
@@ -20,4 +21,5 @@ urlpatterns = [
     path("groups/<int:group>/", get_group, name="group"),
     path("parents/<int:parent>/", get_parent, name="parent"),
     path("users/<int:user>/", getUser, name="user"),
+    path("sessions/<int:session>/", get_session, name="session"),
 ]
