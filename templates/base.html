@@ -10,12 +10,15 @@
     <link href="{% static 'lib/css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'lib/css/semantic.min.css' %}">
     <link rel="stylesheet" href="{% static 'lib/css/icon.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/css/jquery-ui.min.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="{% static 'lib/js/bootstrap.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/search.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
     <script src="{% static 'js/chart_builder.js' %}"></script>
     <script src="{% static 'lib/js/Chart.min.js' %}"></script>
     <script src="{% static 'lib/js/semantic.min.js' %}"></script>
+    <script src="{% static 'lib/js/jquery-ui.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -36,24 +39,25 @@
         </div>
 
         <ul class="list" style="margin-top: 10px">
-            <li><img src="{% static 'img/students.svg' %}" alt="">Учащиеся</li>
-            <li><img src="{% static 'img/teacher.svg' %}" alt="">Педагоги</li>
-            <li><img src="{% static 'img/parents.svg' %}" alt="">Родители</li>
-            <li><img src="{% static 'img/report.svg' %}" alt="">Отчеты</li>
+            <a style="color: inherit;" role="button" href="{% url 'search' %}?filters=students"><li><img src="{% static 'img/students.svg' %}" alt="">Учащиеся</li></a>
+            <a style="color: inherit;" role="button" href="{% url 'search' %}?filters=teachers"><li><img src="{% static 'img/teacher.svg' %}" alt="">Педагоги</li></a>
+            <a style="color: inherit;" role="button" href="{% url 'search' %}?filters=parents"><li><img src="{% static 'img/parents.svg' %}" alt="">Родители</li></a>
+            <a style="color: inherit;" role="button" href="{% url 'search' %}"><li><img src="{% static 'img/report.svg' %}" alt="">Отчеты</li></a>
             <br> <br>
-            {% if request.user.is_superuser %} <a style="color: inherit;" role="button" href="/admin/"><li><img src="{% static 'img/report.svg' %}" alt="">Админка</li></a>{% endif %} {# TODO rewrite a llinks #}
-            <li><a style="color: inherit;" href="{% url 'logout' %}"><img src="{% static 'img/report.svg' %}" alt="">Выход</a></li>
+            {% if request.user.is_superuser %}
+                <a style="color: inherit;" role="button" href="/admin/"><li><img src="{% static 'img/report.svg' %}" alt="">Админка</li></a>{% endif %}
+            <li><a style="color: inherit;" role="button" href="{% url 'logout' %}"><img src="{% static 'img/report.svg' %}" alt="">Выход</a>
+            </li>
         </ul>
     </div>
 
     <header style="padding-top: 20px">
         {% block header_name %}<p id="header_text">Главная</p>{% endblock %}
-        <div id="avatar" style="margin-top: -20px">В</div>
+        <a id="avatar" style="margin-top: -20px" href="{% url 'user' request.user.id %}"><div>В</div></a>
     </header>
 {% endblock %}
 <div class="{% block class-global-div %}main{% endblock %}">
     {% block content %}{% endblock %}
 </div>
-<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

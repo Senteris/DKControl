@@ -19,7 +19,7 @@
         </div>
         <div style="padding: 25px; display: flex; flex-flow: row wrap;">
             {% for day, time in timetable.items %}
-                <a class="mini-block {% if time.time %}activated{% endif %}" href=""> {# TODO Add editor #}
+                <a class="mini-block {% if time.time %}activated{% endif %}"> {# TODO Add editor #}
                     <h3>{{ day }}</h3>
                     <h3>{{ time.time }}</h3>
                 </a>
@@ -33,7 +33,7 @@
             <p>Ученики и учитель</p>
         </div>
         <div class="ui list" style="padding-left: 25px">
-            <a class="item">
+            <a class="item" style="color: inherit;" href="{% url 'user' group.teacher.id %}">
                 <i class="graduation cap icon"></i>
                 <div class="content">
                     <div class="header">Учитель</div>

@@ -1,0 +1,35 @@
+$(document).ready(function () {
+    $('.ui.dropdown')
+        .dropdown()
+    ;
+    $("#age-slider")
+        .slider({
+            max: 18,
+            min: 1,
+            range: true,
+            values: [1, 18],
+            slide: function (event, ui) {
+                $("#result-age-slider").text("от " + ui.values[0] + " до " + ui.values[1]);
+                $('#search-field-age').val(ui.values[0] + "-" + ui.values[1])
+            },
+        });
+    $('.ui.search')
+        .search({
+            // change search endpoint to a custom endpoint by manipulating apiSettings
+            apiSettings: {
+                url: '/search/?q={query}&json=true'
+            },
+            type: 'category',
+            minCharacters: 0
+        })
+    ;
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const filters = urlParams.get('filters');
+    if (filters) {
+        $('.ui.dropdown')
+            .dropdown("set selected", filters.split(','));
+        $('#search-button').trigger("click")
+    }
+});

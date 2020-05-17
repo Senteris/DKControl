@@ -2,7 +2,7 @@
 {% load custom_tags %}
 
 {% block title %}Главная{% endblock %}
-{% block header_name %}{% endblock %}
+{% block header_name %}<p id="header_text">Главная</p>{% endblock %}
 {% block content %}
 
     <div class="students_block block shadow">
@@ -26,5 +26,5 @@
             </table>
         </div>
     </div>
-    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats12m/' label='Статистика посещения, %' %}
+    {% include 'snippets/chart.html' with id=1 url='/chart/chartStudent/' label='Статистика посещения, %' %}
 {% endblock %}
