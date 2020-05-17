@@ -41,7 +41,8 @@ def getGenderStats(union, group, user):
     allStudents = getAllStudents(union, group, user)
     maleStudents = [m
                     for m in allStudents
-                    if m.gender == "Мужской"]
+                    if m.gender == "Мужской"
+                    ]
 
     return len(maleStudents) / len(allStudents), len(maleStudents), len(allStudents)
 
@@ -50,7 +51,8 @@ def getAgeStats(min, max, union, group, user):
     chosenStudents = [m
                       for m in allStudents
                       if m.age >= min
-                      and m.age <= max]
+                      and m.age <= max
+                      ]
 
     return len(chosenStudents) / len(allStudents), len(chosenStudents), len(allStudents)
 #endregion
@@ -63,7 +65,7 @@ def getAllStudents(union, group, user):
             if (union is None or g.union.id == int(union))\
             and (group is None or g.id == int(group))\
             and (user is None or s.groups == int(user)):
-                result.append(g)
+                result.append(s)
 
-    return g
-#endregionings, len(attendedAttendings), allAttendings
+    return result
+#endregion
