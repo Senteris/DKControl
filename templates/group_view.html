@@ -28,13 +28,12 @@
     </div>
     {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats12m/' group_id=group.id label='Статистика посещения, %' %}
 
-    <div class="students_block block shadow" style="min-width: 800px">
+    <div class="students_block block shadow"  style="min-width: 1000px">
         <div class="header_block">
             <p>Ученики и учитель</p>
         </div>
         <div class="ui list" style="padding-left: 25px">
-            <a class="item" style="color: inherit;"
-               href="{% if group.teacher %}{% url 'user' group.teacher.id %}{% endif %}">
+            <a class="item" style="color: inherit;" href="{% if group.teacher %}{% url 'user' group.teacher.id %}{% endif %}">
                 <i class="graduation cap icon"></i>
                 <div class="content">
                     <div class="header">Учитель</div>
@@ -52,30 +51,8 @@
                 {% for student in group.students.all %}
                     <tr onclick="window.location='{% url "student" student.id %}';">
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ student }}</td>
+                        <td>{{ student.first_name }} {{ student.last_name }} {{ student.patronymic }}</td>
                         <td>{{ attendings|index:forloop.counter0 }}%</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-
-    <div class="statistic_block block shadow">
-        <div class="header_block" style="background: #0f857e; padding-left: 30px">
-            Занятия
-        </div>
-        <div class="content_block" style="overflow: auto">
-            <table class="table_students" id="customers">
-                <tr>
-                    <td>№</td>
-                    <td>Дата</td>
-                    <td>Статус</td>
-                </tr>
-                {% for session in group.studysession_set.all %}
-                    <tr onclick="window.location='{% url "session" session.id %}';">
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ session.date }}</td>
-                        <td>{% if session.cancelReason %}Отмененно: {{ session.cancelReason }}{% else %}Проведено{% endif %}</td>
                     </tr>
                 {% endfor %}
             </table>
