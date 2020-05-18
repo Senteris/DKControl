@@ -1,104 +1,56 @@
-<!DOCTYPE html>
-<html lang="ru">
+{% extends 'base.html' %}
+{% load custom_tags %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>IT-Квантум | DKControl</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-</head>
-
-<body>
-
-    <div class="sidebar shadow">
-        <div class="logo">
-            <a href="#"><img src="../static/img/logo.svg" alt="DKControl" id="logo"></a>
+{% block title %} {{ union.name }}{% endblock %}
+{% block header_name %}<p id="header_text">{{ union.name }} | DKControl</p>{% endblock %}
+{% block content %}
+    <div class="kvantums_block block shadow">
+        <div class="header_block">
+            <p>Группы</p>
         </div>
-
-        <input type="text" id="search" placeholder="Поиск">
-
-        <ul class="list">
-            <li><img src="../static/img/students.svg" alt="">Учащиеся</li>
-            <li><img src="../static/img/teacher.svg" alt="">Педагоги</li>
-            <li><img src="../static/img/parents.svg" alt="">Родители</li>
-            <li><img src="../static/img/report.svg" alt="">Отчеты</li>
-        </ul>
-    </div>
-
-    <header>
-        <p id="header_text">Главная / IT-Квантум</p>
-        <div id="avatar">В</div>
-    </header>
-
-    <div class="main">
-
-      <div class="kvantums_block block shadow">
-          <div class="header_block">
-              <p>Группы</p>
-          </div>
-          <div class="wrapper_kvantums">
+        <div class="wrapper_kvantums">
             <div class="kvantums_content_block">
-              <a href="#" class="button_kvantum group_button"  >7Р</a>
-              <a href="#" class="button_kvantum group_button"  >7Р</a>
-              <a href="#" class="button_kvantum group_button"  >7Р</a>
-              <a href="#" class="button_kvantum group_button"  >7Р</a>
-              <a href="#" class="button_kvantum group_button" >Добавить</a>
-            </div>
-          </div>
-
-
-      </div>
-        <div class="students_block block shadow">
-            <div class="header_block">
-                <p>Ближайшие занятия</p>
-            </div>
-            <div class="content_block">
-                <table class="table_students" id="customers">
-                    <tr>
-                        <td>Время</td>
-                        <td>Группа</td>
-                        <td>Преподаватель</td>
-                    </tr>
-                    <tr>
-                        <td>18:20 - 20:00</td>
-                        <td>7Р</td>
-                        <td>Фамилия Имя Отчество</td>
-
-                    </tr>
-                    <tr>
-                      <td>18:20 - 20:00</td>
-                      <td>7Р</td>
-                      <td>Фамилия Имя Отчество</td>
-
-                    </tr>
-                    <tr>
-                      <td>18:20 - 20:00</td>
-                      <td>7Р</td>
-                      <td>Фамилия Имя Отчество</td>
-
-                    </tr>
-
-
-
-                </table>
+                {% for group in union.group_set.all %}
+                    <a href="{% url 'group' group.id %}" class="button_kvantum group_button">{{ group.name }}</a>
+                {% endfor %}
             </div>
         </div>
-
-        <div class="statistic_block block shadow">
-            <div class="header_block">
-                <p>Статистика</p>
-            </div>
-            <div class="content_block">
-
-            </div>
-        </div>
-
-
-
 
     </div>
+    <div class="students_block block shadow">
+        <div class="header_block">
+            <p>Ближайшие занятия</p>
+        </div>
+        <div class="content_block">
+            <table class="table_students" id="customers">
+                <tr>
+                    <td>Время</td>
+                    <td>Группа</td>
+                    <td>Преподаватель</td>
+                </tr>
+                <tr>
+                    <td>18:20 - 20:00</td>
+                    <td>7Р</td>
+                    <td>Фамилия Имя Отчество</td>
 
+                </tr>
+                <tr>
+                    <td>18:20 - 20:00</td>
+                    <td>7Р</td>
+                    <td>Фамилия Имя Отчество</td>
 
+                </tr>
+                <tr>
+                    <td>18:20 - 20:00</td>
+                    <td>7Р</td>
+                    <td>Фамилия Имя Отчество</td>
 
-    <script src="../static/js/script.js"></script>
-</body></html>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats12m/' union_id=union.id label='Статистика посещения, %' %}
+
+{% endblock %}
