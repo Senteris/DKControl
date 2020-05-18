@@ -21,4 +21,4 @@ def main(request):
     periodEnd = startday + relativedelta(months=10)
     attendings = [round(getAttendingStats(startday, periodEnd, None, None, student.id)[0] * 100) for student in students]
     # endregion
-    return render(request, 'main.html', {'students': students, 'attendings': attendings})
+    return render(request, 'main.html', {'students': students, 'attendings': attendings, 'unions': Union.objects.all()})

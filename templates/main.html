@@ -4,6 +4,19 @@
 {% block title %}Главная{% endblock %}
 {% block header_name %}<p id="header_text">Главная</p>{% endblock %}
 {% block content %}
+    <div class="kvantums_block block shadow">
+        <div class="header_block">
+            <p>Квантумы</p>
+        </div>
+        <div class="wrapper_kvantums">
+            <div class="kvantums_content_block">
+                {% for union in unions %}
+                    <a href="{% url 'union' union.id %}" class="button_kvantum"
+                       style="background: #E74C3C;">{{ union.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
     <div class="students_block block shadow">
         <div class="header_block">
@@ -17,11 +30,11 @@
                     <td>Посещаемость</td>
                 </tr>
                 {% for student in students %}
-                <tr onclick="window.location='{% url "student" student.id %}';">
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ student }}</td>
-                    <td>{{ attendings|index:forloop.counter0 }}%</td>
-                </tr>
+                    <tr onclick="window.location='{% url "student" student.id %}';">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ student }}</td>
+                        <td>{{ attendings|index:forloop.counter0 }}%</td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>

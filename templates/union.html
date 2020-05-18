@@ -2,7 +2,13 @@
 {% load custom_tags %}
 
 {% block title %} {{ union.name }}{% endblock %}
-{% block header_name %}<p id="header_text">{{ union.name }} | DKControl</p>{% endblock %}
+{% block header_name %}
+    <div class="ui breadcrumb" style="margin: 0 0 20px 0">
+        <a class="section">Объеденения</a>
+        <div class="divider"> /</div>
+        <div class="active section">{{ union.name }}</div>
+    </div>
+{% endblock %}
 {% block content %}
     <div class="kvantums_block block shadow">
         <div class="header_block">
