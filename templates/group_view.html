@@ -4,9 +4,11 @@
 {% block title %}Группа{% endblock %}
 {% block header_name %}
     <div class="ui breadcrumb" style="margin: 0 0 20px 0">
-        <a class="section">Группы</a>
+        <a class="section">Объеденения</a>
         <div class="divider"> /</div>
-        <a class="section">{{ group.union.name }}</a>
+        <a class="section" href="{% url 'union' group.union.id %}">{{ group.union.name }}</a>
+        <div class="divider"> /</div>
+        <a class="section">Группы</a>
         <div class="divider"> /</div>
         <div class="active section">{{ group.name }}</div>
     </div>
@@ -30,7 +32,7 @@
 
     <div class="students_block block shadow" style="min-width: 800px">
         <div class="header_block">
-            <p>Ученики и учитель</p>
+            <p>Информация</p>
         </div>
         <div class="ui list" style="padding-left: 25px">
             <a class="item" style="color: inherit;"
@@ -39,6 +41,22 @@
                 <div class="content">
                     <div class="header">Учитель</div>
                     <div class="content">{{ group.teacher }}</div>
+                </div>
+            </a>
+            <a class="item" style="color: inherit;"
+               href="{% url 'union' group.union.id %}">
+                <i class="university icon"></i>
+                <div class="content">
+                    <div class="header">Объеденение</div>
+                    <div class="content">{{ group.union }}</div>
+                </div>
+            </a>
+            <a class="item" style="color: inherit;"
+               href="#">
+                <i class="child icon"></i>
+                <div class="content">
+                    <div class="header">Ученики</div>
+                    <div class="content">Список:</div>
                 </div>
             </a>
         </div>
@@ -75,7 +93,8 @@
                     <tr onclick="window.location='{% url "session" session.id %}';">
                         <td>{{ forloop.counter }}</td>
                         <td>{{ session.date }}</td>
-                        <td>{% if session.cancelReason %}Отмененно: {{ session.cancelReason }}{% else %}Проведено{% endif %}</td>
+                        <td>{% if session.cancelReason %}Отмененно: {{ session.cancelReason }}{% else %}
+                            Проведено{% endif %}</td>
                     </tr>
                 {% endfor %}
             </table>
