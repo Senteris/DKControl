@@ -35,9 +35,9 @@ def chartGet(request, chartType):
     if periodEnd is not None: periodEnd = date.strftime(periodEnd, '%Y-%m-%d')
     #endregion
 
-    if chartType == 'attendingStats12m': #one school year*
-        periodsStart = [startday + relativedelta(months=s) for s in range(9)]
-        periodsEnd = [startday + relativedelta(months=s+1) for s in range(9)]
+    if chartType == 'attendingStats12m': # One school year*
+        periodsStart = [startday + relativedelta(months=s) for s in range(9)] #Get dates all month
+        periodsEnd = [startday + relativedelta(months=s+1) for s in range(9)] #Get dates end all month
 
         if user is None: results = [getAttendingStats(periodsStart[i], periodsEnd[i], union, group, student) for i in range(9)]
         else:            results = [getAttendingTeacherStats(periodsStart[i], periodsEnd[i], user) for i in range(9)]

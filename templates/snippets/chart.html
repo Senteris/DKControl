@@ -6,7 +6,12 @@
         <canvas id="{{ id }}"></canvas>
         <script>
             $(document).ready(function () {
-                buildChart({{ id }}, "{{ url }}" {% if student_id %} + "?s=" + {{ student_id }}{% endif %}{% if group_id %} + "?g=" + {{ group_id }}{% endif %}, "{{ label }}")
+                buildChart({{ id }}, "{{ url }}"
+                    {% if student_id %} + "?s=" + {{ student_id }}{% endif %}
+                    {% if group_id %} + "?g=" + {{ group_id }}{% endif %}
+                    {% if union_id %} + "?un=" + {{ union_id }} {% endif %}
+                    {% if user_id %} + "?us=" + {{ user_id }} {% endif %}, "{{ label }}"
+                );
             });
         </script>
     </div>
