@@ -1,6 +1,7 @@
 from django.urls import path
 
 from main.views.chartGet import chartGet
+from main.views.getUnion import getUnion
 from main.views.get_group import get_group
 from main.views.get_parent import get_parent
 from main.views.get_session import get_session
@@ -22,4 +23,5 @@ urlpatterns = [
     path("parents/<int:parent>/", get_parent, name="parent"),
     path("users/<int:user>/", getUser, name="user"),
     path("sessions/<int:session>/", get_session, name="session"),
+    path("unions/<int:union>/", getUnion, name='union')
 ]
