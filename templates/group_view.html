@@ -30,11 +30,11 @@
     </div>
     {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats12m/' group_id=group.id label='Статистика посещения, %' %}
 
-    <div class="students_block block shadow" style="min-width: 800px">
+    <div class="students_block block shadow" style="min-width: 800px;">
         <div class="header_block">
             <p>Информация</p>
         </div>
-        <div class="ui list" style="padding-left: 25px">
+        <div class="ui list" style="padding-left: 25px;">
             <a class="item" style="color: inherit;"
                href="{% if group.teacher %}{% url 'user' group.teacher.id %}{% endif %}">
                 <i class="graduation cap icon"></i>
@@ -60,7 +60,7 @@
                 </div>
             </a>
         </div>
-        <div class="content_block">
+        <div class="content_block" style="overflow: auto; height: 270px">
             <table class="table_students" id="customers">
                 <tr>
                     <td>№</td>
@@ -82,7 +82,7 @@
         <div class="header_block" style="background: #0f857e; padding-left: 30px">
             Занятия
         </div>
-        <div class="content_block" style="overflow: auto">
+        <div class="content_block" style="overflow: auto; height: 270px">
             <table class="table_students" id="customers">
                 <tr>
                     <td>№</td>

@@ -45,9 +45,9 @@
             <a style="color: inherit;" role="button" href="{% url 'search' %}"><li><img src="{% static 'img/report.svg' %}" alt="">Отчеты</li></a>
             <br> <br>
             {% if request.user.is_superuser %}
-                <a style="color: inherit;" role="button" href="/admin/"><li><img src="{% static 'img/report.svg' %}" alt="">Админка</li></a>
+                <a style="color: inherit;" role="button" href="/admin/"><li><img src="{% static 'img/admin.svg' %}" alt="">Управление сайтом</li></a>
             {% endif %}
-            <a style="color: inherit;" role="button" href="{% url 'logout' %}"><li><img src="{% static 'img/report.svg' %}" alt="">Выход</li></a>
+            <a style="color: inherit;" role="button" href="{% url 'logout' %}"><li><img src="{% static 'img/exit.svg' %}" alt="">Выход</li></a>
         </ul>
     </div>
 
