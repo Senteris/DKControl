@@ -56,7 +56,7 @@ class Attending(models.Model):
 
 class Union(models.Model):
     name = models.CharField("Название", max_length=64, default="No name")
-    occupationReason = models.CharField("Причина занятости", max_length=128, null=True, blank=False, default=None)
+    occupationReason = models.CharField("Причина занятости", max_length=128, null=True, blank=True, default=None)
 
     logo = models.ForeignKey("Logo", verbose_name="Лого", blank=True, null=True, on_delete=models.SET_NULL) # TODO Под вопросом
     def __str__(self):
