@@ -27,7 +27,7 @@
                     {% for attending in session.attending_set.all %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ attending.student }}</td>
+                        <td><a href="{% url 'student' attending.student.id %}">{{ attending.student }}</a></td>
                         <td>{% if attending.isAttend %}Присуствовал{% else %}Отсуствовал{% endif %}</td>
                     </tr>
                     {% endfor %}

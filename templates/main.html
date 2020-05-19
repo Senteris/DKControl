@@ -12,7 +12,7 @@
             <div class="kvantums_content_block">
                 {% for union in unions %}
                     <a href="{% url 'union' union.id %}" class="button_kvantum"
-                       style="background: #E74C3C;">{{ union.name }}</a>
+                       style="background: #E74C3C url('/media/{{ union.logo.link }}');">{{ union.name }}</a>
                 {% endfor %}
             </div>
         </div>
