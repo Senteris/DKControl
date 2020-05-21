@@ -8,15 +8,23 @@ function buildChart(id, url, label) {
             let region = data.region;
             let value = data.value;
 
-            var chartdata = {
+            // For attending charts
+            const avValue = value.reduce((a, b) => (a + b)) / value.length;
+            let color;
+            if(avValue >= 75) color = '#2ECC71'
+            else if(avValue <= 50) color = '#e66767'
+            else color = '#FBC02D'
+
+            const chartdata = {
                 labels: region,
                 datasets: [
                     {
                         label: label,
-                        backgroundColor: 'rgba(200, 200, 200, 0.75)',
-                        borderColor: 'rgba(200, 200, 200, 0.75)',
+                        backgroundColor: color,
+                        borderColor: color,
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                        lineTension: 0,                                // Linear interpolation
                         data: value.map(function (x) {
                             return x * 1;
                         })
@@ -24,16 +32,22 @@ function buildChart(id, url, label) {
                 ]
             };
 
-            var ctx = $("#" + id);
+            const ctx = $("#" + id);
 
-            var barGraph = new Chart(ctx, {
-                type: 'bar',
+            const barGraph = new Chart(ctx, {
+                type: 'line',
                 data: chartdata,
                 options: {
                     scales: {
+                        xAxes: [{
+                            ticks: {
+                                display: false,
+                            }
+                        }],
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                max: 100
                             }
                         }]
                     }
