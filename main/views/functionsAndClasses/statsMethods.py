@@ -16,9 +16,13 @@ def getAttendingStats(periodStart, periodEnd, union, group, student):
                           if a.isAttend==True
                           ]
 
-    if len(allAttendings) == 0: allAttendings = 1;
-    else: allAttendings = len(allAttendings)
-    return len(attendedAttendings) / allAttendings, len(attendedAttendings), allAttendings
+    if len(allAttendings) == 0:
+        allAttendings = 1000
+        attendedAttendings = 1
+    else:
+        allAttendings = len(allAttendings)
+        attendedAttendings = len(attendedAttendings)
+    return attendedAttendings / allAttendings, attendedAttendings, allAttendings
 
 def getAttendingTeacherStats(periodStart, periodEnd, user):
     allAttendings = [ss

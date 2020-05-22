@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from main.models import *
-from main.views.functions.statsMethods import getAttendingStats
+from main.views.functionsAndClasses.statsMethods import getAttendingStats
 
 
 @login_required(login_url="/login/")
