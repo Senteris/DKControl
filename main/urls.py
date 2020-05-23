@@ -10,7 +10,9 @@ from main.views.logout import logout
 from main.views.main import main
 from main.views.login import login
 from main.views.getUser import getUser
+from main.views.reports import reports
 from main.views.search import search
+from main.views.set_attending import set_attending
 
 urlpatterns = [
     path("", main, name="main"),
@@ -23,5 +25,7 @@ urlpatterns = [
     path("parents/<int:parent>/", get_parent, name="parent"),
     path("users/<int:user>/", getUser, name="user"),
     path("sessions/<int:session>/", get_session, name="session"),
-    path("unions/<int:union>/", getUnion, name='union')
+    path("attendings/<int:attending>/", set_attending, name="attending"),
+    path("unions/<int:union>/", getUnion, name='union'),
+    path("reports/", reports, name='reports'),
 ]

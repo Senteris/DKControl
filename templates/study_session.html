@@ -13,47 +13,53 @@
     </div>
 {% endblock %}
 {% block content %}
-        <div class="students_block block shadow">
-            <div class="header_block" style="background: #3498DB">
-                <p>Ученики</p>
-            </div>
-            <div class="content_block" style="overflow: auto">
-                <table class="table_students" id="customers">
-                    <tr>
-                        <td>№</td>
-                        <td>ФИО</td>
-                        <td>Инфо</td>
-                    </tr>
-                    {% for attending in session.attending_set.all %}
+    <div class="students_block block shadow">
+        <div class="header_block" style="background: #3498DB">
+            <p>Ученики</p>
+        </div>
+        <div class="content_block" style="overflow: auto; height: 270px; min-width: 700px">
+            <table class="table_students" id="customers">
+                <tr>
+                    <td>№</td>
+                    <td>ФИО</td>
+                    <td>Присуствовал(-а)</td>
+                </tr>
+                {% for attending in session.attending_set.all %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td><a href="{% url 'student' attending.student.id %}">{{ attending.student }}</a></td>
-                        <td>{% if attending.isAttend %}Присуствовал{% else %}Отсуствовал{% endif %}</td>
+                        <td>
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="{{ attending.id }}" value="" class="attending-checkbox" {% if attending.isAttend %}checked{% endif %}>
+                                <label></label>
+                            </div>
+                        </td>
                     </tr>
-                    {% endfor %}
-                </table>
-
-            </div>
+                {% endfor %}
+            </table>
 
         </div>
 
-        <div class="info_block block shadow">
-            <div class="header_block">
-                <p>Инфо</p>
-            </div>
-            <div class="content_block">
-              <div class="info_content">
+    </div>
 
-                <ul class="info_list" id = "info" style="width: 100%;">
-                  <li>Преподаватель - <a href="{% url 'user' session.group.teacher.id %}">{{ session.group.teacher }}</a></li>
+    <div class="info_block block shadow">
+        <div class="header_block">
+            <p>Инфо</p>
+        </div>
+        <div class="content_block">
+            <div class="info_content">
+                <ul class="info_list" id="info" style="width: 100%;">
+                    <li>Преподаватель - <a
+                            href="{% url 'user' session.group.teacher.id %}">{{ session.group.teacher }}</a></li>
 
-                  <li>Дата - {{ session.date.date }}</li>
+                    <li>Дата - {{ session.date.date }}</li>
 
-                  <li>Время - {{ session.date.time }}</li>
+                    <li>Время - {{ session.date.time }}</li>
 
-                  <li>Статус - {% if session.cancelReason %}Отмененно: {{ session.cancelReason }}{% else %}Проведено{% endif %}</li>
+                    <li>Статус - {% if session.cancelReason %}Отмененно: {{ session.cancelReason }}{% else %}
+                        Проведено{% endif %}</li>
                 </ul>
-              </div>
             </div>
         </div>
+    </div>
 {% endblock %}

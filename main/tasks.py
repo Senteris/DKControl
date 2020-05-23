@@ -4,9 +4,9 @@ import pytz
 from django.utils.timezone import now
 import locale
 from DKControl import settings
-from main.models import StudySession, Group
+from main.models import StudySession, Group, Attending
 
-WAIT_SECONDS = 60
+WAIT_SECONDS = 1
 
 locale.setlocale(locale.LC_TIME, "ru_RU")
 user_timezone = pytz.timezone(settings.TIME_ZONE)
@@ -24,6 +24,9 @@ def session_creator():
                     datetime_begin = datetime_begin.replace(hour=timetable_elem.beginTime.hour, minute=timetable_elem.beginTime.minute, second=0)
                     new_session = StudySession(date=datetime_begin, group=group)
                     new_session.save()
+                    for student in group.students.all():
+                        new_attending = Attending(student=student, studySession=new_session)
+                        new_attending.save()
 
                     print(f"[{datetime.now()}] New session {new_session}")
 

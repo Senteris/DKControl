@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{% block title %}Отчёты{% endblock %}
+{% block header_name %}<p id="header_text">Отчёты</p>{% endblock %}
+{% block content %}
+    <div class="kvantums_block block shadow">
+        <div class="header_block">
+            <p>В разработке</p>
+        </div>
+        <form method="get" action="">
+            <!--<div class="wrapper_kvantums">
+                <div class="kvantums_content_block">
+                    <div class="button_kvantum select" value="graph"
+                         style="background: #0ea432">График
+                    </div>
+                    <div class="button_kvantum select" value="table"
+                         style="background: #E74C3C">Таблица
+                    </div>
+                </div>
+                <input type="hidden" name="type" id="select-result">
+            </div>
+            <div style="margin: 20px;">
+                <button type="submit" class="ui primary button">
+                    Создать отчёт
+                </button>
+            </div>
+            -->
+        </form>
+    </div>
+{% endblock %}

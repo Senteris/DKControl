@@ -296,3 +296,7 @@ a{
   background: #FFF;
   color: #000;
 }
+
+.selected {
+    background: #858585 !important;
+}

@@ -29,4 +29,16 @@ $(document).ready(function () {
             .dropdown("set selected", filters.split(','));
         $('#search-button').trigger("click")
     }
+
+    $('.select').click(function () {
+        $('.select').removeClass('selected');
+        $('#select-result').val($(this).attr('value'));
+        $(this).addClass('selected')
+    });
+
+    $('.attending-checkbox').click(function () {
+        let status = "";
+        if ($(this).is(":checked")) status = "True";
+        $.get(`/attendings/${ $(this).attr('name') }/`, {"status": status })
+    })
 });
