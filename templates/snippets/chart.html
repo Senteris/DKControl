@@ -6,11 +6,19 @@
         <canvas id="{{ id }}"></canvas>
         <script>
             $(document).ready(function () {
-                buildChart({{ id }}, "{{ url }}"
-                    {% if student_id %} + "?s=" + {{ student_id }}{% endif %}
-                    {% if group_id %} + "?g=" + {{ group_id }}{% endif %}
-                    {% if union_id %} + "?un=" + {{ union_id }} {% endif %}
-                    {% if user_id %} + "?us=" + {{ user_id }} {% endif %}, "{{ label }}"
+                let searchStr = '';
+                {% if days %}                                         searchStr = "days=" + {{ days }} {% endif %}
+                {% if unit %}       if (searchStr) searchStr += "&"; searchStr += "unit=" +"{{ unit }}" {% endif %}
+                {% if ps %}         if (searchStr) searchStr += "&"; searchStr += "ps="   +"{{ ps }}" {% endif %}
+                {% if pe %}         if (searchStr) searchStr += "&"; searchStr += "pe="   +"{{ pe }}" {% endif %}
+                {% if union_id %}   if (searchStr) searchStr += "&"; searchStr += "un="   + {{ union_id }} {% endif %}
+                {% if group_id %}   if (searchStr) searchStr += "&"; searchStr += "g="    + {{ group_id }}{% endif %}
+                {% if student_id %} if (searchStr) searchStr += "&"; searchStr += "s="    + {{ student_id }}{% endif %}
+                {% if user_id %}    if (searchStr) searchStr += "&"; searchStr += "us="   + {{ user_id }} {% endif %}
+                {% if min %}        if (searchStr) searchStr += "&"; searchStr += "min="  + {{ min }} {% endif %}
+                {% if max %}        if (searchStr) searchStr += "&"; searchStr += "max="  + {{ max }} {% endif %}
+
+                buildChart({{ id }}, "{{ url }}" + "?" + searchStr, "{{ label }}"
                 );
             });
         </script>

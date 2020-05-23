@@ -2,6 +2,9 @@ from datetime import date
 
 
 class RequestedData:
+    #region Vars
+    days = None
+    unit = None
     periodStart = None
     periodEnd = None
     union = None
@@ -10,9 +13,11 @@ class RequestedData:
     user = None
     min = None
     max = None
-
+    #endregion
 
     def __init__(self, request):
+        self.days = request.GET.get('days', 30)
+        self.unit = request.GET.get('unit', 'days')
         periodStart = request.GET.get('ps', None)
         periodEnd = request.GET.get('pe', None)
         union = request.GET.get('un', None)

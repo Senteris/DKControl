@@ -13,7 +13,16 @@ from main.views.functionsAndClasses.statsMethods import *
 def chartGet(request, chartType):
     req = RequestedData(request)
 
-    if chartType == 'attendingStats12m': # One school year*
+
+    if chartType == 'attendingStats' and req.unit == 'days':
+        days, results = getAttending(req, req.days)
+
+        return JsonResponse({
+            "region": [d.day for d in days],
+            "value": [int(round(result*100)) for result in results]
+        })
+
+    if chartType == 'attendingStats' and req.unit == 'months':
         if date.today().month >= 9: editYear = 0
         else: editYear = 1
         startday = date(date.today().year - editYear, 9, 1)
@@ -27,20 +36,4 @@ def chartGet(request, chartType):
         return JsonResponse({
             "region": ["Сентябрь", "Октябрь", "Ноябрь", "Декабрь", "Январь", "Февраль", "Март", "Апрель", "Май"],
             "value": [int(round(result[0]*100)) for result in results]
-        })
-
-    if chartType == 'attendingStats30d':
-        days, results = getAttending(req, 30)
-
-        return JsonResponse({
-            "region": [d.day for d in days],
-            "value": [int(round(result*100)) for result in results]
-        })
-
-    if chartType == 'attendingStats7d':
-        days, results = getAttending(req, 7)
-
-        return JsonResponse({
-            "region": [d.day for d in days],
-            "value": [int(round(result*100)) for result in results]
         })
