@@ -92,7 +92,7 @@
                 {% for session in group.studysession_set.all %}
                     <tr onclick="window.location='{% url "session" session.id %}';">
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ session.date }}</td>
+                        <td>{{ session.date.date }} {{ session.date.time }}</td>
                         <td>{% if session.cancelReason %}Отмененно: {{ session.cancelReason }}{% else %}
                             Проведено{% endif %}</td>
                     </tr>

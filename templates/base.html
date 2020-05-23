@@ -42,7 +42,7 @@
             <a style="color: inherit;" role="button" href="{% url 'search' %}?filters=students"><li><img src="{% static 'img/students.svg' %}" alt="">Учащиеся</li></a>
             <a style="color: inherit;" role="button" href="{% url 'search' %}?filters=teachers"><li><img src="{% static 'img/teacher.svg' %}" alt="">Педагоги</li></a>
             <a style="color: inherit;" role="button" href="{% url 'search' %}?filters=parents"><li><img src="{% static 'img/parents.svg' %}" alt="">Родители</li></a>
-            <a style="color: inherit;" role="button" href="{% url 'search' %}"><li><img src="{% static 'img/report.svg' %}" alt="">Отчеты</li></a>
+            <a style="color: inherit;" role="button" href="{% url 'reports' %}"><li><img src="{% static 'img/report.svg' %}" alt="">Отчеты</li></a>
             <br> <br>
             {% if request.user.is_superuser %}
                 <a style="color: inherit;" role="button" href="/admin/"><li><img src="{% static 'img/admin.svg' %}" alt="">Управление сайтом</li></a>
