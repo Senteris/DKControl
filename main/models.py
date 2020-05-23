@@ -128,7 +128,7 @@ class Student(Profile):
     isDeleted = models.BooleanField('Удалён', default=False, blank=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} {self.patronymic:1}"
+        return f"{self.last_name} {self.first_name} {self.patronymic:1}"
 #endregion
 
 #region Other models
