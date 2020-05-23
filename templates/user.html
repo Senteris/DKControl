@@ -14,7 +14,7 @@
             <p>Информация о пользователе</p>
         </div>
         <div style="padding: 25px">
-            <h3>{{ user.first_name }} {{ user.last_name }} {{ user.patronymic }}</h3>
+            <h3>{{ user }}</h3>
             <div class="ui list">
                 {% if user.groups.get.name == 'Педагог' %}
                 <a class="item">

@@ -103,7 +103,7 @@ class User(AbstractUser, BaseProfile):
     profileIcon = models.ImageField("Фото профиля", upload_to="profileIcon", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} {self.patronymic}"
+        return f"{self.last_name} {self.first_name}  {self.patronymic}"
 
     class Meta:
         permissions = [
