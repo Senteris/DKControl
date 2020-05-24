@@ -95,7 +95,7 @@ def search(request):
             "parents": {
                 "name": "Родители",
                 "results": [
-                    {"title": f"{s.last_name} {s.last_name} {s.patronymic}",
+                    {"title": f"{s.last_name} {s.first_name} {s.patronymic}",
                      "description": f"{', '.join([c.__str__() for c in s.childs.all()])}",
                      "url": f"/parents/{s.id}/",
                      "extend": [{"name": c.__str__(), "url": f"/students/{c.id}/"} for c in s.childs.all()]} for s in parents]
