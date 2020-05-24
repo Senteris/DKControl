@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 
 {% block title %}{{ student }}{% endblock %}
 {% block header_name %}
@@ -34,21 +35,21 @@
                     <i class="calendar alternate icon"></i>
                     <div class="content">
                         <div class="header">Дата рождения</div>
-                        <div class="description">{{ student.birthday }}</div>
+                        <div class="description">{{ student.birthday|check }}</div>
                     </div>
                 </a>
                 <a class="item">
                     <i class="building icon"></i>
                     <div class="content">
                         <div class="header">Школа</div>
-                        <div class="description">№{{ student.school }}</div>
+                        <div class="description">№{{ student.school|check }}</div>
                     </div>
                 </a>
                 <a class="item">
                     <i class="venus mars icon"></i>
                     <div class="content">
                         <div class="header">Пол</div>
-                        <div class="description">{{ student.gender }}</div>
+                        <div class="description">{{ student.gender|check }}</div>
                     </div>
                 </a>
                 <a class="item">
@@ -69,14 +70,14 @@
                    <i class="phone icon"></i>
                     <div class="content">
                         <div class="header">Номер телефона</div>
-                        <div class="description">{{ student.phone }}</div>
+                        <div class="description">{{ student.phone|check }}</div>
                     </div>
                 </a>
                 <a class="item">
                     <i class="building icon"></i>
                     <div class="content">
                         <div class="header">Адрес</div>
-                        <div class="description">{{ student.address }}</div>
+                        <div class="description">{{ student.address|check }}</div>
                     </div>
                 </a>
             </div>
