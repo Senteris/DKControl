@@ -34,4 +34,4 @@ def get_group(request, group):
     attendings = [round(getAttendingStats(startday, periodEnd, None, group.id, student.id)[0] * 100) for i, student in enumerate(group.students.all())]
     # endregion
 
-    return render(request, 'group_view.html', {"group": group, "timetable": timetable, "attendings": attendings})
+    return render(request, 'group.html', {"group": group, "timetable": timetable, "attendings": attendings})
