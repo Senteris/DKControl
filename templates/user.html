@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 
 {% block title %}{{ user }}{% endblock %}
 {% block header_name %}
@@ -21,7 +22,7 @@
                     <i class="building icon"></i>
                     <div class="content">
                         <div class="header">Объединение</div>
-                        <div class="description">{{ user.union }}</div>
+                        <div class="description">{{ user.union|check }}</div>
                     </div>
                 </a>
                 <a class="item">
@@ -43,21 +44,21 @@
                     <i class="venus mars icon"></i>
                     <div class="content">
                         <div class="header">Пол</div>
-                        <div class="description">{{ user.gender }}</div>
+                        <div class="description">{{ user.gender|check }}</div>
                     </div>
                 </a>
                 <a class="item">
                    <i class="phone icon"></i>
                     <div class="content">
                         <div class="header">Номер телефона</div>
-                        <div class="description">{{ user.phone }}</div>
+                        <div class="description">{{ user.phone|check }}</div>
                     </div>
                 </a>
                 <a class="item">
                     <i class="building icon"></i>
                     <div class="content">
                         <div class="header">Адрес</div>
-                        <div class="description">{{ user.address }}</div>
+                        <div class="description">{{ user.address|check }}</div>
                     </div>
                 </a>
             </div>

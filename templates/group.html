@@ -40,7 +40,7 @@
                 <i class="graduation cap icon"></i>
                 <div class="content">
                     <div class="header">Преподаватель</div>
-                    <div class="content">{{ group.teacher }}</div>
+                    <div class="content">{{ group.teacher|check }}</div>
                 </div>
             </a>
             <a class="item" style="color: inherit;"
@@ -48,7 +48,7 @@
                 <i class="university icon"></i>
                 <div class="content">
                     <div class="header">Объеденение</div>
-                    <div class="content">{{ group.union }}</div>
+                    <div class="content">{{ group.union|check }}</div>
                 </div>
             </a>
             <a class="item" style="color: inherit;"
