@@ -28,7 +28,7 @@
             {% endfor %}
         </div>
     </div>
-    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' group_id=group.id label='Статистика посещения, %' %}
+    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' group_id=group.id label='Статистика посещений' %}
 
     <div class="students_block block shadow" style="min-width: 800px;">
         <div class="header_block">
@@ -39,7 +39,7 @@
                href="{% if group.teacher %}{% url 'user' group.teacher.id %}{% endif %}">
                 <i class="graduation cap icon"></i>
                 <div class="content">
-                    <div class="header">Учитель</div>
+                    <div class="header">Преподаватель</div>
                     <div class="content">{{ group.teacher }}</div>
                 </div>
             </a>

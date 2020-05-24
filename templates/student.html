@@ -5,7 +5,7 @@
     <div class="ui breadcrumb" style="margin: 0 0 20px 0">
         <a class="section">Ученики</a>
         <div class="divider"> /</div>
-        <div class="active section">{{ student.first_name }} {{ student.last_name }}</div>
+        <div class="active section">{{ student.last_name }} {{ student.first_name }}</div>
     </div>
 {% endblock %}
 {% block content %}
@@ -14,7 +14,7 @@
             <p>Информация о ученике</p>
         </div>
         <div style="padding: 25px">
-            <h3>{{ student.first_name }} {{ student.last_name }} {{ student.patronymic }}</h3>
+            <h3>{{ student.last_name }} {{ student.first_name }} {{ student.patronymic }}</h3>
             <div class="ui list">
                 <a class="item">
                     <i class="graduation cap icon"></i>
@@ -82,5 +82,5 @@
             </div>
         </div>
     </div>
-    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' student_id=student.id unit='months' label='Статистика посещения, %' %}
+    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' student_id=student.id unit='months' label='Статистика посещений' %}
 {% endblock %}

@@ -28,11 +28,11 @@ def search(request):
     else:
         query = query.split()
 
-        students = Student.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')) \
+        students = Student.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic')) \
             .filter(Q(isDeleted=False))
-        teachers = User.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic')) \
+        teachers = User.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic')) \
             .filter(Q(groups__name='Педагог'))
-        parents = Parent.objects.annotate(full_name=Concat('first_name', V(' '), 'last_name', V(' '), 'patronymic'))
+        parents = Parent.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic'))
 
         groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'))
         study_sessions = StudySession.objects.all()
@@ -79,15 +79,15 @@ def search(request):
         return JsonResponse({"results": {
             "students": {
                 "name": "Ученики",
-                "results": [{"title": f"{s.first_name} {s.last_name} {s.patronymic}",
+                "results": [{"title": f"{s.last_name} {s.first_name} {s.patronymic}",
                              "description": f"{', '.join([g.__str__() for g in s.groups.all()])}",
                              "url": f"/students/{s.id}/",
                              "extend": [{"name": g.__str__(), "url": f"/groups/{g.id}/"} for g in s.groups.all()]} for s in students],
             },
             "teachers": {
-                "name": "Учителя",
+                "name": "Педагоги",
                 "results": [
-                    {"title": f"{s.first_name} {s.last_name} {s.patronymic}",
+                    {"title": f"{s.last_name} {s.first_name} {s.patronymic}",
                      "description": f"{', '.join([g.__str__() for g in s.group_set.all()])}",
                      "url": f"/users/{s.id}/",
                      "extend": [{"name": g.__str__(), "url": f"/groups/{g.id}/"} for g in s.group_set.all()]} for s in teachers]
@@ -95,7 +95,7 @@ def search(request):
             "parents": {
                 "name": "Родители",
                 "results": [
-                    {"title": f"{s.first_name} {s.last_name} {s.patronymic}",
+                    {"title": f"{s.last_name} {s.last_name} {s.patronymic}",
                      "description": f"{', '.join([c.__str__() for c in s.childs.all()])}",
                      "url": f"/parents/{s.id}/",
                      "extend": [{"name": c.__str__(), "url": f"/students/{c.id}/"} for c in s.childs.all()]} for s in parents]
