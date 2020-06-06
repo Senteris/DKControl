@@ -17,8 +17,10 @@ def session_creator():
     for group in Group.objects.all():
         for timetable_elem in group.timetableelem_set.all():
             if datetime.now().strftime("%a").upper() == timetable_elem.day:
+                if timetable_elem.beginTime >= datetime.now().time():
+                    continue
                 if not [None for session in group.studysession_set.all()
-                        if session.date.strftime("%a").upper() == timetable_elem.day and session.date.date() == now().date() and session.date.time() < datetime.now().time()]:
+                        if session.date.strftime("%a").upper() == timetable_elem.day and session.date.date() == now().date() and session.date.time() > datetime.now().time()]:
 
                     datetime_begin = now()
                     datetime_begin = datetime_begin.replace(hour=timetable_elem.beginTime.hour, minute=timetable_elem.beginTime.minute, second=0)

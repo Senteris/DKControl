@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +55,7 @@
 
     <header style="padding-top: 20px">
         {% block header_name %}<p id="header_text">Главная</p>{% endblock %}
-        <a id="avatar" style="margin-top: -20px" href="{% url 'user' request.user.id %}"><div>В</div></a>
+        <a id="avatar" style="margin-top: -20px; background: {{ request.user.last_name|color }}" href="{% url 'user' request.user.id %}"><div>{{ request.user.last_name|index:0 }}</div></a>
     </header>
 {% endblock %}
 <div class="{% block class-global-div %}main{% endblock %}">
