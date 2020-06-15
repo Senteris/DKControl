@@ -10,4 +10,4 @@ class MainConfig(AppConfig):
         if 'runserver' not in sys.argv:  # TODO возможно не запуститься через wsgi
             return True
         from main import tasks
-        tasks.session_creator()
+        #tasks.session_creator()

@@ -4,13 +4,15 @@ from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from main.models import *
+from main.models import Group
 from main.views.functionsAndClasses.statsMethods import getAttendingStats
+from main.views.functionsAndClasses.setModel import setModel
 
 
 @login_required(login_url="/login/")
 def get_group(request, group):
     group = Group.objects.get(id=group)
+    setModel(group, request)
     timetable = {
         "ПН": {},
         "ВТ": {},
