@@ -39,6 +39,41 @@ $(document).ready(function () {
     $('.attending-checkbox').click(function () {
         let status = "";
         if ($(this).is(":checked")) status = "True";
-        $.get(`/attendings/${ $(this).attr('name') }/`, {"status": status })
+        $.get(`/attendings/${$(this).attr('name')}/`, {"status": status})
+    })
+
+    $('.edit.button').click(function () {
+        $('.edit.button').replaceWith($('#save-edit').html())
+        let items = $('.basic-info-block .item')
+        for (let i = 0; i < items.length; i++) {
+            let content = $(items[i]).children('.content.edit')
+            let description = content.children('.description')
+            if (content.hasClass('string')) {
+                let value = description.text()
+                description.html($('#string-edit-input').html());
+                description.children().children('input').val(value)
+                description.children().children('input').attr('name', content.attr('data-name'))
+            } else if (content.hasClass('fio')) {
+                let value = description.text()
+                description.html($('#fio-edit-input').html());
+                description.children().children('input').val(value)
+                description.children().children('input').attr('name', 'fio')
+            } else if (content.hasClass('date')) {
+                let value = description.attr('data-date')
+                description.html($('#date-edit-input').html());
+                description.children().children('input').val(value)
+                description.children().children('input').attr('name', content.attr('data-name'))
+            } else if (content.hasClass('select')) {
+                let value = description.attr('data-options').split(',')
+                let selected = description.text()
+                description.html($('#select-edit-input').html());
+                for (let i2 in value) {
+                    let option = $('<option></option>').val(value[i2]).text(value[i2]);
+                    if (value[i2] === selected) option.attr('selected', '')
+                    description.children().children('select').append(option)
+                }
+                description.children().children('select').attr('name', content.attr('data-name'))
+            }
+        }
     })
 });
