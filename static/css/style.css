@@ -316,7 +316,7 @@ a{
     display: block;
     width: 60px;
     font-size: 18px;
-    color: inherit;
+    color: #666666;
     text-align: center;
 }
 
@@ -324,4 +324,10 @@ a{
     margin-right: auto;
     color: inherit;
     width: 220px;
+}
+
+.edit_buttons_div {
+    margin-right: 10px !important;
+    margin-left: auto !important;
+    display: block !important;
 }

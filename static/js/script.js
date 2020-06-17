@@ -29,6 +29,7 @@ $(document).ready(function () {
             .dropdown("set selected", filters.split(','));
         $('#search-button').trigger("click")
     }
+    if(urlParams.get('edit')) $('.edit.button').trigger("click")
 
     $('.select').click(function () {
         $('.select').removeClass('selected');
@@ -43,7 +44,7 @@ $(document).ready(function () {
     })
 
     $('.edit.button').click(function () {
-        $('.edit.button').replaceWith($('#save-edit').html())
+        $('.edit.button').replaceWith($('#edit-buttons').html())
         let items = $('.basic-info-block .item')
         for (let i = 0; i < items.length; i++) {
             let content = $(items[i]).children('.content.edit')

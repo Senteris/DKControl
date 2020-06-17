@@ -45,19 +45,19 @@
                 <a class="button_left_panel" role="button" href="{% url 'search' %}?filters=students">
                     <img src="{% static 'img/students.svg' %}" alt="">Учащиеся
                 </a>
-                <a class="add_button_left_panel" role="button" href='newstudent'>+</a>
+                <a class="add_button_left_panel" role="button" href='/new/student/'>+</a>
             </li>
             <li>
                 <a class="button_left_panel" role="button" href="{% url 'search' %}?filters=teachers">
                     <img src="{% static 'img/teacher.svg' %}" alt="">Педагоги
                 </a>
-                <a class="add_button_left_panel" role="button" href='newteacher'>+</a>
+                <a class="add_button_left_panel" role="button" href='/new/teacher/'>+</a>
             </li>
             <li>
                 <a class="button_left_panel" role="button" href="{% url 'search' %}?filters=parents">
                     <img src="{% static 'img/parents.svg' %}" alt="">Родители
                 </a>
-                <a class="add_button_left_panel" role="button" href='newparent'>+</a>
+                <a class="add_button_left_panel" role="button" href='/new/parent/'>+</a>
             </li>
             <a class="button_left_panel" role="button" href="{% url 'reports' %}">
                 <li><img src="{% static 'img/report.svg' %}" alt="">Отчеты</li>
@@ -107,10 +107,15 @@
             </select>
         </div>
     </template>
-    <template id="save-edit">
-        <button type="submit" class="ui green icon small button edit">
-            <i class="check icon"></i>
-        </button>
+    <template id="edit-buttons">
+        <div class="ui icon buttons edit_buttons_div">
+            <a href="delete" class="ui red button ">
+                <i class="trash icon"></i>
+            </a>
+            <button type="submit" class="ui green button ">
+                <i class="check icon"></i>
+            </button>
+        </div>
     </template>
 </div>
 </body>
