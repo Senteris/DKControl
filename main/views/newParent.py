@@ -1,11 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from main.models import User
-from main.views.functionsAndClasses.setModel import setModel
+from django.shortcuts import redirect
+from main.models import Parent
 
 
 @login_required(login_url="/login/")
-def newParent(request, parent):
-    user = User.objects.get(id=parent)
-    setModel(user, request)
-    return render(request, 'user.html', {"user": user})
+def newParent(request):
+    parent = Parent()
+    parent.save()
+    redirect('/parent/' + str(parent.id) + "?edit=True")
