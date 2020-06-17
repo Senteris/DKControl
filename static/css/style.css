@@ -311,3 +311,17 @@ a{
     margin-left: auto !important;
     display: block !important;
 }
+
+.add_button_left_panel{
+    display: block;
+    width: 60px;
+    font-size: 18px;
+    color: inherit;
+    text-align: center;
+}
+
+.button_left_panel{
+    margin-right: auto;
+    color: inherit;
+    width: 220px;
+}
