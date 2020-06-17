@@ -4,7 +4,7 @@ from django.db import models
 
 #region Abstract
 class BaseProfile(models.Model):
-    patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True)
+    patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True , default="Иванович")
     birthday = models.DateField('Дата рождения', null=True, blank=True)
 
     GENDER_CHOICES = (
@@ -20,8 +20,8 @@ class BaseProfile(models.Model):
         abstract = True
 
 class Profile(BaseProfile):
-    first_name = models.CharField("Имя", max_length=16)
-    last_name = models.CharField("Фамилия", max_length=16)
+    first_name = models.CharField("Имя", max_length=16, default="Иван")
+    last_name = models.CharField("Фамилия", max_length=16, default="Иванов")
 
     class Meta:
         abstract = True
