@@ -13,6 +13,9 @@ from main.views.getUser import getUser
 from main.views.newParent import newParent
 from main.views.newStudent import newStudent
 from main.views.newUser import newUser
+from main.views.removeParent import removeParent
+from main.views.removeStudent import removeStudent
+from main.views.removeUser import removeUser
 from main.views.reports import reports
 from main.views.search import search
 from main.views.set_attending import set_attending
@@ -31,7 +34,10 @@ urlpatterns = [
     path("attendings/<int:attending>/", set_attending, name="attending"),
     path("unions/<int:union>/", getUnion, name='union'),
     path("reports/", reports, name='reports'),
-    path("newstudent/", newStudent, name="newstudent"),
-    path("newteacher/", newUser, name="newuser"),
-    path("newparent/", newParent, name="newparent"),
+    path("new/student/", newStudent, name="newStudent"),
+    path("new/teacher/", newUser, name="newUser"),
+    path("new/parent/", newParent, name="newParent"),
+    path("students/<int:student>/remove/", removeStudent, name="removeStudent"),
+    path("parents/<int:parent>/remove/", removeParent, name="removeParent"),
+    path("users/<int:user>/remove/", removeUser, name="removeUser"),
 ]
