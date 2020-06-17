@@ -6,9 +6,8 @@ import locale
 from DKControl import settings
 from main.models import StudySession, Group, Attending
 
-WAIT_SECONDS = 1
+WAIT_SECONDS = 60
 
-locale.setlocale(locale.LC_TIME, "ru_RU")
 user_timezone = pytz.timezone(settings.TIME_ZONE)
 now().astimezone(user_timezone)
 
