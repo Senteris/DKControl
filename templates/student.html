@@ -19,7 +19,7 @@
                 </button>
             </div>
             <div style="padding: 25px" class="content-block">
-                <input id="inCreatedAt" type="hidden" value="{{ student.createdAt }}">
+                <input id="inCreatedAt" type="hidden" value="{{ student.createdAt.isoformat }}">
                 <h3 class="item">
                     <div class="content edit fio">
                         <div class="description">{{ student.last_name }} {{ student.first_name }} {{ student.patronymic }}</div>

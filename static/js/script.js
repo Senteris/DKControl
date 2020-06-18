@@ -80,9 +80,11 @@ $(document).ready(function () {
         }
 
         $('#bremove').click(function () {
-        const createdAt = $('#inCreatedAt').val()
-        if(createdAt > Date(Date.now() - 604800000)) // You can delete a person within 7 days.
-            swal({
+            const createdAt = new Date($('#inCreatedAt').val());
+            let date7DAgo = new Date();
+            date7DAgo.setDate(date7DAgo.getDate()-7);
+            if(createdAt > date7DAgo) // You can delete a person within 7 days.
+                swal({
                     title: "Вы уверены?",
                     text: "Вы больше не сможете вернуть эти данные!",
                     type: "warning",
@@ -95,9 +97,10 @@ $(document).ready(function () {
                 },
                 function () {
                     swal("Удалено!", "Вы успешно удалили данные о человеке.", "success");
-            });
-        else
-            swal({
+
+                });
+            else
+                swal({
                     title: "Вы уверены?",
                     text: "Данные отправятся в архив!",
                     type: "warning",
@@ -108,6 +111,6 @@ $(document).ready(function () {
                     confirmButtonText: "Да, архивировать это!",
                     closeOnConfirm: false
                 });
-    })
+        })
     })
 });
