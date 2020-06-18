@@ -16,6 +16,8 @@ class BaseProfile(models.Model):
     address = models.CharField('Адрес', max_length=128, null=True, blank=True)
     phone = models.IntegerField('Телефон', null=True, blank=True)
 
+    isArchived = models.BooleanField('В архиве', default=False, blank=True)
+
     class Meta:
         abstract = True
 
@@ -125,8 +127,6 @@ class Student(Profile):
     grade = models.CharField('Класс', max_length=3, blank=True, null=True)
     groups = models.ManyToManyField(Group, related_name="students", verbose_name="Ученики", blank=True)
     parents = models.ManyToManyField(Parent, related_name="childs", verbose_name="Родители", blank=True)
-
-    isDeleted = models.BooleanField('Удалён', default=False, blank=True)
 
     def __str__(self):
         return f"{self.last_name} {self.first_name} {self.patronymic:1}"
