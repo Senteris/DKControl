@@ -7,4 +7,4 @@ from main.models import User
 def removeParent(request, parent):
     parent = User.objects.get(id=parent)
     parent.delete()
-    return redirect('main')
+    return redirect('/?operation=success')

@@ -7,4 +7,4 @@ from main.models import Student
 def removeStudent(request, student):
     student = Student.objects.get(id=student)
     student.delete()
-    return redirect('main')
+    return redirect('/?operation=success')

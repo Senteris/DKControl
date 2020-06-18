@@ -31,6 +31,7 @@ $(document).ready(function () {
         $('#search-button').trigger("click")
     }
     if (urlParams.get('edit')) $('.edit.button').trigger("click")
+    if (urlParams.get('operation') == "success") swal("Выполнено!", "Операция успешно выполнена!.", "success");
 
     $('.select').click(function () {
         $('.select').removeClass('selected');
@@ -96,8 +97,7 @@ $(document).ready(function () {
                     closeOnConfirm: false
                 },
                 function () {
-                    swal("Удалено!", "Вы успешно удалили данные о человеке.", "success");
-
+                    document.location.href = document.location.href + "remove/";
                 });
             else
                 swal({
@@ -110,6 +110,9 @@ $(document).ready(function () {
                     confirmButtonClass: "btn-warning",
                     confirmButtonText: "Да, архивировать это!",
                     closeOnConfirm: false
+                },
+                function () {
+                    document.location.href = document.location.href + "archive/";
                 });
         })
     })
