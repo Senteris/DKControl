@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'lib/css/semantic.min.css' %}">
     <link rel="stylesheet" href="{% static 'lib/css/icon.min.css' %}">
     <link rel="stylesheet" href="{% static 'lib/css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/css/sweetalert.min.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="{% static 'lib/js/bootstrap.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/search.js' %}"></script>
@@ -21,6 +22,8 @@
     <script src="{% static 'lib/js/Chart.min.js' %}"></script>
     <script src="{% static 'lib/js/semantic.min.js' %}"></script>
     <script src="{% static 'lib/js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'lib/js/sweetalert.min.js' %}"></script>
+    <script src="{% static 'lib/js/sweetalert-bs.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -109,9 +112,9 @@
     </template>
     <template id="edit-buttons">
         <div class="ui icon buttons edit_buttons_div">
-            <a href="remove" class="ui red button ">
+            <button type="button" id="bremove" class="ui red button ">
                 <i class="trash icon"></i>
-            </a>
+            </button>
             <button type="submit" class="ui green button ">
                 <i class="check icon"></i>
             </button>

@@ -22,6 +22,7 @@ class BaseProfile(models.Model):
 class Profile(BaseProfile):
     first_name = models.CharField("Имя", max_length=16, default="Иван")
     last_name = models.CharField("Фамилия", max_length=16, default="Иванов")
+    createdAt = models.DateField(auto_now_add=True, blank=True)
 
     class Meta:
         abstract = True

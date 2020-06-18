@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
 
@@ -29,7 +30,7 @@ $(document).ready(function () {
             .dropdown("set selected", filters.split(','));
         $('#search-button').trigger("click")
     }
-    if(urlParams.get('edit')) $('.edit.button').trigger("click")
+    if (urlParams.get('edit')) $('.edit.button').trigger("click")
 
     $('.select').click(function () {
         $('.select').removeClass('selected');
@@ -77,5 +78,36 @@ $(document).ready(function () {
                 description.children().children('select').attr('name', content.attr('data-name'))
             }
         }
+
+        $('#bremove').click(function () {
+        const createdAt = $('#inCreatedAt').val()
+        if(createdAt > Date(Date.now() - 604800000)) // You can delete a person within 7 days.
+            swal({
+                    title: "Вы уверены?",
+                    text: "Вы больше не сможете вернуть эти данные!",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Отмена",
+                    cancelButtonClass: "btn-light",
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Да, удалить это!",
+                    closeOnConfirm: false
+                },
+                function () {
+                    swal("Удалено!", "Вы успешно удалили данные о человеке.", "success");
+            });
+        else
+            swal({
+                    title: "Вы уверены?",
+                    text: "Данные отправятся в архив!",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Отмена",
+                    cancelButtonClass: "btn-light",
+                    confirmButtonClass: "btn-warning",
+                    confirmButtonText: "Да, архивировать это!",
+                    closeOnConfirm: false
+                });
+    })
     })
 });
