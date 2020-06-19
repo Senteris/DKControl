@@ -29,9 +29,9 @@ def search(request):
         query = query.split()
 
         students = Student.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic')) \
-            .filter(Q(isDeleted=False))
+            .filter(Q(isArchived=False))
         teachers = User.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic')) \
-            .filter(Q(groups__name='Педагог'))
+            .filter(Q(groups__name='Педагог', isArchived=False))
         parents = Parent.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic'))
 
         groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'))
