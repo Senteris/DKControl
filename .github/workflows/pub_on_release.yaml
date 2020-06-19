@@ -1,0 +1,15 @@
+name:
+
+on:
+  release:
+    types: [published]
+  # Запуск только при публиковании нового релиза
+
+jobs:
+  deploy:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Set tag to env
+        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:11})
+      - name: Send webhook for deploy
+        run: "curl --silent --show-error --fail -X POST ${{ secrets.DEPLOYMENT_SERVER }} -H 'Authorization: ${{ secrets.DEPLOYMENT_TOKEN }}' -H 'Content-Type: application/json' -d '{\"tag\": \"${{ env.RELEASE_VERSION }}\""
