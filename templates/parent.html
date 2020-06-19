@@ -19,6 +19,8 @@
                 </button>
             </div>
             <div style="padding: 25px">
+                <input type="checkbox" id="inIsArchived" style="display: none" value="{{ parent.isArchived }}">
+                <input id="inCreatedAt" type="hidden" value="{{ parent.createdAt.isoformat }}">
                 <h3>{{ parent }}</h3>
                 <div class="ui list">
                     <a class="item">
