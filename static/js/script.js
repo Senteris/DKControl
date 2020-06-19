@@ -84,7 +84,10 @@ $(document).ready(function () {
             const createdAt = new Date($('#inCreatedAt').val());
             let date7DAgo = new Date();
             date7DAgo.setDate(date7DAgo.getDate()-7);
-            if(createdAt > date7DAgo) // You can delete a person within 7 days.
+            let isArchived = false;
+            if($('#inIsArchived').val() == "True") isArchived = true;
+
+            if(createdAt > date7DAgo || isArchived) // You can delete a person within 7 days.
                 swal({
                     title: "Вы уверены?",
                     text: "Вы больше не сможете вернуть эти данные!",
