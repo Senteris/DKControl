@@ -2,6 +2,7 @@ from django.urls import path
 
 from main.views.archiveParent import archiveParent
 from main.views.archiveStudent import archiveStudent
+from main.views.api.deploy import deploy
 from main.views.chartGet import chartGet
 from main.views.getUnion import getUnion
 from main.views.get_group import get_group
@@ -40,4 +41,5 @@ urlpatterns = [
     path("parents/<int:parent>/remove/", removeParent, name="removeParent"),
     path("students/<int:student>/archive/", archiveStudent, name="archiveStudent"),
     path("parents/<int:parent>/archive/", archiveParent, name="archiveParent"),
+    path("api/deploy/", deploy, name="deploy"),
 ]
