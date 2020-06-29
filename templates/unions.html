@@ -6,7 +6,7 @@
 {% block content %}
     <div class="kvantums_block block shadow">
         <div class="header_block">
-            <p>Квантумы</p>
+            <h3>Квантумы</h3>
         </div>
         <div class="wrapper_kvantums">
             <div class="kvantums_content_block">
@@ -20,7 +20,7 @@
 
     <div class="basic-info-block block shadow">
         <div class="header_block">
-            <p>Ученики</p>
+            <h3>Ученики</h3>
         </div>
         <div class="content_block" style="overflow: auto; height: 270px">
             <table class="table_students" id="customers">
@@ -30,7 +30,7 @@
                     <td>Посещаемость</td>
                 </tr>
                 {% for student in students %}
-                    <tr onclick="window.location='{% url "student" student.id %}';">
+                    <tr onclick="window.location='{% url "student" student.id %}';" style="cursor: pointer">
                         <td>{{ forloop.counter }}</td>
                         <td>{{ student }}</td>
                         <td>{{ attendings|index:forloop.counter0 }}%</td>
@@ -39,5 +39,5 @@
             </table>
         </div>
     </div>
-    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' unit="months" label='Статистика посещений' %}
+    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' unit="months" label='Статистика посещений' name='Статистика посещения по Кванториуму'%}
 {% endblock %}
