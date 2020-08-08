@@ -8,7 +8,6 @@
 {% load static %}
 
 {% block content %}
-    <link href="{% static 'css/reglo.css' %}" rel="stylesheet">
     <div class="reglo">
         <br><br>
         <img src="{% static 'img/dkcontrol.svg' %}" width="220" class="d-inline-block align-top" alt="">
@@ -26,12 +25,10 @@
                 <label>
                     <input class="form-control btn-lg" type="text" name="username" placeholder="Логин"/>
                 </label>
-                <br>
                 <label>
                     <input class="form-control btn-lg" type="password" name="password" placeholder="Пароль"/>
                 </label>
-                <br>
-                <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin: 10px; width: 97%">Войти</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin: 10px;">Войти</button>
                 {# <a class="btn btn-secondary btn active" aria-pressed="true" role="button" href="/signUp/">Регистрация</a> #}
             </span>
         </form>
