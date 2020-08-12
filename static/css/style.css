@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 350px;
 }
 
 .reglo H5 {
@@ -21,9 +22,18 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.reglo .brd * {
-    margin: 5px;
+.reglo > img {
+    margin-bottom: 24px;
 }
 
+.reglo span {
+    grid-template-rows: 32px;
+    grid-row-gap: 8px;
+}
+
+.reglo span > * {
+    width: 100%;
+    height: 100%;
+}
 
 /*#endregion*/

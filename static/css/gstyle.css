@@ -14,3 +14,13 @@ header {
     padding: 0 0 0 10px;
     margin-left: 230px;
 }
+
+.center {
+    display: grid;
+    min-width: 100%;
+    min-height: 100vh;
+}
+.center > * {
+    align-self: center;
+    justify-self: center;
+}
