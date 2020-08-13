@@ -36,7 +36,7 @@
 {% block header %}
     <div class="sidebar shadow">
         <div class="logo">
-            <a href="{% url 'main' %}"><img src="{% static 'img/dkcontrol.svg' %}" alt="DKControl" id="logo"></a>
+            <a href="{% url 'main' %}"></a>
         </div>
 
         <div class="ui category search" id="search-div" style="margin-left: 15px; margin-top: 40px;">
@@ -47,7 +47,7 @@
             <div class="results" style="position: absolute"></div>
         </div>
 
-        <ul class="list" style="margin-top: 10px">
+        <ul class="sidebar_buttons">
             <li>
                 <a class="button_left_panel" role="button" href="{% url 'search' %}?filters=students">
                     <img src="{% static 'img/students.svg' %}" alt="">Учащиеся
