@@ -1,0 +1,39 @@
+$themes: (
+  'white': (
+    'primary': black,
+    'secondary': #F9F9F9
+  ),
+  'dark': (
+    'primary': white,
+    'secondary': #101010
+  )
+) !default;
+
+
+// Инициализируем наши переменные как `null`, таким образом,
+// при использовании вне `themify`, они ничего не выведут.
+$color-primary: null;
+$color-secondary: null;
+
+/// Миксин Themify
+/// @author Hugo Giraudel
+/// @param {Map} $themes [$themes] - ассоциативный массив с темами
+@mixin themify($themes: $themes) {
+  // Проход по темам
+  @each $theme, $colors in $themes {
+    // Создание селектора (типа `.media.theme-unicorn, .theme-unicorn .media`)
+    &.theme_#{$theme},
+    .theme_#{$theme} & {
+      // Задание переменных темы как глобальных с `!global`
+      $color-primary: map-get($colors, 'primary') !global;
+      $color-secondary: map-get($colors, 'secondary') !global;
+
+      // Вывод пользовательского контента
+      @content;
+
+      // Глобальное отключение переменных темы с  `!global`
+      $color-primary: null !global;
+      $color-secondary: null !global;
+    }
+  }
+}
