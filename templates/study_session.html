@@ -2,10 +2,14 @@
 
 {% block title %}Занятие{% endblock %}
 {% block header_name %}
-    <div class="ui breadcrumb" style="margin: 0 0 20px 0">
-        <a class="section">Группы</a>
+    <div class="ui breadcrumb" style="margin: 0 0 20px 20px">
+        <a class="section" href="{% url 'main'%}">Объеденения</a>
         <div class="divider"> /</div>
-        <a class="section" href="{% url 'group' session.group.id %}">{{ session.group }}</a>
+        <a class="section" href="{% url 'union' session.group.union.id %}">{{ session.group.union.name }}</a>
+        <div class="divider"> /</div>
+        <a class="section" href="{% url 'union' session.group.union.id %}">Группы</a>
+        <div class="divider"> /</div>
+        <a class="section">{{ session.group.name }}</a>
         <div class="divider"> /</div>
         <a class="section">Занятия</a>
         <div class="divider"> /</div>
@@ -15,7 +19,7 @@
 {% block content %}
     <div class="basic-info-block block shadow">
         <div class="header_block" style="background: #3498DB">
-            <p>Ученики</p>
+            <h3>Ученики</h3>
         </div>
         <div class="content_block" style="overflow: auto; height: 270px; min-width: 700px">
             <table class="table_students" id="customers">
@@ -44,7 +48,7 @@
 
     <div class="info_block block shadow">
         <div class="header_block">
-            <p>Инфо</p>
+            <h3>Инфо</h3>
         </div>
         <div class="content_block">
             <div class="info_content">

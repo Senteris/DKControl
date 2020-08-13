@@ -3,8 +3,8 @@
 
 {% block title %}{{ student }}{% endblock %}
 {% block header_name %}
-    <div class="ui breadcrumb" style="margin: 0 0 20px 0">
-        <a class="section">Ученики</a>
+    <div class="ui breadcrumb" style="margin: 0 0 20px 20px">
+        <a class="section" href="{% url 'search' %}">Ученики</a>
         <div class="divider"> /</div>
         <div class="active section">{{ student.first_name }} {{ student.last_name }}</div>
     </div>
@@ -13,13 +13,13 @@
     <div class="basic-info-block block shadow" style="height: 510px">
         <form method="get">
             <div class="header_block editable">
-                <p>Информация о ученике</p>
+                <h3>Информация о ученике</h3>
                 <button class="ui icon basic inverted small button edit">
                     <i class="edit icon"></i>
                 </button>
             </div>
             <div style="padding: 25px" class="content-block">
-            <input type="checkbox" id="inIsArchived" style="display: none" value="{{ student.isArchived }}">
+                <input type="checkbox" id="inIsArchived" style="display: none" value="{{ student.isArchived }}">
                 <input id="inCreatedAt" type="hidden" value="{{ student.createdAt.isoformat }}">
                 <h3 class="item">
                     <div class="content edit fio">
