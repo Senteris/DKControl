@@ -20,12 +20,14 @@ from main.views.removeStudent import removeStudent
 from main.views.reports import reports
 from main.views.search import search
 from main.views.set_attending import set_attending
+from main.views.theme import theme
 
 urlpatterns = [
     path("", main, name="main"),
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
     path("search/", search, name="search"),
+    path("theme/", theme, name="theme"),
     path("chart/<str:chartType>/", chartGet, name="chart"),
     path("students/<int:student>/", get_student, name="student"),
     path("groups/<int:group>/", get_group, name="group"),

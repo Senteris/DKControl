@@ -22,6 +22,12 @@ $(document).ready(function () {
         minCharacters: 0
     });
 
+    $('#theme_switch').click(function () {
+        $('body').toggleClass('theme_light');
+        $('body').toggleClass('theme_dark');
+        $.get('/theme/?theme=' + $('body').attr('class'))
+    })
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const filters = urlParams.get('filters');

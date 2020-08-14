@@ -2,9 +2,10 @@ import datetime as dt
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-#region Abstract
+
+# region Abstract
 class BaseProfile(models.Model):
-    patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True , default="Иванович")
+    patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True, default="Иванович")
     birthday = models.DateField('Дата рождения', null=True, blank=True)
 
     GENDER_CHOICES = (
@@ -21,6 +22,7 @@ class BaseProfile(models.Model):
     class Meta:
         abstract = True
 
+
 class Profile(BaseProfile):
     first_name = models.CharField("Имя", max_length=16, default="Иван")
     last_name = models.CharField("Фамилия", max_length=16, default="Иванов")
@@ -29,16 +31,17 @@ class Profile(BaseProfile):
     class Meta:
         abstract = True
 
-#endregion
 
-#region Models
+# endregion
+
+# region Models
 class Note(models.Model):
     student = models.ForeignKey("Student", verbose_name="Студент", on_delete=models.CASCADE)
     user = models.ForeignKey("User", verbose_name="Пользователь", on_delete=models.CASCADE)
     text = models.TextField("Текст")
 
 
-class StudySession(models.Model): # Class Class x
+class StudySession(models.Model):  # Class Class x
     date = models.DateTimeField("Дата и время начала")
     group = models.ForeignKey("Group", verbose_name="Группа", on_delete=models.CASCADE)
     teacherAttended = models.BooleanField("Педагог был на занятии", default=True, blank=True)
@@ -61,15 +64,18 @@ class Union(models.Model):
     name = models.CharField("Название", max_length=64, default="No name")
     occupationReason = models.CharField("Причина занятости", max_length=128, null=True, blank=True, default=None)
 
-    logo = models.ForeignKey("Logo", verbose_name="Лого", blank=True, null=True, on_delete=models.SET_NULL) # TODO Под вопросом
+    logo = models.ForeignKey("Logo", verbose_name="Лого", blank=True, null=True,
+                             on_delete=models.SET_NULL)  # TODO Под вопросом
+
     def __str__(self):
-        return  self.name
+        return self.name
 
 
 class Group(models.Model):
     name = models.CharField("Название", max_length=16)
     union = models.ForeignKey(Union, on_delete=models.CASCADE, verbose_name="Объединение", null=True)
     teacher = models.ForeignKey("User", verbose_name="Педагог", on_delete=models.SET_NULL, null=True, blank=True)
+
     # TODO нужно ли архивировать группы?
 
     def __str__(self):
@@ -97,13 +103,19 @@ class TimetableElem(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-
         return f"{self.day} в {self.beginTime.strftime('%H:%M')}-{self.endTime.strftime('%H:%M')}"
 
 
 class User(AbstractUser, BaseProfile):
     union = models.ForeignKey(Union, verbose_name="Объединение", on_delete=models.SET_NULL, blank=True, null=True)
     profileIcon = models.ImageField("Фото профиля", upload_to="profileIcon", blank=True, null=True)
+
+    THEME_CHOICES = (
+        ('theme_light', 'Светлая тема'),
+        ('theme_dark', 'Тёмная тема'),
+    )
+
+    theme = models.CharField("Тема оформления", max_length=64, choices=THEME_CHOICES, default=THEME_CHOICES[0][0])
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}  {self.patronymic}"
@@ -130,13 +142,15 @@ class Student(Profile):
 
     def __str__(self):
         return f"{self.last_name} {self.first_name} {self.patronymic:1}"
-#endregion
 
-#region Other models
+
+# endregion
+
+# region Other models
 class Logo(models.Model):
     name = models.CharField("Название", max_length=16)
     link = models.ImageField("Иконка", upload_to="logo")
 
     def __str__(self):
         return self.name
-#endregion
+# endregion

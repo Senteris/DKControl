@@ -1,79 +1,5 @@
 @import "theming";
 
-/*#region Sidebar */
-.sidebar {
-    width: 230px;
-    height: 100%;
-    background-color: #FFF;
-    position: fixed;
-    z-index: 10;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    width: 230px;
-
-    a {
-        justify-self: center;
-        background-image: url("../img/DKControl.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-        object-fit: cover;
-        width: 100%;
-        height: 40px;
-    }
-}
-
-.sidebar_buttons {
-    margin-top: 10px;
-    width: 250px;
-    list-style-type: none;
-
-    li {
-        height: 50px;
-        display: flex;
-        align-items: center;
-
-        border-bottom: none;
-        width: 100%;
-    }
-
-    ul {
-        width: 100%;
-    }
-
-    li:hover, #search:hover {
-        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    li img {
-        width: 20px;
-        margin-right: 20px;
-        margin-left: 32px;
-    }
-
-    .button_left_panel {
-        width: 100%;
-        color: inherit;
-        display: grid;
-        grid-template-columns: 72px 1fr;
-    }
-
-    .add_button_left_panel {
-        display: block;
-        width: 60px;
-        font-size: 18px;
-        color: #666666;
-        text-align: center;
-        margin-right: 30px;
-        margin-left: auto;
-    }
-}
-
-/*#endregion*/
 
 /*#region Reg/login */
 .reglo {
@@ -114,3 +40,8 @@
 }
 
 /*#endregion*/
+
+
+/*#region theme switch*/
+
+/*#endergion*/

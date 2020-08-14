@@ -1,5 +1,5 @@
 {% load static %}
-{% load sass_tags  %}
+{% load sass_tags %}
 {% load custom_tags %}
 
 <!DOCTYPE html>
@@ -32,7 +32,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="{{ request.user.theme }}">
 {% block header %}
     <div class="sidebar shadow">
         <div class="logo">
@@ -81,12 +81,15 @@
         </ul>
     </div>
 
-    <header style="padding-top: 20px">
-        {% block header_name %}<p id="header_text">Главная</p>{% endblock %}
-        <a id="avatar" style="margin-top: -20px; background: {{ request.user.last_name|color }}"
-           href="{% url 'user' request.user.id %}">
-            <div>{{ request.user.last_name|index:0 }}</div>
-        </a>
+    <header>
+        {% block header_name %}<span id="header_text">Главная</span>{% endblock %}
+        <div class="header_right">
+            <button id="theme_switch"></button>
+            <a id="avatar" style="background: {{ request.user.last_name|color }}"
+               href="{% url 'user' request.user.id %}">
+                <div>{{ request.user.last_name|index:0 }}</div>
+            </a>
+        </div>
     </header>
 {% endblock %}
 <div class="{% block class-global-div %}main{% endblock %}">
