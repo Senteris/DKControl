@@ -12,15 +12,18 @@ body {
     }
 }
 
-$sidebar_width: 230px;
+$sidebar-width: 230px;
 
 /*#region Sidebar */
 .sidebar {
-    width: $sidebar_width;
+    width: $sidebar-width;
     height: 100%;
-    background-color: #FFF;
     position: fixed;
     z-index: 10;
+
+    @include themify {
+        background: $color-sidebar;
+    }
 }
 
 .logo {
@@ -93,13 +96,17 @@ $sidebar_width: 230px;
 /*#region Header */
 
 header {
-    width: calc(100% - #{$sidebar_width});
+    width: calc(100% - #{$sidebar-width});
     height: 50px;
     display: flex;
     align-items: center;
     background-color: #FFF;
     padding: 0 0 0 10px;
-    margin-left: $sidebar_width;
+    margin-left: $sidebar-width;
+
+    @include themify {
+        background: $color-sidebar;
+    }
 
     * {
         margin-top: auto;
@@ -143,11 +150,16 @@ header {
     }
 
     #theme_switch {
-        outline:none;
+        outline: none;
 
         @include themify {
             background: $color-secondary;
             color: $color-primary;
+
+            background-image: url("../img/#{$selected-theme}.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 75%;
         }
     }
 }
