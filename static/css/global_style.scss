@@ -14,7 +14,7 @@ body {
 
 $sidebar-width: 230px;
 
-/*#region Sidebar */
+/*#region SIDEBAR */
 .sidebar {
     width: $sidebar-width;
     height: 100%;
@@ -46,7 +46,6 @@ $sidebar-width: 230px;
 
 .sidebar_buttons {
     margin-top: 10px;
-    width: 250px;
     list-style-type: none;
 
     li {
@@ -66,8 +65,9 @@ $sidebar-width: 230px;
         box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
     }
 
-    li img {
+    li i, li img {
         width: 20px;
+        height: 20px;
         margin-right: 20px;
         margin-left: 32px;
     }
@@ -83,17 +83,18 @@ $sidebar-width: 230px;
         display: block;
         width: 60px;
         font-size: 18px;
-        color: #666666;
         text-align: center;
-        margin-right: 30px;
         margin-left: auto;
+
+        @include themify {
+            color: $color-sub;
+        }
     }
 }
 
 /*#endregion*/
 
-
-/*#region Header */
+/*#region HEADER */
 
 header {
     width: calc(100% - #{$sidebar-width});
@@ -162,6 +163,33 @@ header {
             background-size: 75%;
         }
     }
+}
+
+/*#endregion*/
+
+/*#region ICONS */
+.i {
+    -webkit-mask-size: cover;
+    mask-size: cover;
+
+    @each $icon in students, teacher, parents, report, admin, exit {
+        &.#{$icon} {
+            -webkit-mask-image: url("../img/#{$icon}.svg");
+            mask-image: url("../img/#{$icon}.svg");
+
+            @include themify {
+                background: $color-sub;
+            }
+        }
+    }
+}
+
+.icon-bike {
+    background: black;
+    animation: 4s frames infinite linear;
+
+    -webkit-mask-image: url(https://image.flaticon.com/icons/svg/89/89139.svg);
+    mask-image: url(https://image.flaticon.com/icons/svg/89/89139.svg);
 }
 
 /*#endregion*/

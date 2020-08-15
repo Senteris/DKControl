@@ -2,12 +2,14 @@ $themes: (
         'light': (
                 'primary': black,
                 'secondary': #F9F9F9,
-                'sidebar': #FFF
+                'sidebar': #FFF,
+                'sub': #666666
         ),
         'dark': (
                 'primary': white,
                 'secondary': #0c0c0c,
-                'sidebar': #090909
+                'sidebar': #090909,
+                'sub': white
         )
 ) !default;
 
@@ -17,6 +19,7 @@ $themes: (
 $color-primary: null;
 $color-secondary: null;
 $color-sidebar: null;
+$color-sub: null;
 
 $selected-theme: null;
 
@@ -33,6 +36,7 @@ $selected-theme: null;
             $color-primary: map-get($colors, 'primary') !global;
             $color-secondary: map-get($colors, 'secondary') !global;
             $color-sidebar: map-get($colors, 'sidebar') !global;
+            $color-sub: map-get($colors, 'sub') !global;
 
             $selected-theme: $theme !global;
 
@@ -49,6 +53,7 @@ $selected-theme: null;
             $color-primary: null !global;
             $color-secondary: null !global;
             $color-sidebar: null !global;
+            $color-sub: null !global;
 
             $selected-theme: null !global;
         }

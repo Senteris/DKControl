@@ -50,34 +50,40 @@
         <ul class="sidebar_buttons">
             <li>
                 <a class="button_left_panel" role="button" href="{% url 'search' %}?filters=students">
-                    <img src="{% static 'img/students.svg' %}" alt="">Учащиеся
+                    <i class="i students"></i>Учащиеся
                 </a>
                 <a class="add_button_left_panel" role="button" href='/new/student/'>+</a>
             </li>
             <li>
                 <a class="button_left_panel" role="button" href="{% url 'search' %}?filters=teachers">
-                    <img src="{% static 'img/teacher.svg' %}" alt="">Педагоги
+                    <i class="i teacher"></i>Педагоги
                 </a>
                 <a class="add_button_left_panel" role="button" href='/new/teacher/'>+</a>
             </li>
             <li>
                 <a class="button_left_panel" role="button" href="{% url 'search' %}?filters=parents">
-                    <img src="{% static 'img/parents.svg' %}" alt="">Родители
+                    <i class="i parents"></i>Родители
                 </a>
                 <a class="add_button_left_panel" role="button" href='/new/parent/'>+</a>
             </li>
-            <a class="button_left_panel" role="button" href="{% url 'reports' %}">
-                <li><img src="{% static 'img/report.svg' %}" alt="">Отчеты</li>
-            </a>
+            <li>
+                <a class="button_left_panel" role="button" href="{% url 'reports' %}">
+                    <i class="i report"></i>Отчеты
+                </a>
+            </li>
             <br> <br>
             {% if request.user.is_superuser %}
-                <a class="button_left_panel" role="button" href="/admin/">
-                    <li><img src="{% static 'img/admin.svg' %}" alt="">Управление сайтом</li>
-                </a>
+                <li>
+                    <a class="button_left_panel" role="button" href="/admin/">
+                        <i class="i admin"></i>Управление сайтом
+                    </a>
+                </li>
             {% endif %}
-            <a style="color: inherit;" role="button" href="{% url 'logout' %}">
-                <li><img src="{% static 'img/exit.svg' %}" alt="">Выход</li>
-            </a>
+            <li>
+                <a class="button_left_panel" role="button" href="{% url 'logout' %}">
+                    <i class="i exit"></i>Выход
+                </a>
+            </li>
         </ul>
     </div>
 
