@@ -3,8 +3,8 @@
 
 {% block title %}Родитель{% endblock %}
 {% block header_name %}
-    <div class="ui breadcrumb" style="margin: 0 0 20px 20px">
-        <a class="section" href="{% url 'search'%}">Родители</a>
+    <div class="ui breadcrumb" style="margin: 0 0 20px 0">
+        <a class="section">Родители</a>
         <div class="divider"> /</div>
         <div class="active section">{{ parent.first_name }} {{ parent.last_name }}</div>
     </div>
@@ -13,7 +13,7 @@
     <div class="basic-info-block block shadow" style="height: 450px">
         <form method="get">
             <div class="header_block editable">
-                <h3>Информация о родителе</h3>
+                <p>Информация о родителе</p>
                 <button class="ui icon basic inverted small button edit">
                     <i class="edit icon"></i>
                 </button>
