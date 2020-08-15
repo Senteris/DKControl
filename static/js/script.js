@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     $('.edit.button').click(function () {
         $('.edit.button').replaceWith($('#edit-buttons').html())
-        let items = $('.basic-info-block .item')
+        let items = $('.basic_info_block .item')
         for (let i = 0; i < items.length; i++) {
             let content = $(items[i]).children('.content.edit')
             let description = content.children('.description')

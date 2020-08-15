@@ -4,21 +4,21 @@
 {% block title %}Главная{% endblock %}
 {% block header_name %}<span id="header_text">Главная</span>{% endblock %}
 {% block content %}
-    <div class="kvantums_block block shadow">
+    <div class="obj_list_block_2line block shadow">
         <div class="header_block">
             <h3>Квантумы</h3>
         </div>
-        <div class="wrapper_kvantums">
-            <div class="kvantums_content_block">
+        <div class="objs_list_wrapper">
+            <div class="objs_content_block">
                 {% for union in unions %}
-                    <a href="{% url 'union' union.id %}" class="button_kvantum"
+                    <a href="{% url 'union' union.id %}" class="button_list_obj"
                        style="background: #E74C3C url('/media/{{ union.logo.link }}');">{{ union.name }}</a>
                 {% endfor %}
             </div>
         </div>
     </div>
 
-    <div class="basic-info-block block shadow">
+    <div class="basic_info_block block shadow">
         <div class="header_block">
             <h3>Ученики</h3>
         </div>
