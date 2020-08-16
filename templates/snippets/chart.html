@@ -7,7 +7,7 @@
         <script>
             $(document).ready(function () {
                 let searchStr = '';
-                {% if days %}                                         searchStr = "days=" + {{ days }} {% endif %}
+                {% if days %}                                        searchStr  = "days=" + {{ days }} {% endif %}
                 {% if unit %}       if (searchStr) searchStr += "&"; searchStr += "unit=" +"{{ unit }}" {% endif %}
                 {% if ps %}         if (searchStr) searchStr += "&"; searchStr += "ps="   +"{{ ps }}" {% endif %}
                 {% if pe %}         if (searchStr) searchStr += "&"; searchStr += "pe="   +"{{ pe }}" {% endif %}

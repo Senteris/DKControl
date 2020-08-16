@@ -35,7 +35,7 @@
                 </tr>
                 {% for group in union.group_set.all %}
                     {% for student in group.students.all %}
-                        <tr onclick="window.location='{% url "student" student.id %}';" style="cursor: pointer">
+                        <tr onclick="window.location='{% url "student" student.id %}';" class="l_list_item">
                             <td>{{ forloop.counter }}</td>
                             <td>{{ student }}</td>
                         </tr>

@@ -17,11 +17,11 @@
     </div>
 {% endblock %}
 {% block content %}
-    <div class="basic_info_block block shadow">
+    <div class="basic_info_block block big_block shadow">
         <div class="header_block" style="background: #3498DB">
             <h3>Ученики</h3>
         </div>
-        <div class="content_block" style="overflow: auto; height: 270px; min-width: 700px">
+        <div class="content_block" style="overflow: auto; height: 270px;">
             <table class="table_students" id="customers">
                 <tr>
                     <td>№</td>
@@ -46,12 +46,12 @@
 
     </div>
 
-    <div class="info_block block shadow">
+    <div class="session_info_block block shadow">
         <div class="header_block">
             <h3>Инфо</h3>
         </div>
         <div class="content_block">
-            <div class="info_content">
+            <div class="session_info_content">
                 <ul class="info_list" id="info" style="width: 100%;">
                     <li>Преподаватель - <a
                             href="{% url 'user' session.group.teacher.id %}">{{ session.group.teacher }}</a></li>

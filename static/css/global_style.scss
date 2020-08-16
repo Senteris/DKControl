@@ -215,6 +215,10 @@ ul {
     padding-left: 0;
 }
 
+.l_list_item {
+    cursor: pointer
+}
+
 /*#region Blocks*/
 .block {
     margin: 25px;
@@ -307,5 +311,12 @@ ul {
     }
 }
 
+.big_block {
+    min-width: 800px;
+}
+
+.h3_nomargin {
+    margin-left: 0 !important;
+}
 
 /*#endregion*/
