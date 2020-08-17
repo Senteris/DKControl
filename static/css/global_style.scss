@@ -17,6 +17,16 @@ a {
     color: #000;
 }
 
+footer {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFF;
+
+}
+
 .main {
     padding: 10px 25px 25px 230px;
     display: flex;
@@ -24,7 +34,7 @@ a {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-template-rows: 1fr;
 
-    &> * {
+    & > * {
         flex-basis: 500px;
     }
 }
@@ -111,79 +121,19 @@ $sidebar-width: 230px;
 
 /*#endregion*/
 
-/*#region HEADER */
+.editable {
 
-header {
-    width: calc(100% - #{$sidebar-width});
-    height: 50px;
-    display: flex;
-    align-items: center;
-    background-color: #FFF;
-    padding: 0 0 0 10px;
-    margin-left: $sidebar-width;
-
-    @include themify {
-        background: $color-sidebar;
+    & > h3 {
+        margin-top: 14px;
     }
 
-    * {
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-
-    .header_right {
-        margin-left: auto;
-        margin-right: 60px;
-        display: flex;
-
-        & > * {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: none;
-            margin-left: 10px;
-        }
-    }
-
-    #header_text {
-        margin-left: 32px;
-        margin-top: 16px;
-        font-size: 24px;
-        color: #B1B1B1;
-    }
-
-    #avatar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        background: #FF8C21;
-        color: #FFF;
-        font-size: 18px;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -o-user-select: none;
-        user-select: none;
-    }
-
-    #theme_switch {
-        outline: none;
-
-        @include themify {
-            background: $color-secondary;
-            color: $color-primary;
-
-            background-image: url("../img/#{$selected-theme}.svg");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 75%;
-        }
+    & > button {
+        margin-right: 10px !important;
+        margin-left: auto !important;
+        display: block !important;
     }
 }
 
-/*#endregion*/
 
 /*#region ICONS */
 .i {
@@ -333,3 +283,21 @@ ul {
 }
 
 /*#endregion*/
+
+.content_block {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.content-block {
+    overflow: auto;
+    height: 460px;
+}
+
+
+.edit_buttons_div {
+    margin-right: 10px !important;
+    margin-left: auto !important;
+    display: block !important;
+}

@@ -42,6 +42,80 @@
 
 /*#endregion*/
 
+/*#region HEADER */
+
+header {
+    width: calc(100% - #{$sidebar-width});
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    padding: 0 0 0 10px;
+    margin-left: $sidebar-width;
+
+    @include themify {
+        background: $color-sidebar;
+    }
+
+    * {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .header_right {
+        margin-left: auto;
+        margin-right: 60px;
+        display: flex;
+
+        & > * {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            margin-left: 10px;
+        }
+    }
+
+    #header_text {
+        margin-left: 32px;
+        margin-top: 16px;
+        font-size: 24px;
+        color: #B1B1B1;
+    }
+
+    #avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: #FF8C21;
+        color: #FFF;
+        font-size: 18px;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+
+    #theme_switch {
+        outline: none;
+
+        @include themify {
+            background: $color-secondary;
+            color: $color-primary;
+
+            background-image: url("../img/#{$selected-theme}.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 75%;
+        }
+    }
+}
+
+/*#endregion*/
+
 /*#region sessions*/
 .session_info_block {
 
@@ -100,3 +174,40 @@
 }
 
 /*#endregion*/
+
+
+#customers {
+    border-collapse: collapse;
+    width: calc(100% - 40px);
+
+    td, th {
+        padding: 8px;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+}
+
+#customers tr:nth-child(even), #info li:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+#search {
+    width: calc(100% - 30px);
+    height: 50px;
+    padding-left: 30px;
+    border: none;
+    font-size: 14px;
+    margin-top: 65px;
+    background-color: #f2f2f2;
+}
