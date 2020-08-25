@@ -129,6 +129,19 @@ header {
     @include themify {
         background: $color-sidebar;
     }
+
+    .ui.category.search {
+        @include themify {
+            input {
+                background: $color-secondary;
+                color: $color-primary;
+            }
+
+            .search.icon {
+                color: $color-primary;
+            }
+        }
+    }
 }
 
 .logo {

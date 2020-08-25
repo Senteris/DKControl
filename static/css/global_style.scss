@@ -106,7 +106,10 @@ ul {
 .block {
     margin: 25px;
     border-radius: 4px;
-    background-color: #FFF;
+
+     @include themify {
+        background: $color-sidebar;
+    }
 }
 
 .basic_info_block {
