@@ -1,6 +1,9 @@
 @import "theming";
 
 
+$sidebar_width: 230px;
+
+
 /*#region Reg/login */
 .reglo {
     display: flex;
@@ -45,13 +48,13 @@
 /*#region HEADER */
 
 header {
-    width: calc(100% - #{$sidebar-width});
+    width: calc(100% - #{$sidebar_width});
     height: 50px;
     display: flex;
     align-items: center;
     background-color: #FFF;
     padding: 0 0 0 10px;
-    margin-left: $sidebar-width;
+    margin-left: $sidebar_width;
 
     @include themify {
         background: $color-sidebar;
@@ -110,6 +113,86 @@ header {
             background-repeat: no-repeat;
             background-position: center;
             background-size: 75%;
+        }
+    }
+}
+
+/*#endregion*/
+
+/*#region SIDEBAR */
+.sidebar {
+    width: $sidebar_width;
+    height: 100%;
+    position: fixed;
+    z-index: 10;
+
+    @include themify {
+        background: $color-sidebar;
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 230px;
+
+    a {
+        justify-self: center;
+        background-image: url("../img/DKControl.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        object-fit: cover;
+        width: 100%;
+        height: 40px;
+    }
+}
+
+.sidebar_buttons {
+    margin-top: 10px;
+    list-style-type: none;
+
+    li {
+        height: 50px;
+        display: flex;
+        align-items: center;
+
+        border-bottom: none;
+        width: 100%;
+    }
+
+    ul {
+        width: 100%;
+    }
+
+    li:hover, #search:hover {
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    li i, li img {
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
+        margin-left: 32px;
+    }
+
+    .button_left_panel {
+        width: 100%;
+        color: inherit;
+        display: grid;
+        grid-template-columns: 72px 1fr;
+    }
+
+    .add_button_left_panel {
+        display: block;
+        width: 60px;
+        font-size: 18px;
+        text-align: center;
+        margin-left: auto;
+
+        @include themify {
+            color: $color-sub;
         }
     }
 }
