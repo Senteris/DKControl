@@ -1,5 +1,5 @@
 @import "theming";
-
+@import "vars";
 
 
 body {
@@ -29,14 +29,14 @@ footer {
 }
 
 .main {
-    padding: 10px 25px 25px 230px;
+    margin-left: $sidebar_width;
+    //margin: 10px 25px 25px 230px;
     display: flex;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-template-rows: 1fr;
+
 
     & > * {
-        flex-basis: 500px;
+        flex-basis: calc(33% - 50px);
     }
 }
 
@@ -121,7 +121,7 @@ ul {
 }
 
 .statistic_block {
-    height: 350px;
+    height: auto;
 
     .header_block {
         background: #2ECC71;
