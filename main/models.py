@@ -1,5 +1,5 @@
 import datetime as dt
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 
 
@@ -17,16 +17,7 @@ class BaseProfile(models.Model):
     address = models.CharField('Адрес', max_length=128, null=True, blank=True)
     phone = models.IntegerField('Телефон', null=True, blank=True)
 
-    isArchived = models.BooleanField('В архиве', default=False, blank=True)
-
-    class Meta:
-        abstract = True
-
-
-class Profile(BaseProfile):
-    first_name = models.CharField("Имя", max_length=16, default="Иван")
-    last_name = models.CharField("Фамилия", max_length=16, default="Иванов")
-    createdAt = models.DateField(auto_now_add=True, blank=True)
+    is_archived = models.BooleanField('В архиве', default=False, blank=True)
 
     class Meta:
         abstract = True
@@ -36,8 +27,8 @@ class Profile(BaseProfile):
 
 # region Models
 class Note(models.Model):
-    student = models.ForeignKey("Student", verbose_name="Студент", on_delete=models.CASCADE)
-    user = models.ForeignKey("User", verbose_name="Пользователь", on_delete=models.CASCADE)
+    student = models.ForeignKey("Student", verbose_name="Студент", related_name="student", on_delete=models.CASCADE)
+    user = models.ForeignKey("User", verbose_name="Пользователь", related_name="user", on_delete=models.CASCADE)
     text = models.TextField("Текст")
 
 
@@ -107,8 +98,16 @@ class TimetableElem(models.Model):
 
 
 class User(AbstractUser, BaseProfile):
-    union = models.ForeignKey(Union, verbose_name="Объединение", on_delete=models.SET_NULL, blank=True, null=True)
-    profileIcon = models.ImageField("Фото профиля", upload_to="profileIcon", blank=True, null=True)
+    profile_icon = models.ImageField("Фото профиля", upload_to="profile_icon", blank=True, null=True)
+
+    class Types(models.TextChoices):
+        EMPLOYEE = "Сотрудник", "Сотрудник"
+        STUDENT = "Студент", "Студент"
+        PARENT = "Родитель", "Родитель"
+
+    base_type = Types.EMPLOYEE
+
+    type = models.CharField("Тип", max_length=50, choices=Types.choices, default=base_type)
 
     THEME_CHOICES = (
         ('theme_light', 'Светлая тема'),
@@ -117,8 +116,13 @@ class User(AbstractUser, BaseProfile):
 
     theme = models.CharField("Тема оформления", max_length=64, choices=THEME_CHOICES, default=THEME_CHOICES[0][0])
 
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.type = self.base_type
+        return super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.last_name} {self.first_name}  {self.patronymic}"
+        return f"{self.last_name} {self.first_name}  {self.patronymic} - {self.type}"
 
     class Meta:
         permissions = [
@@ -127,21 +131,78 @@ class User(AbstractUser, BaseProfile):
             ("cancel_studySession", "Отменяет занятия"),
         ]
 
-
-class Parent(Profile):
-
     def __str__(self):
-        return f"{self.first_name} {self.last_name} {self.patronymic:1}"
+        return f"{self.last_name} {self.first_name} {self.patronymic:1}"
 
 
-class Student(Profile):
+class EmployeeMore(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    union = models.ForeignKey(Union, verbose_name="Объединение", on_delete=models.SET_NULL, blank=True, null=True)
+
+
+class StudentMore(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
     school = models.CharField('Школа', max_length=32, blank=True, null=True)
     grade = models.CharField('Класс', max_length=3, blank=True, null=True)
     groups = models.ManyToManyField(Group, related_name="students", verbose_name="Ученики", blank=True)
-    parents = models.ManyToManyField(Parent, related_name="childs", verbose_name="Родители", blank=True)
+    parents = models.ManyToManyField("Parent", related_name="childs", verbose_name="Родители", blank=True)
 
-    def __str__(self):
-        return f"{self.last_name} {self.first_name} {self.patronymic:1}"
+
+class ParentMore(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
+class EmployeeManager(UserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.EMPLOYEE)
+
+
+class Employee(User):
+    base_type = User.Types.EMPLOYEE
+    objects = EmployeeManager()
+
+    @property
+    def more(self):
+        return self.employeemore
+
+    class Meta:
+        proxy = True
+
+
+class StudentManager(UserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.STUDENT)
+
+
+class Student(User):
+    base_type = User.Types.STUDENT
+    objects = StudentManager()
+
+    @property
+    def more(self):
+        return self.studentmore
+
+    class Meta:
+        proxy = True
+
+
+class ParentManager(UserManager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(type=User.Types.PARENT)
+
+
+class Parent(User):
+    base_type = User.Types.STUDENT
+    objects = ParentManager()
+
+    @property
+    def more(self):
+        return self.parentmore
+
+    class Meta:
+        proxy = True
 
 
 # endregion
