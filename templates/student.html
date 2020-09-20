@@ -34,7 +34,7 @@
                         </div>
                     </a>
                     <div class="ui horizontal segments">
-                        {% for group_elem in student.groups.all %}
+                        {% for group_elem in student.more.groups.all %}
                             <a class="ui segment" href="{% url 'group' group_elem.id %}"
                                style="text-decoration: none; color: inherit;">
                                 <p>{{ group_elem }}</p>
@@ -51,9 +51,9 @@
                     </a>
                     <a class="item">
                         <i class="building icon"></i>
-                        <div class="content edit string" data-name="school">
+                        <div class="content edit string" data-name="more.school">
                             <div class="header">Школа</div>
-                            <div class="description">{{ student.school|check }}</div>
+                            <div class="description">{{ student.more.school|check }}</div>
                         </div>
                     </a>
                     <a class="item">
@@ -70,7 +70,7 @@
                         </div>
                     </a>
                     <div class="ui horizontal segments">
-                        {% for parent in student.parents.all %}
+                        {% for parent in student.more.parents.all %}
                             <a class="ui segment" href="{% url 'parent' parent.id %}"
                                style="text-decoration: none; color: inherit;">
                                 <p>{{ parent }}</p>

@@ -119,7 +119,17 @@ class User(AbstractUser, BaseProfile):
     def save(self, *args, **kwargs):
         if not self.id:
             self.type = self.base_type
-        return super().save(*args, **kwargs)
+
+        save = super().save(*args, **kwargs)
+
+        if self.type == "Сотрудник":
+            EmployeeMore.objects.get_or_create(user=self)
+        elif self.type == "Студент":
+            StudentMore.objects.get_or_create(user=self)
+        elif self.type == "Родитель":
+            ParentMore.objects.get_or_create(user=self)
+
+        return save
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}  {self.patronymic} - {self.type}"
