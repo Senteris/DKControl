@@ -5,7 +5,7 @@ from django.db import models
 
 # region Abstract
 class BaseProfile(models.Model):
-    patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True, default="Иванович")
+    patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True)
     birthday = models.DateField('Дата рождения', null=True, blank=True)
 
     GENDER_CHOICES = (

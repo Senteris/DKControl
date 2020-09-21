@@ -13,13 +13,13 @@ admin.site.register(Student)
 admin.site.register(Logo)
 
 
+@admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    # as an example, this custom user admin orders users by email address
-    ordering = ('email',)
+    ordering = ('username',)
 
     fieldsets = (
         ('Персональная информация', {
-            'fields': ('first_name', 'last_name', 'patronymic', 'groups', 'union', 'theme')
+            'fields': ('first_name', 'last_name', 'patronymic', 'username', 'password', 'theme')
         }),
     )
 
@@ -27,6 +27,3 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(TimetableElem)
 class TimetableElemAdmin(admin.ModelAdmin):
     fields = ('beginTime', 'day', 'group')
-
-
-admin.site.register(User, CustomUserAdmin)
