@@ -3,28 +3,6 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 
 
-# region Abstract
-class BaseProfile(models.Model):
-    patronymic = models.CharField('Отчество', max_length=16, null=True, blank=True)
-    birthday = models.DateField('Дата рождения', null=True, blank=True)
-
-    GENDER_CHOICES = (
-        ('Женский', 'Женский'),
-        ('Мужской', 'Мужской'),
-    )
-    gender = models.CharField('Пол', max_length=7, choices=GENDER_CHOICES, null=True, blank=True)
-
-    address = models.CharField('Адрес', max_length=128, null=True, blank=True)
-    phone = models.IntegerField('Телефон', null=True, blank=True)
-
-    is_archived = models.BooleanField('В архиве', default=False, blank=True)
-
-    class Meta:
-        abstract = True
-
-
-# endregion
-
 # region Models
 class Note(models.Model):
     student = models.ForeignKey("Student", verbose_name="Студент", related_name="student", on_delete=models.CASCADE)
@@ -97,8 +75,22 @@ class TimetableElem(models.Model):
         return f"{self.day} в {self.beginTime.strftime('%H:%M')}-{self.endTime.strftime('%H:%M')}"
 
 
-class User(AbstractUser, BaseProfile):
+class User(AbstractUser):
     profile_icon = models.ImageField("Фото профиля", upload_to="profile_icon", blank=True, null=True)
+
+    patronymic = models.CharField('Отчество', max_length=16, blank=True, default="")
+    birthday = models.DateField('Дата рождения', null=True, blank=True)
+
+    GENDER_CHOICES = (
+        ('Женский', 'Женский'),
+        ('Мужской', 'Мужской'),
+    )
+    gender = models.CharField('Пол', max_length=7, choices=GENDER_CHOICES, null=True, blank=True)
+
+    address = models.CharField('Адрес', max_length=128, null=True, blank=True)
+    phone = models.IntegerField('Телефон', null=True, blank=True)
+
+    is_archived = models.BooleanField('В архиве', default=False, blank=True)
 
     class Types(models.TextChoices):
         EMPLOYEE = "Сотрудник", "Сотрудник"
@@ -122,6 +114,10 @@ class User(AbstractUser, BaseProfile):
 
         save = super().save(*args, **kwargs)
 
+        if not self.username and self.id is not None:
+            self.username = f'user_{self.id}'
+            super().save(*args, **kwargs)
+
         if self.type == "Сотрудник":
             EmployeeMore.objects.get_or_create(user=self)
         elif self.type == "Студент":
@@ -132,7 +128,7 @@ class User(AbstractUser, BaseProfile):
         return save
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name}  {self.patronymic} - {self.type}"
+        return f"{self.last_name} {self.first_name}  {self.patronymic}"
 
     class Meta:
         permissions = [
@@ -142,7 +138,7 @@ class User(AbstractUser, BaseProfile):
         ]
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name} {self.patronymic:1}"
+        return f"{self.last_name} {self.first_name} {self.patronymic}"
 
 
 class EmployeeMore(models.Model):

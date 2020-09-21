@@ -7,7 +7,6 @@ from django.contrib.auth import logout as user_logout
 
 from decorators import employee_required
 from main.models import Parent, Student, User
-from views.functionsAndClasses.setModel import setModel
 
 
 @login_required(login_url="/login/")
@@ -56,13 +55,13 @@ def archive_user(request, user):
     user = User.objects.get(id=user)
     user.is_archived = True
     user.save()
-    return redirect('/?operation=success')
+    return redirect('../')
 
 
 @login_required(login_url="/login/")
-def remove_user(request, student):
-    student = Student.objects.get(id=student)
-    student.delete()
+def remove_user(request, user):
+    user = Student.objects.get(id=user)
+    user.delete()
     return redirect('/?operation=success')
 
 

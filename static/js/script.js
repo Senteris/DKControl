@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
 
@@ -89,40 +88,62 @@ $(document).ready(function () {
         $('#bremove').click(function () {
             const createdAt = new Date($('#inCreatedAt').val());
             let date7DAgo = new Date();
-            date7DAgo.setDate(date7DAgo.getDate()-7);
-            let isArchived = false;
-            if($('#inIsArchived').val() == "True") isArchived = true;
+            date7DAgo.setDate(date7DAgo.getDate() - 7);
+            let is_archived = false;
+            if ($('#inis_archived').val() == "True") is_archived = true;
 
-            if(createdAt > date7DAgo || isArchived) // You can delete a person within 7 days.
+            if (createdAt > date7DAgo || is_archived) // You can delete a person within 7 days.
                 swal({
                     title: "Вы уверены?",
-                    text: "Вы больше не сможете вернуть эти данные!",
+                    text: "Данные удаляться!",
                     type: "warning",
-                    showCancelButton: true,
-                    cancelButtonText: "Отмена",
-                    cancelButtonClass: "btn-light",
-                    confirmButtonClass: "btn-danger",
-                    confirmButtonText: "Да, удалить это!",
-                    closeOnConfirm: false
-                },
-                function () {
-                    document.location.href = document.location.href + "remove/";
-                });
+                    dangerMode: true,
+                    buttons: {
+                        cancel: {
+                            text: "Отмена",
+                            value: null,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Да, удалить это!",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: false
+                        }
+                    },
+                }).then((value => {
+                    if (value)
+                        document.location.href = document.location.href + "remove/";
+                }))
             else
                 swal({
                     title: "Вы уверены?",
                     text: "Данные отправятся в архив!",
                     type: "warning",
-                    showCancelButton: true,
-                    cancelButtonText: "Отмена",
-                    cancelButtonClass: "btn-light",
-                    confirmButtonClass: "btn-warning",
-                    confirmButtonText: "Да, архивировать это!",
-                    closeOnConfirm: false
-                },
-                function () {
-                    document.location.href = document.location.href + "archive/";
-                });
+                    dangerMode: true,
+                    buttons: {
+                        cancel: {
+                            text: "Отмена",
+                            value: null,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Да, архивировать это!",
+                            value: true,
+                            visible: true,
+                            className: "",
+                            closeModal: false
+                        }
+                    },
+                }).then((value => {
+                    if (value)
+                        document.location.href = document.location.href + "archive/";
+                }))
         })
     })
 });

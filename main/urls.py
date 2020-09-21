@@ -25,9 +25,9 @@ urlpatterns = [
     path("reports/", reports, name='reports'),
     path("new/student/", new_student, name="new_student"),
     path("new/parent/", new_parent, name="new_parent"),
-    path("students/<int:student>/remove/", remove_user, name="remove_student"),
-    path("parents/<int:parent>/remove/", remove_user, name="remove_parent"),
-    path("students/<int:student>/archive/", archive_user, name="archive_student"),
-    path("parents/<int:parent>/archive/", archive_user, name="archive_parent"),
+    path("students/<int:user>/remove/", remove_user, name="remove_student"),
+    path("parents/<int:user>/remove/", remove_user, name="remove_parent"),
+    path("students/<int:user>/archive/", archive_user, name="archive_student"),
+    path("parents/<int:user>/archive/", archive_user, name="archive_parent"),
     path("api/deploy/", deploy, name="deploy"),
 ]
