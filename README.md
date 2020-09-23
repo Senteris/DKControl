@@ -1,5 +1,5 @@
 # DKControl
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Senteris/DKControl/Publish) ![GitHub](https://img.shields.io/github/license/Senteris/DKControl) ![Python](https://img.shields.io/badge/python-3.8-success) ![GitHub Pipenv locked dependency version](https://img.shields.io/github/pipenv/locked/dependency-version/Senteris/DKControl/Django) ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/Senteris/DKControl)  
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Senteris/DKControl/Publish) ![GitHub](https://img.shields.io/github/license/Senteris/DKControl) ![GitHub Pipenv locked dependency version](https://img.shields.io/github/pipenv/locked/dependency-version/Senteris/DKControl/django) ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/Senteris/DKControl)  
 Automation system for educational institutions
 ## How to install:  
 - Install `Python 3.8` and `pipenv`
