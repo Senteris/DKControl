@@ -3,7 +3,6 @@ from django.urls import path
 from views.api.deploy import deploy
 from views.charts import chart_get
 from views.objects_views import main, set_attending, get_group, get_session, get_union
-from views.reports import reports
 from views.search import search
 from views.users_views import login, logout, theme, get_student, get_parent, get_user, new_student, new_parent, \
     remove_user, archive_user
@@ -22,7 +21,6 @@ urlpatterns = [
     path("sessions/<int:session>/", get_session, name="session"),
     path("attendings/<int:attending>/", set_attending, name="attending"),
     path("unions/<int:union>/", get_union, name='union'),
-    path("reports/", reports, name='reports'),
     path("new/student/", new_student, name="new_student"),
     path("new/parent/", new_parent, name="new_parent"),
     path("students/<int:user>/remove/", remove_user, name="remove_student"),
