@@ -6,8 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from main.models import Group, StudySession, Union, Student, Attending
-from views.charts import get_attending_stats
-from views.users_views import set_model
+from main.views.charts import get_attending_stats
+from main.views.users_views import set_model
 
 
 @login_required(login_url="/login/")

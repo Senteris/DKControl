@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
 
-from decorators import employee_required
+from main.decorators import employee_required
 from main.models import Parent, Student, User
 
 

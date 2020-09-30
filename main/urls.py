@@ -1,10 +1,10 @@
 from django.urls import path
 
-from views.api.deploy import deploy
-from views.charts import chart_get
-from views.objects_views import main, set_attending, get_group, get_session, get_union
-from views.search import search
-from views.users_views import login, logout, theme, get_student, get_parent, get_user, new_student, new_parent, \
+from main.views.api.deploy import deploy
+from main.views.charts import chart_get
+from main.views.objects_views import main, set_attending, get_group, get_session, get_union
+from main.views.search import search
+from main.views.users_views import login, logout, theme, get_student, get_parent, get_user, new_student, new_parent, \
     remove_user, archive_user
 
 urlpatterns = [
