@@ -1,5 +1,7 @@
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponse
 from django.shortcuts import render
+from django.template import Template, RequestContext
+
 from reports.reports import Report
 
 reports_list = Report.__subclasses__()
@@ -18,4 +20,8 @@ def reports(request):
 
 def report_generate(request, report_type):
     return JsonResponse(get_report(report_type)(request.GET).generate())
+
+
+def report_form(request, report_type):
+    return HttpResponse(Template(get_report(report_type)().get_form()).render(RequestContext(request)))
 
