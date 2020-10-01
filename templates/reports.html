@@ -8,24 +8,18 @@
         <div class="header_block">
             <h3>В разработке</h3>
         </div>
-        <form method="get" action="">
-            <!--<div class="wrapper_kvantums">
-                <div class="kvantums_content_block">
-                    <div class="button_kvantum select" value="graph"
-                         style="background: #0ea432">График
-                    </div>
-                    <div class="button_kvantum select" value="table"
-                         style="background: #E74C3C">Таблица
-                    </div>
-                </div>
-                <input type="hidden" name="type" id="select-result">
+        <div style="padding: 20px">
+            <div class="report_types">
+                {% for report in reports %}
+                    <button data-form="{% url 'report_form' report_type=report.id %}">{{ report.name }}</button>
+                {% endfor %}
             </div>
-            <div style="margin: 20px;">
-                <button type="submit" class="ui primary button">
-                    Создать отчёт
-                </button>
+            <div id="form_div">
+
             </div>
-            -->
-        </form>
+            <div id="report_output">
+
+            </div>
+        </div>
     </div>
 {% endblock %}

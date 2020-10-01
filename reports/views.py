@@ -15,7 +15,7 @@ def get_report(report_type):
 
 
 def reports(request):
-    return render(request, 'reports.html')
+    return render(request, 'reports.html', {'reports': reports_list})
 
 
 def report_generate(request, report_type):

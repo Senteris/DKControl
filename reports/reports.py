@@ -27,7 +27,7 @@ class Report:
     def generate(self):
         """
         Должна вернуть данные для графиков из self.parameters
-        Например: {"data": [{"\u0423\u0447\u0435\u043d\u0438\u043a\u0438": ["\u0410 \u0411 \u042b"]}, {"\u0423\u0447\u0435\u043d\u0438\u0446\u044b": []}]}
+        Например: {"data": [{"\u0423\u0447\u0435\u043d\u0438\u043a\u0438": 1}, {"\u0423\u0447\u0435\u043d\u0438\u0446\u044b": 0}]}
         :return: dict
         """
         pass
@@ -36,7 +36,7 @@ class Report:
         return """
         <form action="{% url 'report_generate' report_type='""" + self.id + """' %}" method="get">
             """ + self.form.as_p() + """
-            <input type="submit" value="Submit">
+            <input type="button" name="ajax-submit" value="Сгенерировать отсчёт">
         </form>
         """
 
@@ -55,14 +55,14 @@ class Report:
 
 class CountReport(Report):
     id = 'count'
-    name = 'Колличество'
+    name = 'Количество'
 
     parameters = {
         'objects': {
             'name': 'Объекты',
             'list': {'Ученики': Student.objects.filter(gender='Мужской'),
                      'Ученицы': Student.objects.filter(gender='Женский')},
-            'field': forms.MultipleChoiceField(choices=(('Ученики', 'Ученики'), ('Ученицы', 'Ученицы')))
+            'field': forms.MultipleChoiceField(choices=(('Ученики', 'Ученики'), ('Ученицы', 'Ученицы')), label="Объекты")
         }
     }
 
@@ -70,7 +70,7 @@ class CountReport(Report):
         queries = list()
 
         for v in (o := self.parameters['objects'])['value']:
-            queries.append({v: [str(s) for s in o['list'][v]]})
+            queries.append({v: len([str(s) for s in o['list'][v]])})
 
         print(queries)
         return {'data': queries}
