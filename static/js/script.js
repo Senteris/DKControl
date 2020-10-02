@@ -150,15 +150,21 @@ $(document).ready(function () {
     // #region REPORTS
     $('.report_types > *').click(function () {
         $.get($(this).attr('data-form'), {}, function (data) {
-            $('#form_div').html(data)
-
-            $("#form_div input[name='ajax-submit']").click(function(e){
-                e.preventDefault();
-                $.get($("#form_div form").attr('action') + '?' + $("#form_div form").serialize(), {}, function (data) {
-                    $('#report_output').html(JSON.stringify(data))
-                })
-            });
+            updateForm(data);
         })
     })
+
+    function updateForm(data) {
+        $('#form_div').html(data);
+
+        $("#form_div input[name='ajax-submit']").click(function(e){
+            $.get($("#form_div form").attr('action') + '?' + $("#form_div form").serialize(), {}, function (data) {
+                updateForm(data.form);
+                delete data.form
+                if (!$.isEmptyObject(data)) $('#report_output').html(JSON.stringify(data))
+                else $('#report_output').html("")
+            })
+        });
+    }
     // #endregion
 });

@@ -2,8 +2,17 @@ import json
 
 from django.http import QueryDict
 from django import forms
+from django.urls import reverse
 
 from main.models import Student
+
+
+def form_check(func):
+    def wrapper(self):
+        r = func(self) if len(self.form.errors) == 0 else {}
+        r['form'] = self.get_form()
+        return r
+    return wrapper
 
 
 class DynamicForm(forms.Form):
@@ -14,6 +23,9 @@ class DynamicForm(forms.Form):
 
         for name, item in fields.items():
             self.fields[name] = item['field']
+            self.fields[name].label = item['name']
+            if 'list' in item:
+                self.fields[name].choices = ((x, x) for x, _ in item['list'].items())
 
 
 class Report:
@@ -24,6 +36,7 @@ class Report:
 
     parameters = {}
 
+    @form_check
     def generate(self):
         """
         Должна вернуть данные для графиков из self.parameters
@@ -34,7 +47,7 @@ class Report:
 
     def get_form(self):
         return """
-        <form action="{% url 'report_generate' report_type='""" + self.id + """' %}" method="get">
+        <form action='""" + reverse('report_generate', kwargs={'report_type': self.id}) + """' method="get">
             """ + self.form.as_p() + """
             <input type="button" name="ajax-submit" value="Сгенерировать отсчёт">
         </form>
@@ -51,6 +64,8 @@ class Report:
                 data = {k: v[0] if len(v) == 1 and 'list' not in self.parameters[k] else v for k, v in data.lists()}
                 for name, value in data.items():
                     self.parameters[name]['value'] = value
+            else:
+                self.errors = self.form.errors
 
 
 class CountReport(Report):
@@ -62,15 +77,19 @@ class CountReport(Report):
             'name': 'Объекты',
             'list': {'Ученики': Student.objects.filter(gender='Мужской'),
                      'Ученицы': Student.objects.filter(gender='Женский')},
-            'field': forms.MultipleChoiceField(choices=(('Ученики', 'Ученики'), ('Ученицы', 'Ученицы')), label="Объекты")
+            'field': forms.MultipleChoiceField()
+        },
+        'just_number': {
+            'name': 'Просто число',
+            'field': forms.IntegerField()
         }
     }
 
+    @form_check
     def generate(self):
         queries = list()
 
         for v in (o := self.parameters['objects'])['value']:
             queries.append({v: len([str(s) for s in o['list'][v]])})
 
-        print(queries)
         return {'data': queries}
