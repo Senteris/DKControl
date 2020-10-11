@@ -40,6 +40,7 @@ function buildChart(id, url, label) {
                 type: 'line',
                 data: chartdata,
                 options: {
+                    maintainAspectRatio: false,
                     scales: {
                         xAxes: [{
                             ticks: {
@@ -55,13 +56,11 @@ function buildChart(id, url, label) {
                     }
                 }
             });
+            chart.canvas.parentNode.style.height = '275px';
+            chart.canvas.parentNode.style.width = '500px';
         },
         error: function (data) {
             console.log(data);
         }
     });
-}
-
-function updateChart() {
-    chart.update();
 }

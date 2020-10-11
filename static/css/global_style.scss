@@ -33,10 +33,21 @@ footer {
     //margin: 10px 25px 25px 230px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 
 
     & > * {
-        flex-basis: calc(33% - 50px);
+        height: 350px;
+        flex-grow: 1;
+        @media (max-width: 1200px){
+            flex-basis: 100%;
+        }
+        @media (min-width: 1200px) and (max-width: 1800px){
+            flex-basis: calc(50% - 50px);
+        }
+        @media (min-width: 1800px){
+            flex-basis: calc(30% - 100px);
+        }
     }
 }
 
@@ -122,6 +133,7 @@ ul {
 
 .statistic_block {
     height: auto;
+    max-width: 500px;
 
     .header_block {
         background: #2ECC71;
