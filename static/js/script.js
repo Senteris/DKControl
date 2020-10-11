@@ -168,3 +168,6 @@ $(document).ready(function () {
     }
     // #endregion
 });
+$( window ).resize(function() {
+    updateChart();
+});

@@ -1,3 +1,5 @@
+var chart;
+
 function buildChart(id, url, label) {
     $.ajax({
         url: url,
@@ -34,7 +36,7 @@ function buildChart(id, url, label) {
 
             const ctx = $("#" + id);
 
-            const barGraph = new Chart(ctx, {
+            chart = new Chart(ctx, {
                 type: 'line',
                 data: chartdata,
                 options: {
@@ -58,4 +60,8 @@ function buildChart(id, url, label) {
             console.log(data);
         }
     });
+}
+
+function updateChart() {
+    chart.update();
 }
