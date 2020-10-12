@@ -33,12 +33,13 @@ footer {
     //margin: 10px 25px 25px 230px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: left;
 
 
     & > * {
         height: 350px;
         flex-grow: 1;
+        max-width: 500px;
         @media (max-width: 1200px){
             flex-basis: 100%;
         }
@@ -124,8 +125,6 @@ ul {
 }
 
 .basic_info_block {
-    height: 350px;
-
     .header_block {
         background: #3498DB;
     }
