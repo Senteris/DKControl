@@ -15,7 +15,7 @@
 {% endblock %}
 {% block content %}
 
-    <div class="basic_info_block block big_block shadow timetable">
+    <div class="basic_info_block block two_column_block shadow timetable">
         <div class="header_block">
             <h3>Расписание</h3>
         </div>
@@ -30,7 +30,7 @@
     </div>
     {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' group_id=group.id label='Статистика посещений' %}
 
-    <div class="basic_info_block block big_block shadow">
+    <div class="basic_info_block block two_column_block shadow">
         <div class="header_block">
             <h3>Информация</h3>
         </div>

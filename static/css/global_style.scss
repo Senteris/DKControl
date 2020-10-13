@@ -120,14 +120,28 @@ ul {
     }
 }
 
+
+.two_row_block {
+    grid-row: auto / span 2;
+}
+
+.two_column_block {
+    grid-column: auto / span 2;
+}
+
+.big_block {
+    grid-column: auto / span 2;
+    @media (max-width: 1200px){
+        grid-row: auto / span 2;
+        grid-column: auto / span 1;
+    }
+}
+
+
 .basic_info_block {
     .header_block {
         background: #3498DB;
     }
-}
-
-.two_row_block {
-    grid-row: auto / span 2;
 }
 
 .statistic_block {
@@ -207,11 +221,6 @@ ul {
         }
     }
 }
-
-.big_block {
-    min-width: 800px;
-}
-
 
 .content_block {
     margin-top: 20px;
