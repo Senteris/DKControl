@@ -31,24 +31,20 @@ footer {
 .main {
     margin-left: $sidebar_width;
     //margin: 10px 25px 25px 230px;
-    display: flex;
+    display: grid;
     flex-wrap: wrap;
     justify-content: left;
 
+    grid-auto-rows: 400px;
 
-    & > * {
-        height: 350px;
-        flex-grow: 1;
-        max-width: 500px;
-        @media (max-width: 1200px){
-            flex-basis: 100%;
-        }
-        @media (min-width: 1200px) and (max-width: 1800px){
-            flex-basis: calc(50% - 50px);
-        }
-        @media (min-width: 1800px){
-            flex-basis: calc(30% - 100px);
-        }
+    @media (max-width: 1200px){
+        grid-template-columns: 1fr;
+    }
+    @media (min-width: 1200px) and (max-width: 1800px){
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 1800px){
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -128,6 +124,10 @@ ul {
     .header_block {
         background: #3498DB;
     }
+}
+
+.two_row_block {
+    grid-row: auto / span 2;
 }
 
 .statistic_block {
