@@ -8,9 +8,14 @@ admin.site.register(StudySession)
 admin.site.register(Attending)
 admin.site.register(Union)
 admin.site.register(Group)
+admin.site.register(Employee)
 admin.site.register(Parent)
 admin.site.register(Student)
 admin.site.register(Logo)
+admin.site.register(StudentMore)
+admin.site.register(ParentMore)
+admin.site.register(EmployeeMore)
+
 
 
 @admin.register(User)

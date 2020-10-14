@@ -10,7 +10,7 @@
     </div>
 {% endblock %}
 {% block content %}
-    <div class="basic_info_block block shadow">
+    <div class="basic_info_block block two_row_block shadow">
         <form method="get">
             <div class="header_block editable">
                 <h3>Информация о ученике</h3>
@@ -18,7 +18,7 @@
                     <i class="edit icon"></i>
                 </button>
             </div>
-            <div style="padding: 25px" class="content-block">
+            <div style="padding: 25px; padding-top: 0" class="content-block">
                 <input type="checkbox" id="inis_archived" style="display: none" value="{{ student.is_archived }}">
                 <input id="inCreatedAt" type="hidden" value="{{ student.createdAt.isoformat }}">
                 <h3 class="item">
