@@ -152,7 +152,7 @@ class StudentMore(models.Model):
 
     school = models.CharField('Школа', max_length=32, blank=True, null=True)
     grade = models.CharField('Класс', max_length=3, blank=True, null=True)
-    groups = models.ManyToManyField(Group, related_name="students", verbose_name="Ученики", blank=True)
+    groups = models.ManyToManyField(Group, related_name="students", verbose_name="Группы", blank=True)
     parents = models.ManyToManyField("Parent", related_name="childs", verbose_name="Родители", blank=True)
 
 
@@ -200,7 +200,7 @@ class ParentManager(UserManager):
 
 
 class Parent(User):
-    base_type = User.Types.STUDENT
+    base_type = User.Types.PARENT
     objects = ParentManager()
 
     @property
