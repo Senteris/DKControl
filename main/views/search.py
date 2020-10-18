@@ -30,8 +30,9 @@ def search(request):
 
         students = Student.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic')) \
             .filter(Q(is_archived=False))
-        teachers = User.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic')) \
-            .filter(Q(groups__name='Педагог', is_archived=False))
+        teachers = Employee.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic')) \
+            .filter(Q(is_archived=False))
+            # .filter(Q(groups__name='Педагог', is_archived=False))
         parents = Parent.objects.annotate(full_name=Concat('last_name', V(' '), 'first_name', V(' '), 'patronymic'))
 
         groups = Group.objects.annotate(full_name=Concat('union__name', V(' '), 'name'))
@@ -82,7 +83,7 @@ def search(request):
                 "results": [{"title": f"{s.last_name} {s.first_name} {s.patronymic}",
                              "description": f"{', '.join([g.__str__() for g in s.groups.all()])}",
                              "url": f"/students/{s.id}/",
-                             "extend": [{"name": g.__str__(), "url": f"/groups/{g.id}/"} for g in s.groups.all()]} for s in students],
+                             "extend": [{"name": g.__str__(), "url": f"/groups/{g.id}/"} for g in s.more.groups.all()]} for s in students],
             },
             "teachers": {
                 "name": "Педагоги",
@@ -98,7 +99,7 @@ def search(request):
                     {"title": f"{s.last_name} {s.first_name} {s.patronymic}",
                      "description": f"{', '.join([c.__str__() for c in s.childs.all()])}",
                      "url": f"/parents/{s.id}/",
-                     "extend": [{"name": c.__str__(), "url": f"/students/{c.id}/"} for c in s.childs.all()]} for s in parents]
+                     "extend": [{"name": c.user.__str__(), "url": f"/students/{c.user.id}/"} for c in s.childs.all()]} for s in parents]
             },
             "groups": {
                 "name": "Группы",
