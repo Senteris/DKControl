@@ -10,12 +10,16 @@ function buildChart(id, url, label) {
             let region = data.region;
             let value = data.value;
 
-            // For attending charts
-            const avValue = value.reduce((a, b) => (a + b)) / value.length;
             let color;
-            if(avValue >= 75) color = '#2ECC71'
-            else if(avValue <= 50) color = '#e66767'
-            else color = '#FBC02D'
+            // For attending charts
+            if (value.length != 0) {
+                const avValue = value.reduce((a, b) => (a + b)) / value.length;
+
+                if (avValue >= 75) color = '#2ECC71'
+                else if (avValue <= 50) color = '#e66767'
+                else color = '#FBC02D'
+            }
+            else color = '#ffffff'
 
             const chartdata = {
                 labels: region,
