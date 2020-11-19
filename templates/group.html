@@ -28,7 +28,7 @@
             {% endfor %}
         </div>
     </div>
-    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' group_id=group.id label='Статистика посещений' %}
+    {% include 'snippets/chart.html' with id=1 url='/chart/attendingStats/' unit="months" group_id=group.id label='Статистика посещений' %}
 
     <div class="basic_info_block block two_column_block shadow">
         <div class="header_block">
